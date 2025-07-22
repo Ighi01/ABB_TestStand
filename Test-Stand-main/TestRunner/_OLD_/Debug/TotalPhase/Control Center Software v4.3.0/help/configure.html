@@ -1,0 +1,102 @@
+<html>
+<head>
+</head>
+<body bgcolor="#ffffff">
+<a name="top"></a>
+<h2>Control Center Serial</h2>
+
+<h4>Configure Command</h4>
+
+<p align="right"><a href="help.html"><img src="back-icon.png" width="15" height="15" border="0"></a></p>
+
+<pre>
+&lt;configure i2c="<i>i2c</i>"
+           spi="<i>spi</i>"
+           gpio="<i>gpio</i>"
+           tpower="<i>tpower</i>"
+           iopower="<i>iopower</i>"
+           levelshift="<i>levelshift</i>"
+           pullups="<i>pullups</i>"/&gt;
+</pre>
+
+<p>Activate/Deactivate individual sub-systems and features</p>
+
+<p><b>Parameters</b></p>
+
+<dl>
+    <dt><b>i2c</b></dt>
+    <dd>Enable I2C</dd>
+
+    <dt><b>spi</b></dt>
+    <dd>Enable SPI</dd>
+
+    <dt><b>gpio</b></dt>
+    <dd>Enable GPIO</dd>
+
+    <dt><b>tpower</b></dt>
+    <dd>Enable Target Power on pins 4 and 6 for the Aardvark I2C/SPI
+      Adapter and the Promira Serial Platform. "0" disables the target
+      power and "1", "3.3" and "5" enables 5V for the Aardvark I2C/SPI
+      Adapter and "1" and "5" enables 5V for the Promira Serial
+      Platform and "3.3" enables 3.3V for the Promira Serial
+      Platform.</dd>
+
+    <dt><b>iopower</b></dt>
+    <dd>Enable Target Power on pins 22 and 24 for the Promira Serial
+      Platform.</dd>
+
+    <dt><b>levelshift</b></dt>
+    <dd>the logic level for all signal pins including target
+      power pin 22 and 24.</dd>
+
+    <dt><b>pullups</b></dt>
+    <dd>Enable pullup resistors on the I2C lines: SCL and SDA</dd>
+</dl>
+
+<p><b>Details</b></p>
+
+<p>It is not possible to activate I2C, SPI and GPIO all at the same
+time.  The possible combinations are:</p>
+
+<p align=center><table border="1" cellpadding="3" cellspacing="0">
+    <tr>
+        <td align=center><b>I2C</b></td>
+        <td align=center><b>SPI</b></td>
+        <td align=center><b>GPIO</b></td>
+        <td align=center><b>Configuration</b></td>
+    </tr>
+    <tr>
+        <td align=center>1</td>
+        <td align=center>1</td>
+        <td align=center>0</td>
+        <td align=center>I2C and SPI enabled</td>
+    </tr>
+    <tr>
+        <td align=center>1</td>
+        <td align=center>0</td>
+        <td align=center>1</td>
+        <td align=center>I2C enabled and SPI pins used as GPIO</td>
+    </tr>
+    <tr>
+        <td align=center>0</td>
+        <td align=center>1</td>
+        <td align=center>1</td>
+        <td align=center>SPI enabled and I2C pins used as GPIO</td>
+    </tr>
+    <tr>
+        <td align=center>0</td>
+        <td align=center>0</td>
+        <td align=center>1</td>
+        <td align=center>I2C and SPI pins used as GPIO</td>
+    </tr>
+</table></p>
+
+<p>Please see the Aardvark I2C/SPI Adapter User Manual or the Promira
+  Serial Platform User Manual for more information about supplying
+  target power and I2C pullup resistors.</p>
+
+<p align=right><a href="#top"><img src="top-icon.png" width="15"
+  height="15" border="0"></a></p>
+
+</body>
+</html>

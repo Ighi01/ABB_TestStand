@@ -1,0 +1,1 @@
+py .\MOD_update_com_app.py 1 COM21 B3.0.0-1-g3db424b_update_enc_image.bin

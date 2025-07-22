@@ -1,0 +1,1710 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-6-5-8-41-37-929"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>lunedì 5 giugno 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>08:41:37</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>6905.1508362 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>7275</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#000080;">Terminated</span></b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number:</b></td><td class='hdr_value'><b>4294967295</b></td></tr><tr><td class='hdr_name'><b>Type Designator:</b></td><td class='hdr_value'><b>B1-D3BB-111A</b></td></tr><tr><td class='hdr_name'><b>FW Version:</b></td><td class='hdr_value'><b>0.16.1</b></td></tr><tr><td class='hdr_name'><b>Power Supply:</b></td><td class='hdr_value'><b>Omicron</b></td></tr></tbody></table><br><hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\Repeatability.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#FF8000;">DUT info</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">4294967295</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Type Designator:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">B1-D3BB-111A</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.16.1</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0887321</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0855294</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6512586</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0971388</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5800672</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0866181</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.537405</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0978539</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6292668</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0961068</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5463958</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1027439</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6769368</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0954412</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5798019</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0905802</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5778406</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0912846</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6012834</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0950398</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5853692</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.25</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Errors_array[0..2][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph1" value="[[-0.156237, -0.198679, -0.170742, -0.152699, -0.170388, -0.106676, -0.046429, 0.041947, 0.148987, 0.191725], [0.043763, 0.043763, 0.043763, 0.043763, 0.043763, 0.043763, 0.043763, 0.043763, 0.043763, 0.043763], [-0.356237, -0.356237, -0.356237, -0.356237, -0.356237, -0.356237, -0.356237, -0.356237, -0.356237, -0.356237]]" DataLayout="MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.25</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1169541</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.089308</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5291843</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0927435</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6593414</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0916058</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.6037047</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1026182</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5708182</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0916333</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6039654</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0902803</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5737211</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1001917</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.602384</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0907586</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5971861</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1020715</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.592715</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0907892</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6254319</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Errors_array[0..2][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph2" value="[[0.074471, 0.061002, 0.040806, 0.034076, 0.007164, -0.030152, -0.060052, -0.067104, -0.043256, -0.060387], [0.274471, 0.274471, 0.274471, 0.274471, 0.274471, 0.274471, 0.274471, 0.274471, 0.274471, 0.274471], [-0.125529, -0.125529, -0.125529, -0.125529, -0.125529, -0.125529, -0.125529, -0.125529, -0.125529, -0.125529]]" DataLayout="MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0985171</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0948321</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.6134807</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0921419</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5600398</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0955788</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6221992</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0888049</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5240439</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0946905</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5725586</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0923273</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6224456</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0877945</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5485862</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0946535</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6398397</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1081614</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.549259</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1089536</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6073516</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Errors_array[0..2][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph3" value="[[-0.075144, -0.042883, 0.024188, 0.081038, 0.152547, 0.234499, 0.305514, 0.330875, 0.323730, 0.352317], [0.124856, 0.124856, 0.124856, 0.124856, 0.124856, 0.124856, 0.124856, 0.124856, 0.124856, 0.124856], [-0.275144, -0.275144, -0.275144, -0.275144, -0.275144, -0.275144, -0.275144, -0.275144, -0.275144, -0.275144]]" DataLayout="MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0937471</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0924301</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">30.5969895</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0912061</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">30.5506703</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1015362</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">30.5540938</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1040852</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5840243</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0912627</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5587099</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0873503</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">30.6145036</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0909934</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">30.5495611</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0947084</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5579991</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0932607</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6210785</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0922132</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">30.5275678</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.1542514498876</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Errors_array[0..2][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph4" value="[[-0.042455, -0.063181, -0.090458, -0.052819, -0.066635, -0.042455, 0.016317, 0.061307, 0.106338, 0.147941], [0.157545, 0.157545, 0.157545, 0.157545, 0.157545, 0.157545, 0.157545, 0.157545, 0.157545, 0.157545], [-0.242455, -0.242455, -0.242455, -0.242455, -0.242455, -0.242455, -0.242455, -0.242455, -0.242455, -0.242455]]" DataLayout="MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.1542514498876</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0967747</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1056981</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5414768</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0889803</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5479824</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1008661</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.565583</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0906025</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6578753</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0939522</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6296551</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.092416</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5724306</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0987019</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6119957</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0881822</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5721206</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1003485</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.676579</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0907649</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5715394</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Errors_array[0..2][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph5" value="[[0.037441, 0.023982, 0.010864, -0.005950, -0.013010, -0.019397, -0.023430, -0.023094, -0.002924, 0.013891], [0.237441, 0.237441, 0.237441, 0.237441, 0.237441, 0.237441, 0.237441, 0.237441, 0.237441, 0.237441], [-0.162559, -0.162559, -0.162559, -0.162559, -0.162559, -0.162559, -0.162559, -0.162559, -0.162559, -0.162559]]" DataLayout="MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0896043</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0917699</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5761746</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.089492</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6211556</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.101506</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5400291</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1020618</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5729015</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0935724</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.6822112</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1203304</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5703361</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0918212</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6133983</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0917959</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6069264</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0959641</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5482824</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0914526</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6408635</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Errors_array[0..2][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph6" value="[[0.186062, 0.159068, 0.108495, 0.074471, 0.064369, 0.010527, -0.005950, -0.039896, -0.043256, -0.056693], [0.386062, 0.386062, 0.386062, 0.386062, 0.386062, 0.386062, 0.386062, 0.386062, 0.386062, 0.386062], [-0.013938, -0.013938, -0.013938, -0.013938, -0.013938, -0.013938, -0.013938, -0.013938, -0.013938, -0.013938]]" DataLayout="MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0919639</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0944382</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5804518</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1040504</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5507081</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.10471</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6337506</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0988448</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">32.5940257</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1064374</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.5453274</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Energy_Accuracy
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0913712</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Omicron Accuracy</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">31.6153299</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Energy_Accuracy</h5>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

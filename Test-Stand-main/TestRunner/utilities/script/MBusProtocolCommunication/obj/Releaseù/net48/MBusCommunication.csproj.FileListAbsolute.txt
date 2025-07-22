@@ -1,0 +1,11 @@
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\bin\Releaseù\net48\MBusCommunication.dll
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\bin\Releaseù\net48\MBusCommunication.pdb
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\bin\Releaseù\net48\System.IO.Ports.dll
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.csproj.AssemblyReference.cache
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.AssemblyInfoInputs.cache
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.AssemblyInfo.cs
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.csproj.CoreCompileInputs.cache
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.csproj.CopyComplete
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.dll
+C:\Users\ITLAVIT\ABB\LABRNDVITTUONE-LabRnD_Shared\Test-Stand\TestRunner\utilities\script\MBusProtocolCommunication\obj\Releaseù\net48\MBusCommunication.pdb

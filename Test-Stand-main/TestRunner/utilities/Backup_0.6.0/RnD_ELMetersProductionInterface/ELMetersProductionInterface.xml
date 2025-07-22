@@ -1,0 +1,2089 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ELMetersProductionInterface</name>
+    </assembly>
+    <members>
+        <member name="T:BlockHandling.Block">
+            <summary>
+            Block definition
+            </summary>
+        </member>
+        <member name="F:BlockHandling.Block.blockHeader">
+            <summary>
+            Block header information
+            </summary>
+        </member>
+        <member name="F:BlockHandling.Block.blockParameters">
+            <summary>
+            Block parameters information
+            </summary>
+        </member>
+        <member name="M:BlockHandling.Block.#ctor(BlockHandling.Block.BlockHeader,System.Collections.Generic.Dictionary{System.String,BlockHandling.Block.BlockParameter})">
+            <summary>
+            Block constructor
+            </summary>
+        </member>
+        <member name="T:BlockHandling.Block.BlockHeader">
+            <summary>
+            Block header class definition
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockHeader.Id">
+            <summary>
+            The block ID
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockHeader.Description">
+            <summary>
+            The block describing name 
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockHeader.Instance">
+            <summary>
+            The block instance number
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockHeader.ProductType">
+            <summary>
+            The product type that will use the block
+            </summary>
+        </member>
+        <member name="M:BlockHandling.Block.BlockHeader.#ctor(System.Byte,System.String,System.Byte,System.Collections.Generic.List{System.String})">
+            <summary>
+            The block header constructor
+            </summary>
+            <param name="id"></param>
+            <param name="description"></param>
+            <param name="instance"></param>
+            <param name="productType"></param>
+        </member>
+        <member name="T:BlockHandling.Block.BlockParameter">
+            <summary>
+            Block parameter class definition
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockParameter.Index">
+            <summary>
+            The block parameter index number
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockParameter.Name">
+            <summary>
+            The block parameter name
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockParameter.DataType">
+            <summary>
+            The block parameter data type
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockParameter.Value">
+            <summary>
+            The block parameter value
+            </summary>
+        </member>
+        <member name="P:BlockHandling.Block.BlockParameter.Overrided">
+            <summary>
+            Defines if the block has been overrided/changed from default definition
+            </summary>
+        </member>
+        <member name="M:BlockHandling.Block.BlockParameter.#ctor(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            The block parameter constructor
+            </summary>
+            <param name="index"></param>
+            <param name="name"></param>
+            <param name="dataType"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:BlockHandling.BlockGenerator">
+            <summary>
+            The Blockgenerator class
+            The Blockgenerator provides all block content or filtered by blockID 
+            </summary>
+        </member>
+        <member name="F:BlockHandling.BlockGenerator.blockList">
+            <summary>
+            List of blocks
+            </summary>
+        </member>
+        <member name="F:BlockHandling.BlockGenerator.blockResource">
+            <summary>
+            Block resource string
+            </summary>
+        </member>
+        <member name="F:BlockHandling.BlockGenerator.productType">
+            <summary>
+            Device product type
+            </summary>
+        </member>
+        <member name="F:BlockHandling.BlockGenerator.firmwareVersion">
+            <summary>
+            Device firmware version
+            </summary>
+        </member>
+        <member name="M:BlockHandling.BlockGenerator.#ctor(DeviceInformation.ProductType@,DeviceInformation.FirmwareVersion@)">
+            <summary>
+            Block generator constructor gets the block definition from BlockReader class
+            </summary>
+        </member>
+        <member name="M:BlockHandling.BlockGenerator.GetBlockData(System.Int32)">
+            <summary>
+            Generate the blocks for the device. 
+            Specify blockID to get only blocks with that ID.
+            </summary>
+            <param name="blockID">The desired blockID</param>
+            <returns>byte[] of device settings</returns>
+        </member>
+        <member name="M:BlockHandling.BlockGenerator.FilterOnBlockID(System.Int32,System.Collections.Generic.List{BlockHandling.Block})">
+            <summary>
+            Remove blocks that is not defined in current blockID
+            </summary>
+            <param name="blockID"></param>
+            <param name="tempBlockList"></param>
+            <returns>The list of blocks</returns>
+        </member>
+        <member name="M:BlockHandling.BlockGenerator.FilterOnProductType(DeviceInformation.ProductType,System.Collections.Generic.List{BlockHandling.Block})">
+            <summary>
+            Remove all blocks that not sute current product type
+            </summary>
+            <param name="productType"></param>
+            <param name="tempBlockList"></param>
+            <returns>The list of blocks</returns>
+        </member>
+        <member name="T:BlockHandling.BlockOverride">
+            <summary>
+            The block override method is used to replace a parameter value add/remove parameters for a sigle/group of metertype firmwareVewrsion combination
+            </summary>
+        </member>
+        <member name="T:BlockHandling.BlockOverride.OverrideDefinition">
+            <summary>
+            Override definitrion class is used to define the block overrides
+            </summary>
+        </member>
+        <member name="M:BlockHandling.BlockOverride.OverrideDefinition.#ctor(DeviceInformation.FirmwareVersion,DeviceInformation.ProductType,System.Byte,System.Byte,System.String,System.String)">
+            <summary>
+            Override definition constructor
+            </summary>
+            <param name="firmwareVersion">Product firmware version</param>
+            <param name="productType">Product type</param>
+            <param name="blockId">Block id</param>
+            <param name="blockInstance">Block instance</param>
+            <param name="blockParameter">Block parameter</param>
+            <param name="parameterValue">Parameter value</param>
+        </member>
+        <member name="F:BlockHandling.BlockOverride.overrideDefinitions">
+            <summary>
+            Override definition list holds all overrides that is currently in use
+            </summary>
+        </member>
+        <member name="M:BlockHandling.BlockOverride.Override(DeviceInformation.FirmwareVersion,DeviceInformation.ProductType,System.Collections.Generic.List{BlockHandling.Block})">
+            <summary>
+            The block override method
+            </summary>
+            <param name="firmwareVersion">Firmware version</param>
+            <param name="productType">Product type</param>
+            <param name="tempBlockList">Block list reference</param>
+            <returns>The list of blocks</returns>
+        </member>
+        <member name="T:BlockHandling.BlockReader">
+            <summary>
+            Block reader class use XML parser to read the block definitins and expose the list of blocks in blockList property
+            </summary>
+        </member>
+        <member name="P:BlockHandling.BlockReader.blockList">
+            <summary>
+            The complete list of blocks
+            </summary>
+        </member>
+        <member name="M:BlockHandling.BlockReader.#ctor(System.String)">
+            <summary>
+            BlockReader constructor
+            Use the xmlParser to read block data and create a block list
+            </summary>
+            <param name="resource">The resource data</param>
+        </member>
+        <member name="T:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm">
+            <summary>
+            Active energy 3phase calibration algorithm definition
+            </summary>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            Active energy 3phase calibration constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.CalibrateActiveEnergy3Phase(DeviceInformation.ProductType,Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte,System.String)">
+            <summary>
+            Calibrate active energy 3phase
+            </summary>
+            <param name="productType"></param>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockID"></param>
+            <param name="blockInstance"></param>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.GetActivePowersAt4WirePowerFactor1CalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at 4-wire power factor 1 calibration point
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.GetActivePowersAt4WirePowerFactor05At50HzCalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at 4-wire power factor 0.5 calibration point 50 Hz
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.GetActivePowersAt4WirePowerFactor05At60HzCalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at 4-wire power factor 0.5 calibration point 60 Hz
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.GetActivePowersAt3WirePowerFactor1CalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at 4-wire power factor 1 calibration point
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.GetActivePowersAt3WirePowerFactor05CalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at 4-wire power factor 0.5 calibration point 50 Hz
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.Calibrate3Phase4Wire(System.Byte,System.Byte)">
+            <summary>
+            Active energy calibration algorithm
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.Calibrate3Phase3Wire(System.Byte,System.Byte)">
+            <summary>
+            Active energy 3-phase 3-wire calibration algorithm
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy3PhaseCalibrationAlgorithm.Calibrate3Phase(System.Byte,System.Byte)">
+            <summary>
+            Active energy 3-phase calibration algorithm
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm">
+            <summary>
+            Active energy 1phase calibration algorithm
+            </summary>
+        </member>
+        <member name="M:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            Active energy 1phase calibration constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm.CalibrateActiveEnergy1Phase(DeviceInformation.ProductType,Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte,System.String)">
+            <summary>
+            Calibrate active energy 1phase
+            </summary>
+            <param name="productType"></param>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockID"></param>
+            <param name="blockInstance"></param>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm.GetActivePowersAtPowerFactor1CalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at single phase power factor 1 calibration point
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm.GetActivePowersAtPowerFactor05At50HzCalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at single phase power factor 0.5 calibration point 50 Hz
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm.GetActivePowersAtPowerFactor05At60HzCalibrationPoint(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@)">
+            <summary>
+            Get active powers at single phase power factor 0.5 calibration point 60 Hz
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.ActiveEnergy1PhaseCalibrationAlgorithm.CalibrateBlockParameters(System.Byte,System.Byte)">
+            <summary>
+            Active energy calibration algorithm
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Calibration.ActivePowerCalibrationAlgorithm">
+            <summary>
+            Active power calibration algorithm definition
+            </summary>
+        </member>
+        <member name="M:Calibration.ActivePowerCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            Active power calibration constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.ActivePowerCalibrationAlgorithm.CalibrateActivePower(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte)">
+            <summary>
+            Active Power Calibration algorithm
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Calibration.AnglesCalibrationAlgorithm">
+            <summary>
+            Angles Calibration Algorithm Class
+            </summary>
+        </member>
+        <member name="M:Calibration.AnglesCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            AnglesCalibrationAlgorithm constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.AnglesCalibrationAlgorithm.CalibrateAngles(DeviceInformation.ProductType@,Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte)">
+            <summary>
+            Angles Calibration Algorithm
+            </summary>
+            <param name="productType"></param>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+        </member>
+        <member name="M:Calibration.AnglesCalibrationAlgorithm.NormalizeAngles(System.Single)">
+            <summary>
+            Normalize angles
+            </summary>
+            <param name="angle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Calibration.FrequencyCalibrationAlgorithm">
+            <summary>
+            Frequency calibration algorithm definition
+            </summary>
+        </member>
+        <member name="M:Calibration.FrequencyCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            Frequency calibration algorithm constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.FrequencyCalibrationAlgorithm.CalibrateFrequency(Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte)">
+            <summary>
+            Calibrate frequency
+            </summary>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Calibration.FundamentalRmsCalibrationAlgorithm">
+            <summary>
+            Rms Calibration Algorithm Class
+            </summary>
+        </member>
+        <member name="M:Calibration.FundamentalRmsCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            Rms Calibration Algorithm constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.FundamentalRmsCalibrationAlgorithm.CalibrateFundamentalRMSValues(DeviceInformation.ProductType@,Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte)">
+            <summary>
+            Rms Calibration Algorithm
+            </summary>
+            <param name="productType"></param>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.FundamentalRmsCalibrationAlgorithm.ProcessFundamentalRmsParameter(System.Byte,System.Byte,System.Single,System.Single,System.String,System.Single)">
+            <summary>
+            Evaluate Rms parameter
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <param name="sourceValue"></param>
+            <param name="measuredValue"></param>
+            <param name="blockParameter"></param>
+            <param name="relativeErrorLimit"></param>
+        </member>
+        <member name="T:Calibration.CalibrationManager">
+            <summary>
+            CalibrationManager class, provide interface to client application providing the calibration constants and parameters
+            </summary>
+        </member>
+        <member name="F:Calibration.CalibrationManager.calibrationPoints">
+            <summary>
+            List of calibration points
+            </summary>
+        </member>
+        <member name="F:Calibration.CalibrationManager.calibrationBlocks">
+            <summary>
+            List of calibration blocks
+            </summary>
+        </member>
+        <member name="F:Calibration.CalibrationManager.defaultCalibrationBlocks">
+            <summary>
+            List of calibration blocks
+            </summary>
+        </member>
+        <member name="F:Calibration.CalibrationManager.calibrationBlocksIds">
+            <summary>
+            List if calibration points ID
+            </summary>
+        </member>
+        <member name="F:Calibration.CalibrationManager.productType">
+            <summary>
+            Product type
+            </summary>
+        </member>
+        <member name="M:Calibration.CalibrationManager.#ctor(DeviceInformation.ProductType@,BlockHandling.BlockGenerator@,BlockHandling.BlockGenerator@)">
+            <summary>
+            Constructor for the calibration manager class
+            </summary>
+            <param name="productType"></param>
+            <param name="defaultBlockHandler"></param>
+            <param name="deviceBlockHandler"></param>
+        </member>
+        <member name="M:Calibration.CalibrationManager.#ctor(DeviceInformation.ProductType@,BlockHandling.BlockGenerator@,BlockHandling.BlockGenerator@,System.String)">
+            <summary>
+            Constructor for the calibration manager class with custom CSV file
+            </summary>
+            <param name="productType"></param>
+            <param name="defaultBlockHandler"></param>
+            <param name="deviceBlockHandler"></param>
+            <param name="calibrationPointsResource"></param>
+        </member>
+        <member name="M:Calibration.CalibrationManager.UpdateCalibrationPoints(System.String)">
+            <summary>
+            Updates calibration points with custom with custom CSV file
+            </summary>
+            <param name="calibrationPointsResource"></param>
+        </member>
+        <member name="M:Calibration.CalibrationManager.GetCalibrationPoints">
+            <summary>
+            Get the list of calibration points
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Calibration.CalibrationManager.ComputeCalibrationBlocks(System.Collections.Generic.List{Calibration.SourceValues},System.Collections.Generic.List{Calibration.CalibrationMeasurement})">
+            <summary>
+            Compute the calibration blocks based on calibration points values and measurements
+            </summary>
+            <param name="sourceValues"></param>
+            <param name="calibrationMeasurements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Calibration.CalibrationManager.GetDefaultCalibrationBlocks">
+            <summary>
+            Get the default calibration blocks
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Calibration.CalibrationManager.SplitCalibrationAlgorithmsStrings(Calibration.CalibrationPoint)">
+            <summary>
+            Split the list of calibration algorithm in the csv file
+            </summary>
+            <param name="calibrationPoint"></param>
+            <returns>A list of strings</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.CalibrationManager.ExecuteCalibrationAlgorithms(Calibration.CalibrationPoint,Calibration.SourceValues,System.Collections.Generic.Dictionary{System.String,System.Single},System.Collections.Generic.List{Calibration.CalibrationParametersCSVFile})">
+            <summary>
+            Execute all calibration algorithms based on the values in the calibration point details
+            </summary>
+            <param name="calibrationPoint"></param>
+            <param name="sourceValue">Values generated by the calibrator</param>
+            <param name="measurements">Measurements on the eq meter</param>
+            <param name="calibrationAlgorithmList">Calibration algorithm list and related parameters</param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Calibration.EnergyMeasurementType">
+            <summary>
+            Type of energy measurement
+            </summary>
+        </member>
+        <member name="F:Calibration.EnergyMeasurementType.NONE">
+            <summary>
+            No energy measurement for the current calibration point
+            </summary>
+        </member>
+        <member name="F:Calibration.EnergyMeasurementType.ACTIVE_ENERGY">
+            <summary>
+            Active energy measurement for the current calibration point
+            </summary>
+        </member>
+        <member name="F:Calibration.EnergyMeasurementType.REACTIVE_ENERGY">
+            <summary>
+            Reactive energy measurement for the current calibration point
+            </summary>
+        </member>
+        <member name="T:Calibration.CalibrationPoint">
+            <summary>
+            Calibration point parameters, according to CSV structure
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.CalibrationPointID">
+            <summary>
+            The calibration point ID
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.U1">
+            <summary>
+            The phase voltage for L1 [V]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.U2">
+            <summary>
+            The phase voltage for L2 [V]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.U3">
+            <summary>
+            The phase voltage for L3 [V]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.I1">
+            <summary>
+            The current for L1 [A]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.I2">
+            <summary>
+            The current for L2 [A]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.I3">
+            <summary>
+            The current for L3 [A]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.U1angle">
+            <summary>
+            The phase voltage angle for L1 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.U2angle">
+            <summary>
+            The phase voltage angle for L2 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.U3angle">
+            <summary>
+            The phase voltage angle for L3 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.I1angle">
+            <summary>
+            The current angle for L1 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.I2angle">
+            <summary>
+            The current angle for L2 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.I3angle">
+            <summary>
+            The current angle for L3 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.Frequency">
+            <summary>
+            The frequency [Hz]
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.EnergyMeasurement">
+            <summary>
+            Type of energy measurement
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.InstallationType">
+            <summary>
+            The type of installation (wire setting)
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.Measurements">
+            <summary>
+            The list of additional quantities to be measured for this calibration point
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationPoint.CalibrationParameters">
+            <summary>
+            Internal reference to calibration algorithm and related optional parameters (blockId-instance-blockParameter)
+            e.g. AlgorithmA-1-1-param1,AlgorithmA-1-2-param1,AlgorithmA-1-3-param1,AlgorithmBpart1,AlgorithmC-2-1
+            </summary>
+        </member>
+        <member name="T:Calibration.CalibrationMeasurement">
+            <summary>
+            Used to hold measurements during calibration process
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationMeasurement.CalibrationPointID">
+            <summary>
+            The calibration point ID
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationMeasurement.EnergyError">
+            <summary>
+            Error of energy measurement (can be null)
+            </summary>
+        </member>
+        <member name="P:Calibration.CalibrationMeasurement.MeasurementsValues">
+            <summary>
+            The list of additional quantities measurements for this calibration point (absolute values)
+            </summary>
+        </member>
+        <member name="T:Calibration.CalibrationParametersCSVFile">
+            <summary>
+            Calibration parameters definition
+            </summary>
+        </member>
+        <member name="M:Calibration.CalibrationParametersCSVFile.#ctor(System.String,System.String)">
+            <summary>
+            Calibration parameters constructor
+            </summary>
+            <param name="algorithm"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="T:Calibration.BaseCalibrationAlgorithm">
+            <summary>
+            Base class for calibration algorithms
+            </summary>
+        </member>
+        <member name="F:Calibration.BaseCalibrationAlgorithm.calibrationBlocks">
+            <summary>
+            List of calibration blocks
+            </summary>
+        </member>
+        <member name="F:Calibration.BaseCalibrationAlgorithm.defaultCalibrationBlocks">
+            <summary>
+            List of default calibration blocks
+            </summary>
+        </member>
+        <member name="M:Calibration.BaseCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            BaseCalibrationAlgorithm constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.BaseCalibrationAlgorithm.SetParameterValue(System.Byte,System.Byte,System.String,System.String)">
+            <summary>
+            Set the value of the parameter in the related block id and instance 
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <param name="parameter"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Calibration.BaseCalibrationAlgorithm.GetParameterValue(System.Byte,System.Byte,System.String)">
+            <summary>
+            Get the value as string of the parameter in the related block id and instance 
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Calibration.BaseCalibrationAlgorithm.GetDefaultParameterValue(System.Byte,System.Byte,System.String)">
+            <summary>
+            Get the value as string of the parameter in the related default block id and instance 
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <param name="parameter"></param>
+        </member>
+        <member name="T:Calibration.RmsCalibrationAlgorithm">
+            <summary>
+            Rms Calibration Algorithm Class
+            </summary>
+        </member>
+        <member name="M:Calibration.RmsCalibrationAlgorithm.#ctor(System.Collections.Generic.List{BlockHandling.Block}@,System.Collections.Generic.List{BlockHandling.Block}@)">
+            <summary>
+            Rms Calibration Algorithm constructor
+            </summary>
+            <param name="calibrationBlocks"></param>
+            <param name="defaultCalibrationBlocks"></param>
+        </member>
+        <member name="M:Calibration.RmsCalibrationAlgorithm.CalibrateRMSValues(DeviceInformation.ProductType@,Calibration.SourceValues@,System.Collections.Generic.Dictionary{System.String,System.Single}@,System.Byte,System.Byte)">
+            <summary>
+            Rms Calibration Algorithm
+            </summary>
+            <param name="productType"></param>
+            <param name="sourceValue"></param>
+            <param name="measurements"></param>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Calibration.RmsCalibrationAlgorithm.ProcessRmsParameter(System.Byte,System.Byte,System.Single,System.Single,System.String,System.Single)">
+            <summary>
+            Evaluate Rms parameter
+            </summary>
+            <param name="blockId"></param>
+            <param name="blockInstance"></param>
+            <param name="sourceValue"></param>
+            <param name="measuredValue"></param>
+            <param name="blockParameter"></param>
+            <param name="relativeErrorLimit"></param>
+        </member>
+        <member name="T:Calibration.SourceValues">
+            <summary>
+            Values generated by the calibrator system
+            If no measure tool is available, those values match the values defined in the calibration point
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.CalibrationPointID">
+            <summary>
+            The calibration point ID
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.U1">
+            <summary>
+            The phase voltage for L1 [V]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.U2">
+            <summary>
+            The phase voltage for L2 [V]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.U3">
+            <summary>
+            The phase voltage for L3 [V]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.I1">
+            <summary>
+            The current for L1 [A]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.I2">
+            <summary>
+            The current for L2 [A]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.I3">
+            <summary>
+            The current for L3 [A]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.U1angle">
+            <summary>
+            The phase voltage angle for L1 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.U2angle">
+            <summary>
+            The phase voltage angle for L2 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.U3angle">
+            <summary>
+            The phase voltage angle for L3 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.I1angle">
+            <summary>
+            The current angle for L1 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.I2angle">
+            <summary>
+            The current angle for L2 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.I3angle">
+            <summary>
+            The current angle for L3 [deg]
+            </summary>
+        </member>
+        <member name="P:Calibration.SourceValues.Frequency">
+            <summary>
+            The frequency [Hz]
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.FunctionalityConfig">
+            <summary>
+            Functionality Config class to handle the available quantities 
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.FunctionalityConfig.InstallationType">
+            <summary>
+            Type of possible installation for energy meters
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.FunctionalityConfig.InstallationType.WIRE_3P4W4C">
+            <summary>
+            3-phase 4 wires and 4 currents
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.FunctionalityConfig.InstallationType.WIRE_3P4W3C">
+            <summary>
+            3-phase 4 wires and 3 currents
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.FunctionalityConfig.InstallationType.WIRE_3P3W3C">
+            <summary>
+            3-phase 3 wires and 3 currents
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.FunctionalityConfig.InstallationType.WIRE_3P3W2C">
+            <summary>
+            3-phase 3 wires and 2 currents
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.FunctionalityConfig.InstallationType.WIRE_2P3W2C">
+            <summary>
+            2 phase 3 wires and 2 currents
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.FunctionalityConfig.InstallationType.WIRE_1P2W1C">
+            <summary>
+            1 phase 2 wires and 1 current
+            </summary>
+        </member>
+        <member name="M:DeviceInformation.FunctionalityConfig.#ctor(DeviceInformation.ProductType,DeviceInformation.FirmwareVersion)">
+            <summary>
+            Provide product resources according to type designator
+            </summary>
+            <param name="productType"></param>
+            <param name="firmwareVersion"></param>
+        </member>
+        <member name="M:DeviceInformation.FunctionalityConfig.GetModbusMapItemsList">
+            <summary>
+            Get the list of available quantities as list of strings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DeviceInformation.FirmwareVersion">
+            <summary>
+            The firmware version definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.FirmwareVersion.major">
+            <summary>
+            Firmware version major definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.FirmwareVersion.minor">
+            <summary>
+            Firmware version minor definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.FirmwareVersion.patch">
+            <summary>
+            Firmware version patch definition
+            </summary>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.#ctor">
+            <summary>
+            Firmware version type definition
+            </summary>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.#ctor(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Firmware version constructor
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="patch"></param>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.SetFirmwareVersion(System.String)">
+            <summary>
+            Return the firmware version os object, starting from a string
+            </summary>
+            <param name="firmwareVersionString"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.ToString">
+            <summary>
+            ToString override to output firmware version as a string with format 1.2.0.0
+            </summary>
+            <returns>The firmware version string</returns>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.IsEqualTo(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Check a given version is equal to the actual one
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="patch"></param>
+            <returns>True if equal and false if not equal</returns>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.IsEqualTo(DeviceInformation.FirmwareVersion)">
+            <summary>
+            Compare if the firmware version instance is equal to the input parameter
+            </summary>
+            <param name="firmwareVersion"></param>
+            <returns>True if equal false if not</returns>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.IsGreaterThan(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Check a given version is greater than the actual one
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="patch"></param>
+            <returns>True if bigger and false if less</returns>
+        </member>
+        <member name="M:DeviceInformation.FirmwareVersion.IsLessThan(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Check a given version is less than the actual one
+            </summary>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="patch"></param>
+            <returns>True if less and false if bigger</returns>
+        </member>
+        <member name="T:DeviceInformation.ProductType">
+            <summary>
+            The type designator definition
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.Range">
+            <summary>
+            Device information range definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Range.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Range.Basic">
+            <summary>
+            Basic range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Range.Intermediate">
+            <summary>
+            Intermediate range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Range.High">
+            <summary>
+            High range
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.NumberOfPhases">
+            <summary>
+            Device information number of phases definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.NumberOfPhases.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.NumberOfPhases.Single_Phase">
+            <summary>
+            Sigle phase
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.NumberOfPhases.Three_Phase">
+            <summary>
+            Three phase
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.CurrentSensor">
+            <summary>
+            Device information current sensor definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentSensor.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentSensor.Direct">
+            <summary>
+            Direct connected
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentSensor.CT">
+            <summary>
+            Currewnt transformer connected 
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentSensor.Rogowski">
+            <summary>
+            Rogowski 
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.CurrentRange">
+            <summary>
+            Device information current range definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._1A">
+            <summary>
+            1A range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._5A">
+            <summary>
+            5A range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._40A">
+            <summary>
+            40A range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._65A">
+            <summary>
+            65A range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._80A">
+            <summary>
+            80A range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._120A">
+            <summary>
+            120A range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CurrentRange._10000A">
+            <summary>
+            10000A range
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.Communication">
+            <summary>
+            Device information communication definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.None">
+            <summary>
+            No communication
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.Modbus_RTU">
+            <summary>
+            Modbus RTU communication
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.Mbus">
+            <summary>
+            Mbus communication
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.Modbus_TCP">
+            <summary>
+            Modbus TCP communication
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.WMBus">
+            <summary>
+            Wireless Mbus communication
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Communication.Bacnet">
+            <summary>
+            Bacnet communication
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.Standards">
+            <summary>
+            Device information standards definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Standards.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Standards.IEC_62053">
+            <summary>
+            IEC 62053 certified
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Standards.IEC_62053_MID_EN50470_NMI">
+            <summary>
+            IEC 62053, MID (EN50470), NMI certified
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Standards.IEC_62053_MID_NMI_UL_ANSI">
+            <summary>
+            IEC 62053, MID, NMI, UL-ANSI certified
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Standards.IEC_62053_MID_NMI_UL_ANSI_IEC61557_12">
+            <summary>
+            IEC 62053, MID, NMI, UL-ANSI, IEC 61557-12 certified
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Standards.IEC_62053_NMI_UL_ANSI_IEC61557_12">
+            <summary>
+            IEC 62053, NMI, UL-ANSI, IEC 61557-12 certified
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.Accuracy">
+            <summary>
+            Device information accuracy definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Accuracy.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Accuracy.Active_Energy_1">
+            <summary>
+            1% accuracy
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Accuracy.Active_Energy_05">
+            <summary>
+            0,5% accuracy
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.Accuracy.Active_Energy_02">
+            <summary>
+            0,2% accuracy
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.IO">
+            <summary>
+            Device information IO definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.IO.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.IO.Out1_In1">
+            <summary>
+            1 digital Output and 1 digital input 
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.IO.Out2_In2">
+            <summary>
+            2 digital Output and 2 digital input
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.IO.Configurable4OutIn">
+            <summary>
+            4 configurable input/output
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.VoltageRange">
+            <summary>
+            Device information voltage range definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.VoltageRange.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.VoltageRange._220V_240V">
+            <summary>
+            220V to 240V range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.VoltageRange._120V_240V">
+            <summary>
+            120V to 240V range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.VoltageRange._58V_277V">
+            <summary>
+            58V to 277V range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.VoltageRange._58V_288V">
+            <summary>
+            58V to 288V range
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.VoltageRange._58V_400V">
+            <summary>
+            58V to 400V range
+            </summary>
+        </member>
+        <member name="T:DeviceInformation.ProductType.CustomizationField">
+            <summary>
+            Device information customization field definition
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CustomizationField.All">
+            <summary>
+            Wildcard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CustomizationField.Standard">
+            <summary>
+            Standard
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CustomizationField.Custom_1">
+            <summary>
+            Currently not used
+            </summary>
+        </member>
+        <member name="F:DeviceInformation.ProductType.CustomizationField.Custom_2">
+            <summary>
+            Currently not used
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.range">
+            <summary>
+            Product type range definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.numberOfPhases">
+            <summary>
+            Product type number of phases definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.currentSensor">
+            <summary>
+            Product type current sensor definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.currentRange">
+            <summary>
+            Product type current range definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.communication">
+            <summary>
+            Product type communication definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.standards">
+            <summary>
+            Product type standards definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.accuracy">
+            <summary>
+            Product type accuracy definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.io">
+            <summary>
+            Product type IO definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.voltageRange">
+            <summary>
+            Product type voltage range definition
+            </summary>
+        </member>
+        <member name="P:DeviceInformation.ProductType.customizationField">
+            <summary>
+            Product type customization filed definition
+            </summary>
+        </member>
+        <member name="M:DeviceInformation.ProductType.#ctor(System.String)">
+            <summary>
+            Product type constructor
+            </summary>
+            <param name="productType">Product type string</param>
+        </member>
+        <member name="M:DeviceInformation.ProductType.#ctor(System.Byte[])">
+            <summary>
+            Product type constructor
+            </summary>
+            <param name="productType">Product type byte array</param>
+        </member>
+        <member name="M:DeviceInformation.ProductType.IsEqualTo(DeviceInformation.ProductType)">
+            <summary>
+            Compare if the product type instance is equal to the input parameter
+            </summary>
+            <param name="productType"></param>
+            <returns>True if equal false if not</returns>
+        </member>
+        <member name="M:DeviceInformation.ProductType.ToString">
+            <summary>
+            To string override method
+            </summary>
+            <returns>The product type string with format B3C-224-AMAA</returns>
+        </member>
+        <member name="M:DeviceInformation.ProductType.GetWildCardParameter(System.Int32)">
+            <summary>
+            Get product type wildcard paramter by position
+            </summary>
+            <param name="productTypePosition">The position in the product type string</param>
+            <returns>The wildcard char</returns>
+        </member>
+        <member name="M:DeviceInformation.ProductType.ValidateProductTypeString(System.String)">
+            <summary>
+            Validate the product type string
+            </summary>
+            <param name="productType">Product type string</param>
+        </member>
+        <member name="M:DeviceInformation.ProductType.ValidateProductTypeByteArray(System.Byte[])">
+            <summary>
+            Validate the product type byte array
+            </summary>
+            <param name="productType">product type byte array</param>
+        </member>
+        <member name="T:ModbusInterface.DataType">
+            <summary>
+            Element Data Type
+            </summary>
+        </member>
+        <member name="F:ModbusInterface.DataType.SIGNED">
+            <summary>
+            Signed Value
+            </summary>
+        </member>
+        <member name="F:ModbusInterface.DataType.UNSIGNED">
+            <summary>
+            Unsigned Value
+            </summary>
+        </member>
+        <member name="F:ModbusInterface.DataType.STRING">
+            <summary>
+            String
+            </summary>
+        </member>
+        <member name="T:ModbusInterface.ModbusMapItem">
+            <summary>
+            Modbus Map Item class in order to extract element from the csv map file
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.ItemId">
+            <summary>
+            Item name as string. Must be unic
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.Unit">
+            <summary>
+            Item unit (i.e. measurement unit)
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.Details">
+            <summary>
+            Additional details
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.ProductionResolution">
+            <summary>
+            Resolution (scaler) for reading via production port. The item value shall be multipled by this property.
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.CustomerResolution">
+            <summary>
+            Resolution (scaler) for reading via Modbus port. The item value shall be multipled by this property.
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.DataType">
+            <summary>
+            DataType to properly convert the item value
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.NumberOfRegisters">
+            <summary>
+            Number of Modbus registers (16bit)
+            </summary>
+        </member>
+        <member name="P:ModbusInterface.ModbusMapItem.Address">
+            <summary>
+            Modbus address (decimal)
+            </summary>
+        </member>
+        <member name="T:ModbusInterface.IModbus">
+            <summary>
+            Modbus interface between the Modbus library and the ProductionInterface DLLs
+            </summary>
+        </member>
+        <member name="M:ModbusInterface.IModbus.ExecuteFunction16(System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            ExecuteFunction16 - Write multiple registers
+            </summary>
+            <param name="address"></param>
+            <param name="requestBuff">It contains all data after function code up to CRC</param>
+            <param name="responseBuff">It contains all data after function code up to CRC</param>
+        </member>
+        <member name="M:ModbusInterface.IModbus.ExecuteFunction17(System.Byte,System.Byte[])">
+            <summary>
+            ExecuteFunction17 - Report SlaveID
+            </summary>
+            <param name="address">It contains all data after function code up to CRC</param>
+            <param name="responseBuff">It contains all data after function code up to CRC</param>
+        </member>
+        <member name="M:ModbusInterface.IModbus.ExecuteFunction3(System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            ExecuteFunction3 - Read holding registers
+            </summary>
+            <param name="address"></param>
+            <param name="requestBuff">It contains all data after function code up to CRC</param>
+            <param name="responseBuff">It contains all data after function code up to CRC</param>
+        </member>
+        <member name="M:ModbusInterface.IModbus.ExecuteFunction70(System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            ExecuteFunction70 - Custom function - Write block
+            </summary>
+            <param name="address"></param>
+            <param name="requestBuff">It contains all data after function code up to CRC</param>
+            <param name="responseBuff">It contains all data after function code up to CRC</param>
+        </member>
+        <member name="M:ModbusInterface.IModbus.ExecuteFunction71(System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            ExecuteFunction71 - Custom function - Read block
+            </summary>
+            <param name="address"></param>
+            <param name="requestBuff"></param>
+            <param name="responseBuff"></param>
+        </member>
+        <member name="M:ModbusInterface.IModbus.ExecuteFunction72(System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            ExecuteFunction71 - Custom function - Read block
+            </summary>
+            <param name="address"></param>
+            <param name="requestBuff"></param>
+            <param name="responseBuff"></param>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionTestingActions.Action">
+            <summary>
+            Enum for modbus function code 72 actions
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionTestingActions.ResetSubAction">
+            <summary>
+            Sub actions for reset
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionTestingActions.FctSubAction">
+            <summary>
+            Sub actions for fct action
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionTestingActions.LedSettingSubAction">
+            <summary>
+            Sub actions enum for led settings
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionTestingActions.LedSource">
+            <summary>
+            Enum for modbus function code 72 sub actions for the action "setLed"
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.MeterFactory">
+            <summary>
+            Create the objects for the interaction with the DLL operation with production and testing handlers
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.MeterFactory.ProductionHandler">
+            <summary>
+            ProductionHandler object for all the production-related actions
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.MeterFactory.TestingHandler">
+            <summary>
+            TestingHandler object for all the test-related actions
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ELMetersProductionInterface.MeterFactory.RnDProductionHandler" -->
+        <member name="M:ELMetersProductionInterface.MeterFactory.#ctor(ModbusInterface.IModbus)">
+            <summary>
+            Instance of a MeterFactory object
+            </summary>
+            <param name="modbus"></param>
+        </member>
+        <member name="M:ELMetersProductionInterface.MeterFactory.GetProductType">
+            <summary>
+            Get the current product type of the meter. Used before the Initialize to pass the current product type.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.MeterFactory.GetFirmwareVersion">
+            <summary>
+            Get the FW version of the current Meter Factory instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.MeterFactory.UpdateProductType(System.String)">
+            <summary>
+            Change the product type of a meter
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.MeterFactory.Initialize(System.String)">
+            <summary>
+            Initialize the MeterFactory object. This method communicate with the device, sets the ProductType and retrieve the FW version.
+            It must be called before any other method.
+            </summary>
+            <param name="newProductType"></param>
+        </member>
+        <member name="T:ELMetersProductionInterface.TestingHandler">
+            <summary>
+            TestingHandler class for all the testing-related actions
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.TestingHandler.ActivateLED(System.Boolean)">
+            <summary>
+            Turn on/off the LED
+            </summary>
+            <param name="state">True for on and False for off</param>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionHandler">
+            <summary>
+            ProductionHandler class for all the production-related actions
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.#ctor(ModbusInterface.IModbus,DeviceInformation.ProductType@,DeviceInformation.FirmwareVersion@,BlockHandling.BlockGenerator@,BlockHandling.BlockGenerator@)">
+            <summary>
+            ProductionBase constructor
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.Initialize">
+            <summary>
+            ProductionHandler initialize method
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.GetCalibrationPoints">
+            <summary>
+            Get the list of calibration parameters as defined in the related CSV file inside Calibration
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.GetFirmwareVersion">
+            <summary>
+            Get the firmware version as string
+            </summary>
+            <returns>String of FW version</returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.GetSerialNumber">
+            <summary>
+            Get the serial number as Int
+            </summary>
+            <returns>String of FW version</returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.GetProductType">
+            <summary>
+            Retrieve the product type as string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.SetBluetooth(ELMetersProductionInterface.ProductionBase.EnableDisable)">
+            <summary>
+            Enable or disable the bluetooth
+            </summary>
+            <param name="enable">true or false</param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.SetLedSource(ELMetersProductionInterface.ProductionTestingActions.LedSource)">
+            <summary>
+            Set the red LED according to input parameter
+            </summary>
+            <param name="ledSource"></param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.GetModbusMapItemsList">
+            <summary>
+            Get the list of items as strings available for the selected product
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.GetModbusMapItemValue(System.String)">
+            <summary>
+            Retrieve the value of the selected database item
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.SetInstallationType(DeviceInformation.FunctionalityConfig.InstallationType)">
+            <summary>
+            Set the installation type of the device
+            </summary>
+            <param name="installationType"></param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.WriteCalibrationBlocks(System.Collections.Generic.List{Calibration.SourceValues},System.Collections.Generic.List{Calibration.CalibrationMeasurement})">
+            <summary>
+            Compute and write calibration block to the meter
+            </summary>
+            <param name="sourceValues"></param>
+            <param name="calibrationMeasurements"></param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.WriteDefaultCalibrationBlocks">
+            <summary>
+            Write the default calibration block to the meter
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.SetupMeter(Calibration.CalibrationPoint)">
+            <summary>
+            Set the installation type and the led source for the selected calibration point
+            </summary>
+            <param name="calibrationPoint"></param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.WriteAllDefaultBlocks">
+            <summary>
+            Compute and write calibration block to the meter
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionHandler.EndOfLine">
+            <summary>
+            Function to be called at the end of the production line to finalize the meter
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionBase">
+            <summary>
+            Base class for production and testing handler
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.#ctor(ModbusInterface.IModbus,DeviceInformation.ProductType@,DeviceInformation.FirmwareVersion@,BlockHandling.BlockGenerator@,BlockHandling.BlockGenerator@)">
+            <summary>
+            ProductionBase constructor
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.ProductionBase.DllVersion">
+            <summary>
+            Version of the Production Interface in use
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.ProductionBase.EnableDisable">
+            <summary>
+            Enum for bool enable or disable
+            </summary>
+        </member>
+        <member name="F:ELMetersProductionInterface.ProductionBase.EnableDisable.disable">
+            <summary>
+            Disable
+            </summary>
+        </member>
+        <member name="F:ELMetersProductionInterface.ProductionBase.EnableDisable.enable">
+            <summary>
+            Enable
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.ReadBlocksFromDevice(System.Int32)">
+            <summary>
+            Retrieve the block(s) from the device
+            </summary>
+            <param name="blockId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.GetBlockSize(System.Byte)">
+            <summary>
+            Get the size of the parameters for the defined block id
+            </summary>
+            <param name="blockId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.ReadBlock(System.Byte,System.Byte,System.Int32)">
+            <summary>
+            Executes custom Modbus Function code 71 - Reads a Production Block from the meter
+            </summary>
+            <param name="blockId"></param>
+            <param name="instance"></param>
+            <param name="blockSize"></param>
+            <returns>Returns byte array of the Modbus response without address, function code and CRC</returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.PerformProductionAction(ELMetersProductionInterface.ProductionTestingActions.Action,System.Byte)">
+            <summary>
+            Executes custom Modbus Function code 72 - Sends an action to be performed by the meter with a payload
+            </summary>
+            <param name="action">Action ID to be performed</param>
+            <param name="subAction">Action ID to be performed</param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.PerformProductionAction(ELMetersProductionInterface.ProductionTestingActions.Action,System.Byte,System.Byte[])">
+            <summary>
+            Executes custom Modbus Function code 72 - Sends an action to be performed by the meter with a payload
+            </summary>
+            <param name="action">Action ID to be performed</param>
+            <param name="subAction">Action ID to be performed</param>
+            <param name="values">Data</param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.ReadHoldingRegister(System.UInt16,System.UInt16)">
+            <summary>
+            Execute the Modbus Function 3 - ReadHoldingRegister
+            </summary>
+            <param name="startRegister">Address of the first register to read</param>
+            <param name="numRegisters">Number of registers (2 bytes) to read</param>
+            <returns>Returns the Modbus registers</returns>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.WriteMultipleRegisters(System.UInt16,System.UInt16[])">
+            <summary>
+            Execute the Modbus Function 16 - WriteMultipleRegisters
+            </summary>
+            <param name="startRegister">Address of the first register to write</param>
+            <param name="values">Data to write</param>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.RebootMeter">
+            <summary>
+            Reboot the meter
+            </summary>
+        </member>
+        <member name="M:ELMetersProductionInterface.ProductionBase.MeteringReset">
+            <summary>
+            Reinitialize the metering functionality
+            </summary>
+        </member>
+        <member name="T:ELMetersProductionInterface.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.Properties.Resources.allBlocks">
+            <summary>
+              Looks up a localized string similar to &lt;blocks&gt;
+             &lt;Block Id=&quot;0&quot; Description=&quot;Installation&quot; Instance=&quot;0&quot; ProductType=&quot;XX-XXXX-XXXX&quot;&gt;
+               &lt;BlockParameter Index=&quot;0&quot; Name=&quot;vt_primary_value&quot; DataType=&quot;UInt32&quot; Value=&quot;1&quot; /&gt;
+               &lt;BlockParameter Index=&quot;1&quot; Name=&quot;vt_secondary_value&quot; DataType=&quot;UInt32&quot; Value=&quot;1&quot; /&gt;
+               &lt;BlockParameter Index=&quot;2&quot; Name=&quot;ct_primary_value&quot; DataType=&quot;UInt32&quot; Value=&quot;1&quot; /&gt;
+               &lt;BlockParameter Index=&quot;3&quot; Name=&quot;ct_secondary_value&quot; DataType=&quot;UInt32&quot; Value=&quot;1&quot; /&gt;
+               &lt;BlockParameter Index=&quot;4&quot; Name=&quot;wiring_conf&quot; DataType=&quot;Byte&quot; Valu [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.Properties.Resources.CalibrationPointsD11">
+             <summary>
+               Looks up a localized string similar to CalibrationPointID,U1,U2,U3,I1,I2,I3,U1angle,U2angle,U3angle,I1angle,I2angle,I3angle,Frequency,EnergyMeasurement,Measurements,InstallationType,MinTime,CalibrationAlgorithms
+            1,230,230,230,5,5,5,0,-120,120,0,-120,120,50,ACTIVE_ENERGY,&quot;PHASE_VOLTAGE_L1,PHASE_VOLTAGE_L2,PHASE_VOLTAGE_L3,CURRENT_L1,CURRENT_L2,CURRENT_L3,LINE_VOLTAGE_L1-L2,LINE_VOLTAGE_L1-L3,LINE_VOLTAGE_L3-L2,ACTIVE_POWER_L1,ACTIVE_POWER_L2,ACTIVE_POWER_L3,ACTIVE_POWER_TOTAL,FREQUENCY,PHASE_ANGLE_VOLTAGE_L1,PHASE_ANGLE_VOLTAGE_L2,PHASE_ANGLE_VO [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.Properties.Resources.CalibrationPointsD13">
+             <summary>
+               Looks up a localized string similar to CalibrationPointID,U1,U2,U3,I1,I2,I3,U1angle,U2angle,U3angle,I1angle,I2angle,I3angle,Frequency,EnergyMeasurement,Measurements,InstallationType,MinTime,CalibrationAlgorithms
+            1,230,230,230,5,5,5,0,-120,120,0,-120,120,50,ACTIVE_ENERGY,&quot;PHASE_VOLTAGE_L1,PHASE_VOLTAGE_L2,PHASE_VOLTAGE_L3,CURRENT_L1,CURRENT_L2,CURRENT_L3,LINE_VOLTAGE_L1-L2,LINE_VOLTAGE_L1-L3,LINE_VOLTAGE_L3-L2,ACTIVE_POWER_L1,ACTIVE_POWER_L2,ACTIVE_POWER_L3,ACTIVE_POWER_TOTAL,FREQUENCY,PHASE_ANGLE_VOLTAGE_L1,PHASE_ANGLE_VOLTAGE_L2,PHASE_ANGLE_VO [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:ELMetersProductionInterface.Properties.Resources.ModbusMapBasic">
+             <summary>
+               Looks up a localized string similar to ItemId,Unit,Details,ProductionResolution,CustomerResolution,DataType,NumberOfRegisters,Address,
+            ACTIVE_ENERGY_IMP,kWh,,0.001,0.01,UNSIGNED,4,0,0
+            ACTIVE_ENERGY_EXP,kWh,,0.001,0.01,UNSIGNED,4,4,4
+            REACTIVE_ENERGY_IMP,kvarh,,0.001,0.01,UNSIGNED,4,12,C
+            REACTIVE_ENERGY_EXP,kvarh,,0.001,0.01,UNSIGNED,4,16,10
+            APPARENT_ENERGY,kVA,,0.001,0.01,UNSIGNED,4,32,20
+            PHASE_VOLTAGE_L1,V,,0.001,0.1,UNSIGNED,2,2816,B00
+            PHASE_VOLTAGE_L2,V,,0.001,0.1,UNSIGNED,2,2818,B02
+            PHASE_VOLTAGE_L3,V,,0.001,0.1,UNSIGNED,2,2820,B04
+            L [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="T:RnDInterface.RnDBlockParameter">
+            <summary>
+            Block paramter structure
+            </summary>
+        </member>
+        <member name="P:RnDInterface.RnDBlockParameter.Index">
+            <summary>
+            The block parameter index number
+            </summary>
+        </member>
+        <member name="P:RnDInterface.RnDBlockParameter.Name">
+            <summary>
+            The block parameter name
+            </summary>
+        </member>
+        <member name="P:RnDInterface.RnDBlockParameter.DataType">
+            <summary>
+            The block parameter data type
+            </summary>
+        </member>
+        <member name="P:RnDInterface.RnDBlockParameter.Value">
+            <summary>
+            The block parameter value
+            </summary>
+        </member>
+        <member name="P:RnDInterface.RnDBlockParameter.Overrided">
+            <summary>
+            Defines if the block has been overrided/changed from default definition
+            </summary>
+        </member>
+        <member name="M:RnDInterface.RnDBlockParameter.#ctor(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            The block parameter constructor
+            </summary>
+            <param name="index"></param>
+            <param name="name"></param>
+            <param name="dataType"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:RnDInterface.RnDProductionHandler">
+            <summary>
+            Implementation of RnD Production Handler class
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:RnDInterface.RnDProductionHandler.ModbusRtuParity.NONE_1SB" -->
+        <!-- Badly formed XML comment ignored for member "F:RnDInterface.RnDProductionHandler.ModbusRtuParity.EVEN" -->
+        <!-- Badly formed XML comment ignored for member "F:RnDInterface.RnDProductionHandler.ModbusRtuParity.ODD" -->
+        <member name="M:RnDInterface.RnDProductionHandler.ReadHoldingRegister(System.UInt16,System.UInt16)">
+            <summary>
+            Execute the Modbus Function 3 - ReadHoldingRegister
+            </summary>
+            <param name="startRegister">Address of the first register to read</param>
+            <param name="numRegisters">Number of registers (2 bytes) to read</param>
+            <returns>Returns the Modbus registers</returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.ReadBlock(System.Byte,System.Byte,System.Int32)">
+            <summary>
+            Executes custom Modbus Function code 71 - Reads a Production Block from the meter
+            </summary>
+            <param name="blockId"></param>
+            <param name="instance"></param>
+            <param name="blockSize"></param>
+            <returns>Returns byte array of the Modbus response without address, function code and CRC</returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.GetBlockSize(System.Byte)">
+            <summary>
+            Get the size of the parameters for the defined block id
+            </summary>
+            <param name="blockId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.WriteBlock(System.Byte,System.Byte,System.Byte[])">
+            <summary>
+            Executes custom Modbus Function code 70 - Sends a Production Block to the meter
+            </summary>
+            <param name="blockId"></param>
+            <param name="instance"></param>
+            <param name="values"></param>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.GetBlocksList">
+            <summary>
+            Get the list of the blocks for the selected device
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.GetBlockInstancesList(System.Byte)">
+            <summary>
+            Get the list of the instances of the selected block for the selected device
+            </summary>
+            <param name="blockId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.GetBlockParametersList(System.Byte,System.Byte)">
+            <summary>
+            Return the list of parameters for the specified block
+            </summary>
+            <param name="blockId"></param>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.GetCalibrationPoints(System.String)">
+            <summary>
+            Get the list of calibration parameters as defined in the custom CSV file
+            </summary>
+            <param name="calibrationPointsResource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.WriteCalibrationBlocks(System.Collections.Generic.List{Calibration.SourceValues},System.Collections.Generic.List{Calibration.CalibrationMeasurement},System.String)">
+            <summary>
+            Compute and write calibration block to the meter
+            </summary>
+            <param name="sourceValues"></param>
+            <param name="calibrationMeasurements"></param>
+            <param name="calibrationPointsResource"></param>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.RebootMeter">
+            <summary>
+            Reboot the meter
+            </summary>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.MeteringReset">
+            <summary>
+            Reinitialize the metering functionality
+            </summary>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.SetupMeter(System.String,System.String)">
+            <summary>
+            Set the installation type and the led source
+            </summary>
+            <param name="installationTypeString"></param>
+            <param name="ledSourceString"></param>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.SetModbusRtuBaudrate(System.Int32)">
+            <summary>
+            This function set the ModbusRTU baudrate in the block. The meter shall be rebooted for the update to take effect.
+            </summary>
+            <param name="baudrate"></param>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.SetMobudRtuParity(RnDInterface.RnDProductionHandler.ModbusRtuParity)">
+            <summary>
+            Set Modbus RTU parity and stop bit in the block. The meter shall be rebooted for the update to take effect.
+            </summary>
+            <param name="modbusRtuParity"></param>
+        </member>
+        <member name="M:RnDInterface.RnDProductionHandler.SetModbusRtuAddress(System.Byte)">
+            <summary>
+            Set Modbus RTU parity and stop bit in the block. The meter shall be rebooted for the update to take effect.
+            </summary>
+            <param name="address"></param>
+        </member>
+        <member name="M:Utilities.DataConversion.CastParameterToSpecifiedDatatype(System.String,System.String)">
+            <summary>
+            Cast parameter values to defined datatype
+            </summary>
+            <param name="valueString"></param>
+            <param name="dataType"></param>
+            <returns>The value byte[]</returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToASCIIString(System.UInt16[])">
+            <summary>
+            Convert an array of words to string
+            </summary>
+            <param name="registerArray">Array of words</param>
+            <returns>String of the input array</returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertModbusMapItemValueToString(System.UInt16[],ModbusInterface.DataType,System.Single)">
+            <summary>
+            Converts an array of 16bits registers to a string value, according to the specific data type
+            </summary>
+            <param name="registerArray"></param>
+            <param name="dataType"></param>
+            <param name="scaler"></param>
+            <returns>converted string</returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToInt16(System.UInt16)">
+            <summary>
+            Converts one Modbus registers to Int16
+            </summary>
+            <param name="i1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToInt32(System.UInt16,System.UInt16)">
+            <summary>
+            Converts two Modbus registers to Int32
+            </summary>
+            <param name="i1"></param>
+            <param name="i2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToInt64(System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Converts four Modbus registers to Int64
+            </summary>
+            <param name="i1"></param>
+            <param name="i2"></param>
+            <param name="i3"></param>
+            <param name="i4"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToUInt16(System.UInt16)">
+            <summary>
+            Converts one Modbus registers to UInt16
+            </summary>
+            <param name="i1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToUInt32(System.UInt16,System.UInt16)">
+            <summary>
+            Converts two Modbus registers to UInt32
+            </summary>
+            <param name="i1"></param>
+            <param name="i2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToUInt64(System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Converts four Modbus registers to UInt64
+            </summary>
+            <param name="i1"></param>
+            <param name="i2"></param>
+            <param name="i3"></param>
+            <param name="i4"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utilities.DataConversion.ConvertToFloat32(System.UInt16,System.UInt16)">
+            <summary>
+            Converts two Modbus registers to Float
+            </summary>
+            <param name="i1"></param>
+            <param name="i2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Utilities.CustomTypeConverter">
+            <summary>
+            Custom TypeConverter class to override conversion in CSV file parsing
+            </summary>
+        </member>
+        <member name="M:Utilities.CustomTypeConverter.ConvertFromString(System.String,CsvHelper.IReaderRow,CsvHelper.Configuration.MemberMapData)">
+            <summary>
+            Splits a String in List of String
+            </summary>
+            <param name="text"></param>
+            <param name="row"></param>
+            <param name="memberMapData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Utilities.XMLParser">
+            <summary>
+            The XML parser class is used to read the block data from the embedded allBlocks XML resource file.
+            </summary>
+        </member>
+        <member name="M:Utilities.XMLParser.GetContent(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Collections.Generic.List{System.String}}@)">
+            <summary>
+            Reads the data from XML and retrun generic list of blocks
+            </summary>
+            <param name="resource">The xml resource string</param>
+            <param name="singleValueAttributes">The sigle value attributes in the block header</param>
+            <param name="listValueAttributes">The list values attributes from the block content</param>
+            <param name="output">List of string output, The bloch header will be the first list and then the block content will follow</param>
+        </member>
+    </members>
+</doc>

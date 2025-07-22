@@ -1,0 +1,1273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2024-3-21-14-45-19-900"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-L-7365571</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>Thursday, March 21, 2024</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>2:45:19 PM</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>1984.8395275 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>1222</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#FF0000;">Failed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Product:</b></td><td class='hdr_value'><b>ARI&nbsp;LV</b></td></tr><tr><td class='hdr_name'><b>Product type:</b></td><td class='hdr_value'><b>ARI&nbsp;LV</b></td></tr><tr><td class='hdr_name'><b>Comm type:</b></td><td class='hdr_value'><b>COMM1_RS485</b></td></tr><tr><td class='hdr_name'><b>Product FW Version:</b></td><td class='hdr_value'><b>56010904</b></td></tr><tr><td class='hdr_name'><b>Comm FW Version:</b></td><td class='hdr_value'><b>56010200</b></td></tr><tr><td class='hdr_name'><b>Failure Chain:</b></td></tr>
+</tbody></table><br><table style="border-color:#000000;"><tbody>
+<tr><td style="border-color:#000000;background-color:#FF2020;"><b>Step</b></td><td style="border-color:#000000;background-color:#FF2020;"><b>Sequence</b></td><td style="border-color:#000000;background-color:#FF2020;"><b>Sequence File</b></td></tr>
+<tr><td style="border-color:#000000;background-color:#D0D0D0;"><a href="#ResultID3333">Meneuvre power fail test</a></td><td style="border-color:#000000;background-color:#D0D0D0;">Modbus Register check</td><td style="border-color:#000000;background-color:#D0D0D0;">General_test.seq</td></tr>
+<tr><td style="border-color:#000000;background-color:#D0D0D0;"><a href="#ResultID1211">Modbus Register check</a></td><td style="border-color:#000000;background-color:#D0D0D0;">MainSequence</td><td style="border-color:#000000;background-color:#D0D0D0;">General_test.seq</td></tr>
+</tbody></table><br>
+<hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itmimik\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\General_test.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Double_trip_ARI_blocked</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Simultaneous trip_open</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">General and Architecture and LED</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input-Output</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power Outage</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Motor Driver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID1211">Modbus Register check</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">1958.8200743</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Modbus Register check
+<br>(C:\Users\itmimik\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\General_test.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Internal communication failure</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">OK</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;modbus&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked&nbsp;due&nbsp;to&nbsp;closing&nbsp;command&nbsp;but&nbsp;for&nbsp;autoreclosing&nbsp;procedure.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">input</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Disable</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Communication</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Disable</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;input&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;input&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">input</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Disable</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Communication</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Disable</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;input&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;input&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">input</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Enable</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;input&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;modbus&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;input&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Communication</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Enable</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;and&nbsp;opening&nbsp;via&nbsp;input&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;and&nbsp;opening&nbsp;via&nbsp;modbus&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;input&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;closing&nbsp;via&nbsp;modbus&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;input&nbsp;has&nbsp;not&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;remote&nbsp;opening&nbsp;via&nbsp;modbus&nbsp;worked.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Reclosing attempts</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>3</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Waiting time among reclosing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>3</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Neutralization time</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>12</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;ARI&nbsp;entered&nbsp;the&nbsp;Lock&nbsp;state&nbsp;with&nbsp;the&nbsp;prefixed&nbsp;settings.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Reclosing attempts</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>5</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Update Reclosing attempts</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Waiting time among reclosing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>5</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Update Time among reclosing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Neutralization time</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>45</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Update Neutralization time</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;ARI&nbsp;entered&nbsp;the&nbsp;Lock&nbsp;state&nbsp;with&nbsp;the&nbsp;new&nbsp;settings.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;that&nbsp;the&nbsp;ARI&nbsp;entered&nbsp;the&nbsp;Lock&nbsp;state&nbsp;with&nbsp;the&nbsp;new&nbsp;settings.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">PopupString:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Check&nbsp;with&nbsp;modbus&nbsp;poll&nbsp;that&nbsp;the&nbsp;maximum&nbsp;settable&nbsp;value&nbsp;of&nbsp;the&nbsp;neutralization&nbsp;time&nbsp;and&nbsp;waiting&nbsp;time&nbsp;before&nbsp;reclosing&nbsp;is&nbsp;300&nbsp;and&nbsp;the&nbsp;maximum&nbsp;number&nbsp;of&nbsp;reclosing&nbsp;attempts&nbsp;is&nbsp;10.&nbsp;</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Status Breaker</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Trip</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Trip</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Trip</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Trip</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Trip</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TIME Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Time Tripped before:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">000101000000</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TIME Tripped</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Time Tripped after:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">000101000026</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Time tripped check</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Maneuvre parameters graphs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Peak current in mA[0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph1" value="[985.000000, 953.000000, 953.000000, 962.000000, 962.000000, 1026.000000, 1026.000000, 946.000000, 946.000000, 954.000000]" ><ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Motor torque in mN-m[0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph2" value="[26.000000, 25.000000, 25.000000, 26.000000, 26.000000, 28.000000, 28.000000, 25.000000, 25.000000, 25.000000]" ><ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Time to max torque in ms[0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph3" value="[270.000000, 230.000000, 230.000000, 230.000000, 230.000000, 260.000000, 260.000000, 240.000000, 240.000000, 240.000000]" ><ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Peak torque toggle angle in degree[0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph4" value="[10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000]" ><ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Closing time in ms[0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph5" value="[325.000000, 325.000000, 325.000000, 325.000000, 325.000000, 320.000000, 320.000000, 320.000000, 320.000000, 320.000000]" ><ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Opening  time in ms[0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph6" value="[35.000000, 35.000000, 35.000000, 35.000000, 35.000000, 35.000000, 35.000000, 35.000000, 40.000000, 40.000000]" ><ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Maneuver attempt ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Maneuver</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Maneuvre ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Parallel Call - Read loop</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.0020029</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Meneuvre Ongoing test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Maneuvre Ongoing Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Value of the register before the first change:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Maneuver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Value of the register after  the first change:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Maneuver&nbsp;ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Number of changes:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>2</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Maneuver attempt ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Maneuver</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Maneuvre ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Parallel Call - Read loop</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.0043395</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Meneuvre Ongoing test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Maneuvre Ongoing Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Value of the register before the first change:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Maneuver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Value of the register after  the first change:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Maneuver&nbsp;ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Number of changes:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>2</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Maneuver attempt ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">No&nbsp;Maneuver</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Maneuvre ongoing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>441</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of closing maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>336</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of maneuver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>461</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test total number maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of closing maneuver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>346</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test total number closing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>461</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of closing maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>346</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of maneuver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>471</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test total number maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Measurement:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>471</span></td></tr>
+<tr><td class='label' colspan='2' style="border-color:#000000;background-color:#FFFFFF;">Limits:</td>
+</tr>
+
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">&nbsp;&nbsp;&nbsp;Low:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>471</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Comparison Type:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">EQ (==)</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Total Number of closing maneuver</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>356</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test total number closing</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Measurement:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>356</span></td></tr>
+<tr><td class='label' colspan='2' style="border-color:#000000;background-color:#FFFFFF;">Limits:</td>
+</tr>
+
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">&nbsp;&nbsp;&nbsp;Low:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>356</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Comparison Type:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">EQ (==)</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">MOD&nbsp;lever&nbsp;open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Output1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Lock-out&nbsp;state&nbsp;not-active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">MOD&nbsp;lever&nbsp;close</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Output1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Lock-out&nbsp;state&nbsp;not-active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">MOD&nbsp;lever&nbsp;open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Output1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Lock-out&nbsp;state&nbsp;not-active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">MOD&nbsp;lever&nbsp;open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Output1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Lock-out&nbsp;state&nbsp;not-active</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">MOD&nbsp;lever&nbsp;open</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Output1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Lock&nbsp;state</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">MOD&nbsp;lever&nbsp;close</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Output1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Lock-out&nbsp;state&nbsp;not-active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test output 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Not&nbsp;Active</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Input 2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TIME Power Fail</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Time Power Fail  before:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">000101000056</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TIME Power Fail</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Time Power Fail after:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">000101000919</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Time power fail</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">LAST DEMANDED COMMAND FAILED PF</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">All&nbsp;command&nbsp;completed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test last demanded command</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">LAST DEMANDED COMMAND FAILED PF</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">All&nbsp;command&nbsp;completed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test last demanded command</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Parallel Call - Read loop power fail</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.0057785</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Meneuvre power fail test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Parallel Call - Read loop power fail</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.006335</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID3333">Meneuvre power fail test</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Meneuvre power fail test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Parallel Call - Read loop power fail</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.0060127</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Meneuvre power fail test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Diagnostic register</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>2</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Diagnostic register</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>2</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Diagnostic register</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>2</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Diagnostic register</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>2</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Diagnostic register</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Pass/Fail Test</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Product type number ID MOD</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">ARI&nbsp;LOW&nbsp;VOLTAGE</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Product type number ID COMM</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">COMM1_RS485</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Product Type MOD</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Product Type MOD:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">ARI_LVÿÿÿÿÿÿÿÿÿÿ</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Product Type COMM</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Product Type COMM:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">COMM1_RS485</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Serial Number MOD</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number MOD:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">ÿÿÿÿÿ</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Serial Number COMM</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number COMM:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">ABCDE</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">FW Version MOD</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version MOD:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">V</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">FW Version COMM</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version COMM:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">V</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Modbus RTU parameter Slave Address</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">1</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Modbus RTU parameter Baud Rate</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">19200</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Modbus RTU parameter Parity</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Register Value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">EVEN</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Modbus Register check</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Modbus settings check</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">COMM LED &amp; Button</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Firmware Upgrade</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

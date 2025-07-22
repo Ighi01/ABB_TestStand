@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "bRQRlSrJsf03P+JA7ouKyeTWxLu5jUeCFkPj4Ck15k2FLN1E1A7HvtJKHUTmG5VlJvSRyQQ8G3SdBlF8gGCXBg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\TestStandJsonParser\\TestStandJsonParser.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

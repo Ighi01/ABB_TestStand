@@ -1,0 +1,39 @@
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                423
+Date:                         martedì 18 marzo 2025
+Time:                         15:14:52
+Operator:                     administrator
+Execution Time:               0.093 seconds
+Number of Results:            0
+UUT Result:                   Passed
+********************************************************
+End UUT Report
+
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                2344
+Date:                         martedì 18 marzo 2025
+Time:                         15:14:55
+Operator:                     administrator
+Execution Time:               0.044 seconds
+Number of Results:            0
+UUT Result:                   Passed
+********************************************************
+End UUT Report
+
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                4234
+Date:                         martedì 18 marzo 2025
+Time:                         15:14:59
+Operator:                     administrator
+Execution Time:               0.061 seconds
+Number of Results:            0
+UUT Result:                   Passed
+********************************************************
+End UUT Report
+

@@ -1,0 +1,8 @@
+is_global = true
+build_property.RootNamespace = ExcelTestLoader
+build_property.ProjectDir = C:\Users\ITIGNET\Documents\test_stand\TestRunner\utilities\script\ExcelTestLoader\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 

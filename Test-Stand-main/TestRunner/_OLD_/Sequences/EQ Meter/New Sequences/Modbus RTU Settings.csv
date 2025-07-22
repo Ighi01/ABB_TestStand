@@ -1,0 +1,25 @@
+Baud Rate,Parity
+1200,Even
+1200,None
+1200,Odd
+2400,Even
+2400,None
+2400,Odd
+4800,Even
+4800,None
+4800,Odd
+9600,Even
+9600,None
+9600,Odd
+19200,Even
+19200,None
+19200,Odd
+38400,Even
+38400,None
+38400,Odd
+57600,Even
+57600,None
+57600,Odd
+115200,Even
+115200,None
+115200,Odd

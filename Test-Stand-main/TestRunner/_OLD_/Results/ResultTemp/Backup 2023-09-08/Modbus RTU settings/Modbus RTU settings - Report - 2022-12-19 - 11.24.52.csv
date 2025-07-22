@@ -1,0 +1,15 @@
+Baud Rate,Parity,Connection
+9600,None,Error
+9600,Odd,Passed
+19200,Even,Passed
+19200,None,Passed
+19200,Odd,Passed
+38400,Even,Passed
+38400,None,Passed
+38400,Odd,Passed
+57600,Even,Passed
+57600,None,Passed
+57600,Odd,Passed
+115200,Even,Passed
+115200,None,Passed
+115200,Odd,Passed

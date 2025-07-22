@@ -1,0 +1,125 @@
+LEN,Transmission,Source,Dest,Function,Func Desc,Data,Output Data,Request,Status,Event count,Byte count,Message count,Events,Output values,Register values,Slave ID,AND Mask,OR Mask,Read,Object ID,Error,Error Desc,Telegram Error!,Checksum
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,78,,,,FF 00 00 00 02 B4 00 11 00 D2 00 3F 02 3F 02 3F 00 F0 00 6C 00 00 00 00 A5 A5 FF 00 00 00 00 00 00 00 A5 A5 00 01 00 01 4D 4F 44 5F 4C 56 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 56 01 07 01 FF FF FF FF FF FF FF FF,,,,,,,,,OK:9E54
+,Response <=,Slave 1,Master,Write Multiple Register (16),"Address=33280, Quantity=39",,,,,,,,,,,,,,,,,,,OK:6BA8
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01
+,Query =>,Master,Slave 1,Write Multiple Register (16),"Address=32768, Quantity=9",,,,,,18,,,,A5 A5 FF 00 FF 00 00 03 00 03 00 0C 00 00 00 00 00 00,,,,,,,,,OK:6D96
+,Response <=,Slave 1,Master,,,,,,,,,,,,,,,,,,16,Illegal Data Address,,OK:C1CD
+,Query =>,Master,Slave 1,Read Holding Register (3),"Address=32768, Quantity of Register=9",,,,,,,,,,,,,,,,,,,OK:CAC
+,Response <=,Slave 1,Master,Read Holding Register (3),Byte count=18,A5 A5 FF 00 FF 00 FF FF FF FF FF FF 00 00 00 00 00 00,,,,,,,,,,,,,,,,,,OK:5F01

@@ -1,0 +1,26 @@
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                1111
+Date:                         martedì 18 marzo 2025
+Time:                         15:12:06
+Operator:                     administrator
+Execution Time:               0.11 seconds
+Number of Results:            0
+UUT Result:                   Passed
+********************************************************
+End UUT Report
+
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                1111
+Date:                         martedì 18 marzo 2025
+Time:                         15:12:09
+Operator:                     administrator
+Execution Time:               0.046 seconds
+Number of Results:            0
+UUT Result:                   Passed
+********************************************************
+End UUT Report
+

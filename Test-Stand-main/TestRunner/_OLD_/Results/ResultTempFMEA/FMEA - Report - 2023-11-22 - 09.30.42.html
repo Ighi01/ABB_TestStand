@@ -1,0 +1,1272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-11-22-9-31-13-684"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>mercoledì 22 novembre 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>09:31:13</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>551.177428 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>425</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#FF0000;">Failed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Product:</b></td><td class='hdr_value'><b>MOD&nbsp;LV</b></td></tr><tr><td class='hdr_name'><b>Product type:</b></td><td class='hdr_value'><b>MOD&nbsp;LV</b></td></tr><tr><td class='hdr_name'><b>Comm type:</b></td><td class='hdr_value'><b>COMM1_RS485</b></td></tr><tr><td class='hdr_name'><b>Product FW Version:</b></td><td class='hdr_value'><b>56010809</b></td></tr><tr><td class='hdr_name'><b>Comm FW Version:</b></td><td class='hdr_value'><b>56010000</b></td></tr><tr><td class='hdr_name'><b>Failure Chain:</b></td></tr>
+</tbody></table><br><table style="border-color:#000000;"><tbody>
+<tr><td style="border-color:#000000;background-color:#FF2020;"><b>Step</b></td><td style="border-color:#000000;background-color:#FF2020;"><b>Sequence</b></td><td style="border-color:#000000;background-color:#FF2020;"><b>Sequence File</b></td></tr>
+<tr><td style="border-color:#000000;background-color:#D0D0D0;"><a href="#ResultID86">Check Outputs</a></td><td style="border-color:#000000;background-color:#D0D0D0;">Close command and switches open - during command</td><td style="border-color:#000000;background-color:#D0D0D0;">FMEA.seq</td></tr>
+<tr><td style="border-color:#000000;background-color:#D0D0D0;"><a href="#ResultID77">Close command and switches open - during command</a></td><td style="border-color:#000000;background-color:#D0D0D0;">MainSequence</td><td style="border-color:#000000;background-color:#D0D0D0;">FMEA.seq</td></tr>
+</tbody></table><br>
+<hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Close command and Switch1 closed - Switch2 open - before command</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">39.1210566</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Close command and Switch1 closed - Switch2 open - before command
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Close LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Read Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;not&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Close command and Switch1 closed - Switch2 open - before command</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open command and Switch1 open - Switch2 closed - before command</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">17.0788733</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Open command and Switch1 open - Switch2 closed - before command
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Open LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Read Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;not&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Open command and Switch1 open - Switch2 closed - before command</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID77">Close command and switches open - during command</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">57.5029827</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Close command and switches open - during command
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Close LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID86">Check Outputs</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Red:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;RED</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Close&nbsp;executed.&nbsp;Timer&nbsp;expires&nbsp;at&nbsp;the&nbsp;closed&nbsp;position&nbsp;and&nbsp;device&nbsp;opens&nbsp;WITH&nbsp;TRIP.&nbsp;Then&nbsp;the&nbsp;device&nbsp;disengages&nbsp;</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Close command and switches open - during command</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Close command and switches closed - during command</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">50.7303244</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Close command and switches closed - during command
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Close LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Close&nbsp;executed.&nbsp;At&nbsp;closed&nbsp;position&nbsp;timer&nbsp;expires&nbsp;and&nbsp;opens&nbsp;with&nbsp;a&nbsp;open&nbsp;command.&nbsp;Disengage&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Close command and switches closed - during command</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open command and switches closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">27.0301878</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Open command and switches closed - during command
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Open LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Open&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;not&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Open command and switches closed - during command</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open command and switches open</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">22.6766349</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Open command and switches open - during command
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Open LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID158">Check Outputs</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Open&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;2</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Open&nbsp;command&nbsp;executed,&nbsp;disengage&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Open command and switches open - during command</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TRIP true</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">22.7202831</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: TRIP nominal conditions
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Enable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Disable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">TRIP&nbsp;true</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Red:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;RED</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">''</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: TRIP nominal conditions</h5>
+</div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Initial state closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TRIP both switches open</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">29.1930356</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: TRIP both switches open
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Enable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Disable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID222">Check Outputs</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">TRIP&nbsp;both&nbsp;switches&nbsp;open</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Red:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;RED</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">trip&nbsp;detected,&nbsp;disengage&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: TRIP both switches open</h5>
+</div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Initial state closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TRIP both switches closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">62.3629036</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: TRIP both switches closed
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Enable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Disable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">TRIP&nbsp;true</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">trip&nbsp;not&nbsp;detected,&nbsp;no&nbsp;opening&nbsp;command,&nbsp;no&nbsp;disengage.&nbsp;just&nbsp;F204&nbsp;opening&nbsp;</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: TRIP both switches closed</h5>
+</div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Initial state closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">TRIP - Switch1 open - Switch2 closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">37.5324549</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: TRIP - Switch1 closed - Switch2 Open
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Enable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"> Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Disable Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID291">Check Outputs</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">TRIP&nbsp;true</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">trip&nbsp;not&nbsp;detected,&nbsp;no&nbsp;opening&nbsp;command,&nbsp;no&nbsp;disengage.&nbsp;Just&nbsp;F204&nbsp;opening&nbsp;</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: TRIP - Switch1 closed - Switch2 Open</h5>
+</div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Initial state closed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">44.2203571</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Initial State closed 
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Close LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Read Outputs LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Closing&nbsp;command&nbsp;just&nbsp;to&nbsp;make&nbsp;sure&nbsp;the&nbsp;device&nbsp;is&nbsp;in&nbsp;nominal&nbsp;conditions&nbsp;before&nbsp;next&nbsp;test</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Initial State closed </h5>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Switch3 - active/no active</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">90.3556412</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Switch3 - active/no active
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\FMEA.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Open LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - NOActive - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;"><a name="ResultID347">Check Outputs</a></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Blinking_green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">BLINKING&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;executed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Close LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - NOActive - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Blinking_green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">BLINKING&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;executed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Opening maneuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - NoActive - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Open LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;not&nbsp;executed</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open - Closed - NoActive - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Comm Close LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Closed - Open - Active - ON - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 1:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Swtich 2:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Switch 3:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Check Outputs</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FF0000;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Close&nbsp;command&nbsp;and&nbsp;failure&nbsp;switch&nbsp;1</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_1_SIG:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">False</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Output_2_AUX:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">True</td></tr>
+</tbody></table><br>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;LED?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Fix_Green:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">FIX&nbsp;GREEN</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">How&nbsp;is&nbsp;the&nbsp;status&nbsp;of&nbsp;MDP?</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">UNLOCKED</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Additional Results</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Configuration:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Additional&nbsp;notes</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:</td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Command&nbsp;not&nbsp;executed</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: Switch3 - active/no active</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">RCCB trip - toggle blocked in closed position</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">RCCB trip - toggle blocks during open manoeuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open command - toggle blocks during open manoeuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Open command - toggle blocked in closed position</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Close command - toggle blocks during close manoeuvre</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Close command - toggle blocked in open position</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

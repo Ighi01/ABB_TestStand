@@ -1,0 +1,3 @@
+CalibrationPointID,U1,U2,U3,I1,I2,I3,U1angle,U2angle,U3angle,I1angle,I2angle,I3angle,Frequency,EnergyMeasurement,InstallationType,MinTime,Tollerance,Accuracy,Status
+1,230,0,0,5,0,0,0,-120,120,0,-120,120,50,ACTIVE_ENERGY,WIRE_1P2W1C,10,1.5,0.04903508554947,Passed
+2,230,0,0,5,0,0,0,-120,120,45,-75,165,50,ACTIVE_ENERGY,WIRE_1P2W1C,10,1.5,0.04334599399196,Passed

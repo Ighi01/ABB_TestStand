@@ -1,0 +1,13 @@
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                31243
+Date:                         martedì 18 marzo 2025
+Time:                         15:13:38
+Operator:                     administrator
+Execution Time:               0.087 seconds
+Number of Results:            0
+UUT Result:                   Passed
+********************************************************
+End UUT Report
+

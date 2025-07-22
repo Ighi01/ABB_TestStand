@@ -1,0 +1,4 @@
+*.log
+/TestRunner/report
+/TestRunner/utilities/Config
+TestRunner/~$Tests.xlsx

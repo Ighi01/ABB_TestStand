@@ -1,0 +1,1528 @@
+##################################################################################################
+## @title        Testrun Planning
+## @author       marius.hennecke@de.abb.com
+## @description This page enables a test manager to quickly create new testruns or to add tests to
+##               existing testruns based on the available hardware
+##
+#set($pageVersion="0.19")
+## History:
+## 0.19 2025-05-31 (Ignazio Neto Dell'Acqua - ignazio.neto-dellacqua@it.abb.com)
+##   - Added the option to set the type of test to automatic during creation in order to make the polarion poller work correctly
+## 0.18.1 
+##   - Fixed structural element "historic version" rendering. Rendered historic structural element versions used the revision of the task
+##     as it is pinned in the respective test record. However, this is not the revision of the actual ecxecution time of the test task. Now, the
+##     report leverages the revision at the time of test task execution and retrieves the versions of the verified structural element at this
+##     point in time as expected.
+## 0.18
+##   - Added additional root structural element query. Can only be changed on script source. Will be shown in Advanced settings
+## 0.17
+##   - Added Additional Tree Query in Advanced Parameters
+## 0.16
+##   - Fixed CSS for paramerter rendering
+## 0.15
+##   - Added SE titles to root element parameter selection
+## 0.14
+##   - Added Baseline selection
+## 0.13.1
+##   - Silently remove hashes from requested testrun names. Hashes in testrun ids would lead to UI problems later on
+## 0.13
+##   - Fixed column misalignment if tasks and accumualted relative results are shown
+## 0.12
+##   - Fixed selection and counting of a task which is shown more than once in the tree
+## 0.11
+##   - Added Report Version to report header
+##   - Removed Category from testrun creation
+##   - Removed Category filter from list of existing testruns
+## 0.10
+##   - Added possibility to choose relevant test types: unittestcases and/or testtasks
+## 0.9
+##   - Added bar with relative accumulated test execution results for the structural element tree
+## 0.8
+##   - Added Accumulated Test Execution Results for the structural element tree
+##   - Added possibility to select the columns to be rendered
+## 0.7
+##   - Fixed missing "waiting" state for planned but not yet executed tasks
+##   - Switched to builtin Highcharts library
+## 0.6.2
+##   - Fixed missing check in testrun name for trailing white space
+## 0.6.1
+##   - Added preliminary highcharts pie chart summary for the most recent testrecords
+## 0.6
+##   - Sorting by title now not by id
+## 0.5
+##   - Fixed missing escaping in titles which lead to broken titles
+## 0.4
+##   - Fixed the list of existing testruns (Add to existing) to contain only open manual testruns which
+##     have the proper category set
+## 0.3
+##   - Moved Selection Col to the front
+##   - Fixed empty img tag (firefox only) problem for test record results
+##   - Added row hover for highlighting current row
+## 0.2
+##   - Added Task selection based on testrun name regular expression
+##   - Added Task selection based on old version number
+## 0.1
+##   - Initial version
+##
+##
+##################################################################################################
+##################################################################################################
+
+#includeMacros("_default.macros")
+
+{parameter:debug|type=boolean|value=false}
+#set( $debug = false )
+#if( $pageParameters.debug )
+  #set( $debug = true )
+#end
+
+{parameter:additionalRootStructuralElementQuery|type=string|value=NOT status:obsolete}
+
+#set( $projectId = $page.getProject() )
+#set( $project = $trackerService.getTrackerProject($projectId) )
+#set( $contextId = $project.getContextId() )
+
+#set( $dataService = $trackerService.getDataService() )
+#set( $queryHelper = $dataService.getQueryHelper() )
+
+## used to get revision numbers at a given date
+#set( $readOnlyConnection = $repositoryService.getReadOnlyConnection($project.location) )
+
+#set( $now = $dateTool.date)
+
+## central variable controlling the behaviour of the page (could be empty -> default action)
+#set( $pageAction = "$!request.getParameter('action')")
+
+## categories to be renderd in the table (for structural elements and for testrecords)
+#set( $CATEGORIES = ["me", "e", "sw"])
+
+## get baselines for project
+#set($baselines = $project.baselinesManager.baselines)
+#set($baselinesAllowedValues = "")
+#foreach($baseline in $baselines)
+  #if($velocityCount>1)
+    #set($baselinesAllowedValues = "$baselinesAllowedValues,")
+  #end
+  #set($baselinesAllowedValues = "$baselinesAllowedValues${baseline.name}>$baseline.baseRevision")
+#end
+###### PARAMETERS ##################################################################################
+
+#set( $structuralElements = $trackerService.queryWorkItems($queryHelper.andQuery("project.id:$projectId AND type:structuralelement", $pageParameters.additionalRootStructuralElementQuery), "id") )
+#set( $structuralElementIds = "" )
+#foreach($structuralElement in $structuralElements)
+  #set($seTitle = $structuralElement.getTitle().replaceAll(">", "\\>").replaceAll(",","."))
+  #set($seId = $structuralElement.getId())
+  #set($seParamValue = "$seId - $seTitle>$seId")
+  #if($velocityCount == 1)
+    #set($structuralElementIds  = $seParamValue)
+  #else
+    #set($structuralElementIds = "$structuralElementIds,$seParamValue")
+  #end
+#end
+
+{parameter:categories|type=enum:@category|multi=true}
+{parameter:rootElementId|type=enum|allow-no-value=true|allowed-values=$structuralElementIds}
+{parameter:testrunPrefix}
+{parameter:testrunPostfix}
+{parameter:nrRecentTestRecords|value=1}
+{parameter:nrFullyShownLinkedWorkItems|value=3}
+{parameter:showTasks|type=boolean|value=true}
+{parameter:showAccumulatedResultsAbsolute|type=boolean|value=false}
+{parameter:showAccumulatedResultsRelative|type=boolean|value=false}
+{parameter:showResultsAndVersions|type=boolean|value=true}
+{parameter:showUnavailables|type=boolean|value=true}
+{parameter:relevantTestTypes|type=enum:workitem-type|allowed-values=unittestcase,testtask|allow-no-value=false|multi=true|value=testtask}
+{parameter:additionalTreeQuery|type=string}
+#if(!$baselinesAllowedValues.isEmpty())
+  {parameter:baseline|type=enum|allowed-values=$baselinesAllowedValues|allow-no-value=true}
+#end
+
+#set( $RELEVANT_LINK_ROLES = ["link-requires", "backlink-requires"])
+#foreach($cat in $CATEGORIES)
+  #set( $void = $RELEVANT_LINK_ROLES.add("link-verifies_$cat") )
+  #set( $void = $RELEVANT_LINK_ROLES.add("backlink-verifies_$cat") )
+#end
+#foreach($relevantLink in $RELEVANT_LINK_ROLES)
+  {parameter:$relevantLink|type=boolean}
+#end
+
+#set( $TESTRECORD_RESULTS = $testManagementService.getTestRecordResultEnum($projectId).getAvailableOptions(null))
+## always count waiting and unplanned states additionally
+#set( $NR_TESTRECORD_RESULTS = $mathTool.add($TESTRECORD_RESULTS.size(), 2))
+####################################################################################################
+## Parameter rendering
+####################################################################################################
+#macro(renderParameterForm)
+  #if($pageParameters.showTasks && $pageParameters.getAsString('baseline').isEmpty())
+    1 Test Run Planning
+  #else
+    1 Structural Element - Test Execution State
+  #end
+  {pre}
+    <style type="text/css">
+      #parameters {
+        background-color: #E1F0FF;
+        padding: 5px;
+      }
+      #parameters table {
+        padding: 3px;
+      }
+      #parameters.table>tbody>tr>td:nth-child(odd) {
+        width:170px;
+        text-align: right;
+      }
+      .advancedParameter {
+        display: none;
+      }
+    </style>
+    <script>
+      $j(document).ready(function() {
+        $j("#showAdvancedParameters").click(function() {
+          $j(".advancedParameter").each(function() {
+            $j(this).toggle();
+          })
+        })
+      });
+    </script>
+  {/pre}
+  <div id="parameters">
+    {parameter-form}
+      <table>
+        <tr><td>Categories:</td><td>{parameter-editor:categories}</td></tr>
+        <tr><td>Root Structural Element:</td><td>{parameter-editor:rootElementId}</td></tr>
+        ## RIGA RIMOSSA DA QUI ##
+        #if(!$baselinesAllowedValues.isEmpty())
+          <tr class="advancedParameter"><td>Baseline:</td><td>{parameter-editor:baseline}</td></tr>
+        #end
+        <tr class="advancedParameter"><td>Nr. recent test records:</td><td><input type="number" min="1" max="20" step="1" value="$pageParameters.nrRecentTestRecords" name="nrRecentTestRecords"/></td></tr>
+        <tr class="advancedParameter"><td>Nr. Fully Shown Linked Items:</td><td><input type="number" min="0" max="50" step="1" value="$pageParameters.nrFullyShownLinkedWorkItems" name="nrFullyShownLinkedWorkItems"/></td></tr>
+        <tr class="advancedParameter"><td>Relevant Test Types:</td><td>{parameter-editor:relevantTestTypes}</td></tr>
+        <tr class="advancedParameter"><td>Show Tasks:</td><td>{parameter-editor:showTasks}</td></tr>
+        <tr class="advancedParameter"><td>Show Accumulated Results (Abs.):</td><td>{parameter-editor:showAccumulatedResultsAbsolute}</td></tr>
+        <tr class="advancedParameter"><td>Show Accumulated Results (Rel.):</td><td>{parameter-editor:showAccumulatedResultsRelative}</td></tr>
+        <tr class="advancedParameter"><td>Show Results and Versions:</td><td>{parameter-editor:showResultsAndVersions}</td></tr>
+        <tr class="advancedParameter"><td>Show Unavailables:</td><td>{parameter-editor:showUnavailables}</td></tr>
+        #foreach($relevantLink in $RELEVANT_LINK_ROLES)
+          #set($linkRoleId = $relevantLink.substring($mathTool.add($relevantLink.indexOf("-"), 1)))
+          #set($linkRole = $project.getWorkItemLinkRoleEnum().wrapOption("$!linkRoleId"))
+          #set($linkRoleName = "$!linkRole.name")
+          #if($relevantLink.startsWith("link"))
+            #set($linkRoleName = "$!linkRole.oppositeName")
+          #end
+          <tr class="advancedParameter"><td>Show links '$linkRoleName':</td><td>{parameter-editor:$relevantLink}</td></tr>
+        #end
+        <tr class="advancedParameter"><td>Additional Root Structural Elements Query:</td><td>{parameter-editor:additionalRootStructuralElementQuery}</td></tr>
+        <tr class="advancedParameter"><td>Additional Tree Query:</td><td>{parameter-editor:additionalTreeQuery}</td></tr>
+      </table>
+      <button type="submit" name="action" value="preview">Preview</button> {show:wiki}<a id="showAdvancedParameters">Advanced parameters...</a>{show}
+    {parameter-form}
+  </div>
+  {style:type=div|color=grey|text-align=right}
+  Reported by $trackerService.getTrackerUser($securityService.getCurrentUser()).name (Report Version: $pageVersion)<br/>
+  $calendarTool.getCalendarInstance().time
+  {style}
+#end
+####################################################################################################
+
+
+#####################################################################################################
+## Parameter preparation and checking
+##
+#macro(checkParameters $_success)
+  #set($_success = true)
+
+  #set($nrFullyShownLinkedWorkItems = $!pageParameters.nrFullyShownLinkedWorkItems)
+  #set($categories = $pageParameters.categories)
+  #set($categoriesIds = $objectFactory.newSet())
+  #foreach($category in $categories)
+    #set($void = $categoriesIds.add($category.id))
+  #end
+
+  #set($baselineRevision = "$!pageParameters.baseline.id")
+  #set($baselineName = "$!pageParameters.baseline.name")
+  #if($baselineName.isEmpty())
+    #set($baselineName = $baselineRevision)
+  #end
+
+  #if($debug && !$baselineRevision.isEmpty())
+    DEBUG: project = $project ($project.class.name)\\
+    DEBUG: project workitemlinkroleenum = $project.getWorkItemLinkRoleEnum()\\
+    #set($projectBaseline = $dataService.getVersionedInstance($project.objectId, $baselineRevision))
+    DEBUG: project at baseline = $projectBaseline ($projectBaseline.class.name)\\
+    DEBUG: trackerproject at baseline = $trackerService.getTrackerProject($projectBaseline.id)\\
+    DEBUG: project at baseline workitemlinkroleenum = $projectBaseline.getWorkItemLinkRoleEnum()\\
+
+
+    DEBUG: Project\\
+    #set($projId = $page.getProject())
+    DEBUG: * ID: $projId\\
+    #set( $trackerProj = $trackerService.getTrackerProject($projId) )
+    DEBUG: * Tracker Project: $trackerProj\\
+    #set($linkEnum = $trackerProj.getWorkItemLinkRoleEnum())
+    DEBUG: * Enum: $linkEnum\\
+    #foreach($opt in $linkEnum.allOptions)
+      DEBUG: Enum opt: $opt.id\\
+    #end
+
+    #set($projHistorc = $trackerService.getDataService().searchInstancesInBaseline("Project","id:${projId}",null,$baselineRevision).get(0))
+    DEBUG: * Project Historic: $projHistorc\\
+    DEBUG: * Revision: $projHistorc.getRevision()\\
+    #set($trackerProjHistoric = $trackerService.getTrackerProject($projHistorc))
+    DEBUG: * Tracker Project Historic: $trackerProjHistoric\\
+    DEBUG: * Revision: $trackerProjHistoric.getRevision()\\
+    DEBUG: Enumeration Historic\\
+    #set($linkEnumHistoric = $trackerProjHistoric.getWorkItemLinkRoleEnum())
+    DEBUG: * Enum Historic: $linkEnumHistoric\\
+    #foreach($opt in $linkEnumHistoric.allOptions)
+      DEBUG: Enum opt Historic: $opt.id\\
+    #end
+  #end
+
+  #set($showTasks = $pageParameters.showTasks)
+  #set($showResultsAndVersions = $pageParameters.showResultsAndVersions)
+  #set($showAccumulatedResultsAbsolute = $pageParameters.showAccumulatedResultsAbsolute)
+  #set($showAccumulatedResultsRelative = $pageParameters.showAccumulatedResultsRelative)
+  #set($showUnavailables = $pageParameters.showUnavailables)
+  #set($testrunPostfix= $!pageParameters.testrunPostfix)
+  #set($testrunPrefix= $!pageParameters.testrunPrefix)
+  #set($targetTestrunName = $!request.targetTestrunName)
+  #set($nrRecentTestRecords = $!request.nrRecentTestRecords)
+  #set($relevantTestTypes = $!request.relevantTestTypes)
+  #set($additionalTreeQuery = $!request.additionalTreeQuery)
+  #set($Integer = 0)
+  #set($nrRecentTestRecords = $Integer.parseInt($pageParameters.nrRecentTestRecords))
+  #set($nrLinkColumns = 0)
+  #set($nrFullyShownLinkedWorkItems = $Integer.parseInt($nrFullyShownLinkedWorkItems))
+  #if($_success && $nrFullyShownLinkedWorkItems < 0)
+    #error("Nr. of fully shown linked workitems must be a positive number")
+    #set($_success = false)
+  #end
+  #if(!$categories || $categories.isEmpty())
+    #error("Please select at least one category")
+    #set($_success = false)
+  #end
+  #if(!$nrRecentTestRecords || $nrRecentTestRecords.isEmpty())
+    #error("Please provide the number of recent testrecords to show")
+    #set($_success = false)
+  #end
+  #if($_success && $nrRecentTestRecords <= 0)
+    #error("Nr. of recent test records must be a positive number")
+    #set($_success = false)
+  #end
+
+  ## check for resolvable root workitem and check if it is a structural element
+  #set($rootElementId = $!pageParameters.rootElementId.id)
+  #set($roots = $objectFactory.newSet())
+  #if(!$rootElementId || $rootElementId.isEmpty())
+    ## no root element provided: Find all structural element roots
+    #findRootWorkItemsInBaseline($projectId "structuralelement" "part_of" $baselineRevision $all_roots)
+    #foreach($root in $all_roots)
+      ## silently ignore unresolvable roots
+      #if(!$root.isUnresolvable())
+        #foreach( $rootElementCategory in $root.getCategories())
+          #if($categoriesIds.contains($rootElementCategory.id))
+            #set($void = $roots.add($root))
+          #end
+        #end
+      #end
+    #end
+  #else
+    ## just add the one that was provided
+    #set($root = $project.getWorkItem("$!rootElementId"))
+    #if(!$baselineRevision.isEmpty())
+      #set($root = $dataService.getVersionedInstance($root.objectId, $baselineRevision))
+    #end
+    #set($void = $roots.add($root))
+  #end
+  #foreach($rootElement in $roots)
+    #if($rootElement.isUnresolvable())
+      #error("Provided root element ($rootElement.id) does not exist.")
+      #set($_success = false)
+    #elseif(!$rootElement.getType().getId().equals("structuralelement"))
+      #error("Provided root element ({workitem:$rootElement.id}) is not a structural element.")
+      #set($_success = false)
+    #else
+      #if($_success)
+        ## here we have a resolvable structural element
+        #set( $rootElementHasCategory = false)
+        #foreach( $rootElementCategory in $rootElement.getCategories())
+          #if($categoriesIds.contains($rootElementCategory.id))
+            #set( $rootElementHasCategory = true )
+          #end
+        #end
+        #if(!$rootElementHasCategory)
+          #error("Provided root element ({workitem:$rootElement.id}) does not contain one of the requested categories.")
+          #set($_success = false)
+        #end
+      #end
+    #end
+  #end
+  #if($_success)
+    ## sort roots by title
+    #set($roots = $sortTool.sort($roots, ["title", "id"]))
+  #end
+
+  ## determine the number of link columns to be renderd
+  #foreach($relevantLink in $RELEVANT_LINK_ROLES)
+    #if($pageParameters.get($relevantLink))
+      #set( $nrLinkColumns = $mathTool.add($nrLinkColumns, 1))
+    #end
+  #end
+
+  ## check for a valid page action
+  #set($validPageActions = ["preview", "planTestrunNew", "planTestrunExisting"])
+  #if(!$validPageActions.contains($pageAction))
+    #error("Invalid page action '$pageAction'")
+  #end
+
+  ## create the testrun prefix. date/time Timestamp
+  #if($pageAction.equals("preview"))
+    #set( $testrunPrefix = $dateTool.get("yyyy-MM-dd'T'HH-mm-ss"))
+  #end
+
+  #if($pageAction.equals("planTestrunNew"))
+    ## do not validate if the testrunPrefix has the correct date format but check if it is not empty
+    ## and if it has the correct length
+    #if(!$testrunPrefix || $testrunPrefix.isEmpty())
+      #error("Testrun prefix (timestamp) is missing")
+      #set($_success = false)
+    #else
+      #if($testrunPrefix.size() != 19)
+        #error("Testrun prefix ($testrunPrefix) has unexpected format")
+        #set($_success = false)
+      #end
+    #end
+    ## target testrun name is mandatory for testrun creation
+    #if(!$testrunPostfix || $testrunPostfix.isEmpty())
+      #error("Please provide a name for the testrun to be planned")
+      #set($_success = false)
+    #end
+  #end
+  #if($pageAction.equals("planTestrunExisting"))
+    #if(!$targetTestrunName || $targetTestrunName.isEmpty())
+      #error("Please provide a name for the testrun to be planned")
+      #set($_success = false)
+    #else
+      ## check if it exists
+      #set( $existingTestrun = $testManagementService.getTestRun($projectId, $targetTestrunName))
+      #if($existingTestrun.isUnresolvable())
+        #error("Target testrun '$targetTestrunName' does not exist.")
+        #set($_success = false)
+      #end
+    #end
+  #end
+
+  #set( $TYPE_IDS_TEST = $objectFactory.newSet())
+  #foreach($relevantTestType in $pageParameters.relevantTestTypes)
+    #set( $void = $TYPE_IDS_TEST.add($relevantTestType.id) )
+  #end
+
+#end ##macro(checkParameters _success)
+####################################################################################################
+
+
+####################################################################################################
+## Wiki page specific functions and parameters
+####################################################################################################
+
+#set( $LINK_IDS = $objectFactory.newMap())
+#set( $void = $LINK_IDS.put("testtask", "verifies") )
+#set( $void = $LINK_IDS.put("unittestcase", "verifies_unit") )
+
+#set( $TYPE_ID_STRUCTURALELEMENT = "structuralelement" )
+
+#set( $TREE_TRAVERSAL_ROLES = $objectFactory.newSet() )
+#set( $void = $TREE_TRAVERSAL_ROLES.add("part_of") )
+#set( $void = $TREE_TRAVERSAL_ROLES.add("verifies") )
+#set( $void = $TREE_TRAVERSAL_ROLES.add("verifies_unit") )
+
+#macro(renderBaselineButton)
+  #if(!$baselineRevision.isEmpty())
+    <div style="width: auto; padding: 0px 14px 7px;">
+      <table cellspacing="0" cellpadding="0" class="polarion-SimpleButton polarion-BaselineButton" title="Baseline: $baselineName">
+        <tbody>
+          <tr>
+            <td align="left" style="vertical-align: middle;">
+              <img src="/polarion/ria/images/actions/baseline.png" class="icon">
+            </td>
+            <td align="left" width="100%" style="vertical-align: middle;">
+              <div class="label">
+                <a href="/polarion/#/baseline/$baselineRevision/project/$projectId" target="_blank" style="color:inherit;">
+                  $baselineName
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  #end
+#end
+
+####################################################################################################
+## Render a tree recursively. Only follow specific link roles. Keep a global list of nodes already
+## visited to avoid infinite runtime due to accidental loops in the link structure.
+##
+## @param parents(List<IWorkItem>|boolean) false if no parent exists
+## @param node(IWorkItem)
+## @param linkRoleToParent(ILinkRoleOpt)
+## @param traversalRoles (Set<String>) set of linkrole ids used for tree traversal. Any other linkrole is ignored.
+## @param nodesVisited (Map<String, int>) Map of Workitem IDs already rendered where the value
+##                                     determines how often the workitem was rendered. In order to avoid infinite loops
+##                                     rendering will stop if the value is too high
+## @param nodesAccResults (Map<String, Map<String, int>>) Map of data-tt-ids (workitem ids with appended visiting counter)
+##                                       The value is again a map which maps a testrecord result id to the nr of times
+##                                       this result was obtained in the tree nodes subtree
+#macro(renderTreeNode $parents $node $linkRoleToParent $traversalRoles $nodesVisited $nodesAccResults)
+  #set( $hasCategory = false )
+  ## just ignore unresolvable work items
+  #if(!$node.isUnresolvable())
+    #foreach($cat in $node.getCategories())
+      #if($categoriesIds.contains($cat.id))
+        #set( $hasCategory = true)
+      #end
+    #end
+  #end
+  #if($hasCategory)
+    ## only proceed if this element belongs to the the requested category
+    ##
+    ## store that we were here
+    #incrementMapValue($nodesVisited $node.id)
+    #set( $parentTableId = "")
+    #if($parents)
+      ## assert $parents.class.name.endsWith("WorkItem"))
+      ## take last element of the parents
+      #set( $parentTableId = $parents.get($mathTool.sub($parents.size(),1)) )
+    #else
+      ## init the parents node queue
+      #set( $parents = [])
+    #end
+    #if(!$nodesAccResults)
+      #set($nodesAccResults = $objectFactory.newMap())
+    #end
+    ##
+    #getMapValue($nodesVisited $node.id 0 $timesNodeVisited)
+    ## add the current nodes tt-id to parents
+    #set($nodeTableId = "${node.id}-$timesNodeVisited")
+    #set($void = $parents.add($nodeTableId))
+    <tr data-tt-id="$nodeTableId" data-tt-parent-id="$parentTableId" class="$node.getType().getId()">
+      #renderSelectionCol($node)
+      #renderWorkItemTitle($node $parent $linkRoleToParent)
+      #renderLinkedWorkItems($node)
+      #renderAccumulatedResults($node)
+      #renderResultAndVersion($node $resultId)
+      #renderUnavailables($node)
+    </tr>
+    ## only increment the test records on the parent (a struct. elem) if we have a testtask
+    #if(!$node.type.id.equals($TYPE_ID_STRUCTURALELEMENT))
+      #if(!$nodesAccResults.containsKey($parentTableId))
+        #set($void = $nodesAccResults.put($parentTableId, $objectFactory.newMap()))
+      #end
+      #set($parentAccResult = $nodesAccResults.get($parentTableId))
+      #incrementMapValue($parentAccResult $resultId)
+    #end
+    ## contains node: render recursively only if we haven't visited it already
+    ## current node becomes the parents
+    #if($timesNodeVisited < 500)
+      #foreach($traversalRole in $traversalRoles)
+        #set($linkRole = $project.getWorkItemLinkRoleEnum().wrapOption($traversalRole))
+        #set($relevantLinksQuery = $queryHelper.andQuery("project.id:$projectId", $queryHelper.fieldQuery("linkedWorkItems", "${traversalRole}=$node.id")))
+        #set($relevantLinksQuery = $queryHelper.andQuery($relevantLinksQuery, $additionalTreeQuery))
+        #if($baselineRevision.isEmpty())
+          #set($linkedItems = $trackerService.queryWorkItems($relevantLinksQuery, "title id"))
+        #else
+          #set($linkedItems = $trackerService.queryWorkItemsInBaseline($relevantLinksQuery, "title id", $baselineRevision))
+        #end
+
+        #foreach($linkedItem in $linkedItems)
+          #if(!$linkedItem.isUnresolvable())
+            #if($TYPE_IDS_TEST.contains($linkedItem.type.id) || $linkedItem.type.id.equals($TYPE_ID_STRUCTURALELEMENT))
+              #renderTreeNode($parents $linkedItem $linkRole $traversalRoles $nodesVisited $nodesAccResults)
+            #end
+          #end
+        #end
+      #end
+
+      ## after we have processed all children
+      ## get back the current node
+      #set( $nodeTableId = $parents.get($mathTool.sub($parents.size(),1)) )
+      ## remove the node from the parent list (its always the last)
+      #set( $void = $parents.remove($mathTool.sub($parents.size(),1)))
+      ## add the nodes results to its parent
+      #if(!$parents.isEmpty())
+        ## only accumulate values if we have something
+        #if($nodesAccResults.containsKey($nodeTableId))
+          #set($nodeAccResults =  $nodesAccResults.get($nodeTableId))
+          #set($parentTableId = $parents.get($mathTool.sub($parents.size(),1)) )
+          #if(!$nodesAccResults.containsKey($parentTableId))
+            #set($void = $nodesAccResults.put($parentTableId, $objectFactory.newMap()))
+          #end
+          #set($parentAccResults = $nodesAccResults.get($parentTableId))
+
+          #foreach($result in $nodeAccResults.keySet())
+            #addMapValue($parentAccResults $result $nodeAccResults.get($result))
+          #end
+        #end
+      #end
+    #else
+      #error("infinite loop detected: $node.id")
+    #end##if($timesNodeVisited < 500)
+  #end ## hasCategory
+#end
+###################################################################################################
+
+###################################################################################################
+## render the workitem title with additional fields in case of a structuralelement
+##
+## @param node (IWorkItem) The workitem which should be renderd
+## @param parent (IWorkItem) The nodes parent
+## @param linkRole (ILinkRoleOpt) The link role between node and parent
+#macro(renderWorkItemTitle $node $parent $linkRole)
+  ## add color branding program etc if it is a structural element
+  #set($title="")
+  #set($fields = [])
+  #if(!$TYPE_IDS_TEST.contains($node.type.id))
+    ## only render additional fields it is not a test
+    #set($fields = ["articlenr", "color", "branding"])
+  #end
+  #buildWorkItemTitle($node $fields $title)
+  ##
+  ## get the display name of the parent role
+  #set($linkeRoleOppositeName = "$!linkRole.oppositeName")
+  ## let the title of tasks span the accumulated results cells shown for structural elements
+  #set($colspan = "1")
+  #if(!$node.type.id.equals($TYPE_ID_STRUCTURALELEMENT) && $showAccumulatedResultsAbsolute)
+    #set($colspan = $mathTool.add($colspan, $NR_TESTRECORD_RESULTS))
+  #end
+  #if(!$node.type.id.equals($TYPE_ID_STRUCTURALELEMENT) && $showAccumulatedResultsRelative)
+    #set($colspan = $mathTool.add($colspan, 1))
+  #end
+  <td colspan="$colspan" title="{pre}$!parent.id $linkeRoleOppositeName $node.id - $node.title{/pre}">
+    <a style="color:#440000;" href="/polarion/#/project/$projectId/workitem?id=$node.id&revision=$baselineRevision" target="_blank">
+      <img style="vertical-align:middle;border:0px;margin-right:2px;" src="$node.getType().getProperty('iconURL')">
+      $node.id - $title
+    </a>
+  </td>
+#end
+
+###################################################################################################
+## render the linksroles selected in the advanced parameters
+##
+## @param node (IWorkItem) The workitem for which links shouls be rendered
+#macro(renderLinkedWorkItems $node)
+  #foreach($relevantLink in $RELEVANT_LINK_ROLES)
+    #if($pageParameters.get($relevantLink))
+      ## link roles is selected
+      #set($linkRoleId = $relevantLink.substring($mathTool.add($relevantLink.indexOf("-"), 1)))
+      #set($linkRole = $project.getWorkItemLinkRoleEnum().wrapOption("$!linkRoleId"))
+      #set($query = "linkedWorkItems:")
+      #if($relevantLink.startsWith("backlink"))
+        #set($query = "backlinkedWorkItems:")
+      #end
+      #set($query = "project.id:$projectId AND $query${linkRoleId}=$node.id")
+      #if($baselineRevision.isEmpty())
+        #set($linkedWorkItems = $trackerService.queryWorkItems($query, "id"))
+      #else
+        #set($linkedWorkItems = $trackerService.queryWorkItemsInBaseline($query, "id", $baselineRevision))
+      #end
+      <td>
+        <div style="display:block;">
+          #if($linkedWorkItems.size() > $nrFullyShownLinkedWorkItems)
+            <a style="color:#440000;white-space: nowrap;" href="/polarion/#/project/$projectId/workitems?query=$query" target="_blank">
+              ## pre block is necessary, otherwise a 1 would lead to the rendering of a wiki heading
+              {pre}$linkedWorkItems.size(){/pre}
+            </a>
+          #else
+            #foreach($linkedWorkItem in $linkedWorkItems)
+              #if($linkedWorkItem.isUnresolvable())
+                #error("Work Item $linkedWorkItem.id is unresolvable")
+              #else
+                <div>
+                <a title="{pre}$linkedWorkItem.id - $linkedWorkItem.title{/pre}" style="color:#440000;white-space: nowrap;" href="/polarion/#/project/$projectId/workitem?id=$linkedWorkItem.id&revision=$baselineRevision" target="_blank">
+                  <img style="vertical-align:middle;border:0px;margin-right:2px;" src="$linkedWorkItem.getType().getProperty('iconURL')">
+                  $linkedWorkItem.id
+                </a>
+                </div>
+              #end
+            #end
+          #end
+        </div>
+      </td>
+    #end##if($pageParameters.get($relevantLink))
+  #end##foreach($relevantLink in $RELEVANT_LINK_ROLES)
+#end
+###################################################################################################
+
+###################################################################################################
+## render the accumulated results columns for structural elements. They will be empty here as the
+## the actual data is filled via jquery upon rendering of the page in the client.
+##
+## @param node (IWorkItem) The workitem for which links shouls be rendered
+#macro(renderAccumulatedResults $node)
+  #if($showAccumulatedResultsRelative)
+    #if($node.type.id.equals($TYPE_ID_STRUCTURALELEMENT))
+      #set($out_html="<span style='width:0%;' class='bar accResultRel unplanned' title='Unplanned'></span><span style='width:0%;'class='bar accResultRel waiting' title='Waiting'></span>")
+      #foreach($testrecordResult in $TESTRECORD_RESULTS)
+        #set($color="red")
+        #set($color = $!testrecordResult.getProperty('color'))
+        #set($out_html = "$out_html<span style='width:0%;' class='bar accResultRel $testrecordResult.id' title='$testrecordResult.name'></span>")
+      #end
+      <td class="accResultRel"><div class="stackedbargraph">$out_html</div></td>
+    #end
+  #end
+  #if($showAccumulatedResultsAbsolute)
+    #if($node.type.id.equals($TYPE_ID_STRUCTURALELEMENT))
+      <td class="accResult unplanned" title="Unplanned"></td> ## unplanned
+      <td class="accResult waiting" title="Waiting"></td> ## waiting
+      #foreach($testrecordResult in $TESTRECORD_RESULTS)
+        <td class="accResult $testrecordResult.id" title="$testrecordResult.name"></td>
+      #end
+    #end
+  #end
+#end ##renderAccumulatedResults
+###################################################################################################
+
+###################################################################################################
+## render the unavailable structural elements for the node. Structural elements are deemed
+## unavailable if a version field is empty. This macro renders as much columns as the VERSIONS
+## variable has entries, usually three (ME, E, SW). The total number of unavailables per category
+## is shown if it is not null. The number is a link to a table view of the unavailables.
+##
+## @param node (IWorkItem) The workitem which should be renderd
+#macro(renderUnavailables $node)
+  #if($showUnavailables)
+    #foreach($cat in $CATEGORIES)
+      #if($TYPE_IDS_TEST.contains($node.type.id))
+        ## is Test
+        #getLinkedElementsWithEmptyFieldQuery($node ["requires"] ["verifies"] "version$cat" $unavailablesQuery)
+        #set($unavailablesCount = 0)
+        #set($baselineHref = "")
+        #if($baselineRevision.isEmpty())
+          #set($unavailablesCount = $dataService.searchInstances("WorkItem", $unavailablesQuery, "id", -1).size())
+        #else
+          #set($unavailablesCount = $dataService.searchInstancesInBaseline("WorkItem", $unavailablesQuery, "id", -1, $baselineRevision).size())
+          #set($baselineHref = "/baseline/$baselineRevision")
+        #end
+        #if($unavailablesCount == 0)
+          <td class="unavailables available category-$cat"></td>
+        #else
+          <td class="unavailables unavailable category-$cat">
+            <span>
+              <a class="graylinks" target="_blank"
+              href="/polarion/#${baselineHref}/project/$projectId/workitems?query=$escapeTool.html($unavailablesQuery)">
+                ## pre block is necessary, otherwise a 1 would lead to the rendering of a wiki heading
+                {pre}$unavailablesCount{/pre}
+              </a>
+            </span>
+          </td>
+        #end
+      #else
+        ## for anything else just fill up the table properly
+        <td class="unavailables"></td>
+      #end
+    #end
+  #end
+#end
+###################################################################################################
+
+###################################################################################################
+## render a checkbox which determines if the task will be planned for a testrun
+##
+## @param node (IWorkItem) The workitem for which the checkbox should be renderd
+#macro(renderSelectionCol $node)
+  ## only render the selection column if we show tasks and are not inside a revision
+  #if($showTasks && $baselineRevision.isEmpty())
+    <td>
+      #if($TYPE_IDS_TEST.contains($node.type.id))
+        ## is Test
+        <input type="checkbox" name="s_$node.getId()" class="plannable">
+      #end
+    </td>
+  #end
+#end
+###################################################################################################
+
+###################################################################################################
+## render the test result and version part of the table. If node is a structural element render just
+## the current versions. If it is a task, render the testrecord result and the version of the
+## verified element at the time of the test execution. Mark versions if there is a mismatch with the
+## current version of the verified element.
+##
+## @param node (IWorkItem) The workitem which should be renderd
+##
+## @return _resultId (String) The most recent test record result for a task, otherwise empty string
+#macro(renderResultAndVersion $node $_resultId)
+  #set($_resultId = "")
+  #if($node.type.id.equals($TYPE_ID_STRUCTURALELEMENT))
+    ## just render the current version
+
+    #foreach($cat in $CATEGORIES)
+      <td class="recordVersion">$!node.getCustomField("version$cat")</td>
+    #end
+    <td class="recordResult"></td>## test result
+    ## and fill the rest with blank cells
+    #if($nrRecentTestRecords > 1)
+      #foreach($i in [2..$nrRecentTestRecords])
+        #foreach($cat in $CATEGORIES)
+          <td class="recordVersion"></td>
+        #end
+        <td class="recordResult"></td>## test result
+      #end
+    #end
+  #else
+    ###set($recentRecords = $testManagementService.getLastTestRecords($node, $nrRecentTestRecords) )
+    #set($recentTestrunsQuery = "SELECT TESTRUN.C_PK FROM TESTRUN, PROJECT P, STRUCT_TESTRUN_RECORDS REC, WORKITEM TT WHERE P.C_ID = '$projectId' AND TESTRUN.FK_URI_PROJECT = P.C_URI AND REC.FK_URI_P_TESTRUN = TESTRUN.C_URI AND REC.FK_URI_TESTCASE = TT.C_URI AND TT.C_ID = '$node.id' ORDER BY COALESCE(REC.C_EXECUTED, TESTRUN.C_CREATED) DESC LIMIT $nrRecentTestRecords")
+    #if($baselineRevision.isEmpty())
+      #set($recentTestruns = $dataService.sqlSearch($recentTestrunsQuery))
+    #else
+      #set($recentTestruns = $dataService.sqlSearchInBaseline($recentTestrunsQuery, $baselineRevision))
+    #end
+
+    #foreach($i in [1..$nrRecentTestRecords])
+      #set($recentRecord = "")
+      #set($recentResult = "")
+      #set($recentVerifiedVersions = $objectFactory.newMap())
+      #set($tdVersionClass = $objectFactory.newMap())
+      #foreach($cat in $CATEGORIES)
+        #set($void = $recentVerifiedVersions.put($cat, ""))
+        #set($void = $tdVersionClass.put($cat, "currentversion"))
+      #end
+      #set($tooltipData = "")
+      #set($recentRecordComment = "")
+      #set($recentResultIcon = "")
+      #if($i <= $recentTestruns.size())
+        #set($recentTestrun = $recentTestruns.get($mathTool.sub($i,1)))
+        #if($recentTestrun.isUnresolvable())
+          #error("Testrun $recentTestrun.id is unresolvable")
+        #else
+          #set($recentRecords = $recentTestrun.getRecordsForTestCase($node.id))
+          #if($recentRecords.size() == 0)
+            #set($recentResult = "waiting")
+          #else
+            ## there is always only one record
+            #set($recentRecord = $recentRecords.get(0))
+            #set($recentResult = $!recentRecord.result.id)
+          #end
+          #set($tooltipData = "$tooltipData testrun='$recentTestrun.id'")
+          #if($recentResult.equals("waiting"))
+            #set($recentResultIcon = "/polarion/icons/group/question_mark.png")
+          #else
+            ## task has been executed already
+            ## get the version of the verified structural element at the time of the test case execution
+            #set($storageRevision = $dataService.getStorageRevisionAt($recentRecord.executed))
+            #set($recentRecordTestRevision = $storageRevision.name)
+
+            #set($recentResultIcon = $recentRecord.result.getProperty('iconURL'))
+            ## put additional information in the tooltip
+            #set($tooltipData = "$tooltipData executedBy='$recentRecord.executedBy.id'")
+            #set($tooltipData = "$tooltipData executed='$recentRecord.executed'")
+            #if($recentRecord.defect)
+              #set($tooltipData = "$tooltipData defect='$recentRecord.defect.id'")
+            #end
+            #set($recentRecordComment = $!record.comment.convertToHTML().content)
+
+
+            ## get the historic verified elemnent
+            #set($linkId = $LINK_IDS.get($node.type.id))
+
+
+            #if($baselineRevision.isEmpty())
+              #set($verifiedElement = $trackerService.queryWorkItems("project.id:$projectId AND backlinkedWorkItems:${linkId}=$node.id", "id"))
+            #else
+              #set($verifiedElement = $trackerService.queryWorkItemsInBaseline("project.id:$projectId AND backlinkedWorkItems:${linkId}=$node.id", "id", $baselineRevision))
+            #end
+            #if(!$verifiedElement.isEmpty())
+              ## just take the first and ignore potentially the others
+              #set($verifiedElement = $verifiedElement.get(0))
+              #set($verifiedElementHistoric = $dataService.getVersionedInstance($verifiedElement.objectId, $recentRecordTestRevision))
+              #if(!$verifiedElementHistoric.isUnresolvable())
+                #foreach($cat in $CATEGORIES)
+                  #set($versionFieldId = "version$cat")
+                  #set($currentVersion = "$!verifiedElement.getCustomField($versionFieldId)")
+                  #set($recentVerifiedVersion = "$!verifiedElementHistoric.getCustomField($versionFieldId)")
+                  #set($void = $recentVerifiedVersions.put($cat, $recentVerifiedVersion))
+                  #if(!$recentVerifiedVersion.equals($currentVersion))
+                    #set( $void = $tdVersionClass.put($cat, "oldversion") )
+                  #end
+                #end##foreach($cat in $CATEGORIES)
+              #end
+            #end ##if(!$verifiedElement.isEmpty())
+          #end ##if($recentResult.equals("waiting"))
+        #end ##if($recentTestrun.isUnresolvable())
+      #end ##if($i <= $recentRecords.size())
+      #####
+      #foreach($cat in $CATEGORIES)
+        <td class="recordVersion $tdVersionClass.get($cat) recency-$i category-$cat">$recentVerifiedVersions.get($cat)</td>
+      #end
+      #set($recentResultClass = $recentResult)
+      #if($recentResultClass.equals(""))
+        #set($recentResultClass = "unplanned")
+      #end
+      ## return the most recent result only
+      #if($velocityCount == 1)
+        #set($_resultId = $recentResultClass)
+      #end
+      <td $tooltipData class="recordResult $recentResultClass recency-$i"><div style="display:none;" class="testrecordComment">$recentRecordComment</div>
+        #if(!$recentResult.isEmpty())
+          <img src="$recentResultIcon">
+        #end
+      </td>
+      #####
+    #end ##foreach($i in [1..$nrRecentTestRecords])
+  #end##if($node.type.id.equals($TYPE_ID_STRUCTURALELEMENT))
+#end
+###################################################################################################
+
+###################################################################################################
+## Render the title of a workitem where the additionally provided fields are appended
+## in the form "title (field1, field2, ...)"
+##
+## @param workitem (IWorkItem) The workitem whose title should be rendered
+## @param fields (Collection<String>) The ids of the additionally rendered fields
+##
+## @return _outTitle The rendered title
+#macro(buildWorkItemTitle $workitem $fields $_outTitle)
+  #set($titleValues = [])
+  #foreach($titleField in $fields)
+    #set($titleValue = "")
+    #set($titleValue = $!workitem.getCustomField($titleField))
+    ## try to get the name (only works if value is an enum)
+    #set($titleValue = $titleValue.name)
+    #if(!$titleValue.isEmpty())
+      #set( $void = $titleValues.add($titleValue) )
+    #end
+  #end
+  #set($titleAppend = "")
+  #if(!$titleValues.isEmpty())
+    #set($titleAppend = " (")
+    #foreach($titleValue in $titleValues)
+      #set($titleAppend = "$titleAppend$titleValue")
+      #if($velocityCount < $titleValues.size())
+        #set($titleAppend = "$titleAppend, ")
+      #end
+    #end
+    #set($titleAppend = "$titleAppend)")
+  #end
+  #set($_outTitle = "{pre}$workitem.title$titleAppend{/pre}")
+#end
+###################################################################################################
+
+###################################################################################################
+## Get the query for all linked/backlinked workitems of the specified linkroles where the provided field is empty.
+##
+## @param source (IWorkItem) the workitem to check the linked items for
+## @param linkRoles(Collection<String>) link role ids. All linked items will be checked for the empty field
+## @param backlinkRoles(Collection<String>) backlink role ids. All backlinked items will be checked for the empty field
+## @param fieldId (String) custom field id. Id of the field which should be checked on the linked
+##                 work item. If the field is empty, the item is added to the returned Set.
+##
+## @return $out_query (String) The resulting query
+#macro(getLinkedElementsWithEmptyFieldQuery $source $linkRoles $backlinkRoles $fieldId $out_query)
+  #set($out_query = "")
+  #foreach($linkRole in $linkRoles)
+    #set($out_query = $queryHelper.orQuery($out_query, "linkedWorkItems:${linkRole}=$source.id"))
+  #end
+  #foreach($backlinkRole in $backlinkRoles)
+    #set($out_query = $queryHelper.orQuery($out_query, "backlinkedWorkItems:${backlinkRole}=$source.id"))
+  #end
+  ## add part for empty field
+  #set($out_query = $queryHelper.andQuery($out_query, "NOT HAS_VALUE:$fieldId"))
+#end
+
+####################################################################################################
+## Create a testrun of the given category which has all provided tasks waiting for execution
+##
+## @param testrunName (String)
+## @param category (IEnumOption)
+## @param tasks (Set<String>)
+#macro(planTestrun $testrunName $category $tasks $isAutomaticFromCheckbox)
+  #set($testrunName = $testrunName.trim())
+  #set($testrunName = $testrunName.replaceAll("#", ""))
+
+  #set( $testrun = $testManagementService.getTestRun($projectId, $testrunName))
+  #set($isNewTestRun = false)
+  $transactionService.beginTx()
+
+  #if($testrun.isUnresolvable())
+    #set( $testrun = $testManagementService.createTestRun($projectId, $testrunName, null))
+    #set($isNewTestRun = true)
+  #end
+
+  ## LOGICA SEMPLIFICATA E CORRETTA
+  #if($isNewTestRun)
+    ## Imposta il tipo solo e soltanto per i Test Run appena creati.
+    #if($isAutomaticFromCheckbox)
+      #set($typeToSet = $testrun.getEnumerationOptionForField("type", "automated"))
+    #else
+      #set($typeToSet = $testrun.getEnumerationOptionForField("type", "manual"))
+    #end
+
+    #if($typeToSet && !$typeToSet.isUnresolvable())
+      $testrun.setType($typeToSet)
+    #end
+  #end
+  ## Per i Test Run esistenti, il tipo non viene modificato.
+
+  $testrun.setSelectTestCasesBy("manualSelection")
+  #set($plannedIds = $objectFactory.newSet())
+  #if(!$isNewTestRun)
+      #foreach($record in $testrun.getAllRecords())
+        #if($record.getTestCase())
+          #set($testId = $record.getTestCase().getId())
+          #if(!("$!testId" == ""))
+              #set($void = $plannedIds.add($testId))
+          #end
+        #end
+      #end
+  #end
+
+  #set($addedIds = "")
+  #set($alreadyExistingIds = "")
+  #if($tasks && !$tasks.isEmpty())
+      #foreach($taskId in $tasks)
+        #set($taskWorkItem = $trackerService.findWorkItem($projectId, $taskId))
+        #if($taskWorkItem.isUnresolvable())
+          #error("Task $taskWorkItem.id is unresolvable")
+        #else
+          #if(!$plannedIds.contains($taskId))
+            #set($record = $testrun.addRecord())
+            $record.setTestCase($taskWorkItem)
+            #set($addedIds = "$addedIds$taskWorkItem.id ")
+          #else
+            #set($alreadyExistingIds = "$alreadyExistingIds$taskWorkItem.id ")
+          #end
+        #end
+      #end
+  #end
+
+  $testrun.save()
+
+  #set($doRollback = false)
+  #if(($isNewTestRun && $addedIds.isEmpty() && (!$tasks || $tasks.isEmpty())) )
+    #set($doRollback = true)
+  #end
+  $transactionService.endTx($doRollback)
+
+  #if($doRollback)
+    #info("Test Run '$testrunName' was not saved or changes were rolled back (e.g., new Test Run with no tasks).")
+  #else
+    #info("Test Run <a target='_blank' href='/polarion/#/project/$projectId/testrun?id=$escapeTool.url($testrun.id)'>$testrunName</a> planned/updated.")
+    #if(!$addedIds.isEmpty()) #info("Added Tasks: $addedIds") #end
+    #if(!$alreadyExistingIds.isEmpty()) #info("Existing Tasks (retained): $alreadyExistingIds") #end
+  #end
+#end
+####################################################################################################
+
+####################################################################################################
+## Include all necessary javascript libraries for this wiki page. And init stuff.
+##
+#macro(initJavascript)
+##
+##
+  {pre}
+    <link href="/jquery-ui/css/smoothness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="/jquery-treetable/stylesheets/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <link href="/jquery-treetable/stylesheets/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+    <script src="/jquery-ui/js/jquery-1.9.1.js"></script>
+    <script src="/jquery-ui/js/jquery-ui-1.10.3.custom.js"></script>
+    <script src="/jquery-treetable/javascripts/src/jquery.treetable.js"></script>
+    <script>
+        var $j = jQuery.noConflict();
+    </script>
+  {/pre}
+#end
+####################################################################################################
+
+####################################################################################################
+## Render the treegrid which contains the tasks preselected according to the selected page
+## parameters.
+##
+## @param tasks (Set<String>) set of workitem ids or false. If not null or false, selection state is only determined by
+##                             membership in this set. Selection based on page parameters is then ignored.
+#macro(renderPreview $selectedTasks)
+  ## its possible to add tasks to an existing testrun:
+  #set($paramTestrunQuery = "project.id:$projectId AND status:open")
+  #set($existingTestruns = $testManagementService.searchTestRuns($paramTestrunQuery, "id", 100))
+  #set($existingTestrunIds = "-- not selected --")
+  #foreach($existingTestrun in $existingTestruns)
+    #set($existingTestrunIds = "$existingTestrunIds,$existingTestrun.id")
+  #end
+  {parameter:targetTestrunName|value=-- not selected --|allowed-values=$existingTestrunIds|allow-no-value=false}
+  ##{parameter:targetTestrunName|type=enum:@testRun[status:open]}
+  {pre}
+    <style type="text/css">
+      #tasktable .oldversion {
+        background-color: #FFC9C2;
+      }
+      #tasktable .accResult {
+        text-align:right;
+        width: 25px;
+      }
+      div.ui-tooltip {
+        max-width: 400px;
+      }
+      #selections .selection {
+        float:left;
+        padding:4px;
+        min-width: 50px;
+      }
+      #selections button {
+        max-width: 200px;
+        min-width: 25px;
+        float: left;
+      }
+      #selections fieldset {
+        display: inline;
+      }
+      #testrecordChart {
+        height: 400px;
+        min-width: 200px;
+      }
+      /**
+       * CSS stacked bar graph (SO)
+       */
+      div.stackedbargraph {
+        width: 101%;
+        height: 8px;
+        border: 1px solid #aeaeae;
+        margin-top: 2px;
+        background-color: #eaeaea;
+      }
+      div.stackedbargraph>span.bar {
+        height: 8px;
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        padding: 0;
+      }
+      span.bar.accResultRel.waiting {
+        background-color: #FFD700;
+      }
+      span.bar.accResultRel.unplanned {
+        background-color: gray;
+      }
+      #foreach($testrecordResult in $TESTRECORD_RESULTS)
+        span.bar.accResultRel.$testrecordResult.id {
+          background-color: $testrecordResult.getProperty('color');
+        }
+      #end
+      #if(!$showTasks)
+        #tasktable tr.testtask {
+          display: none !important;
+        }
+      #end
+      #if(!$showResultsAndVersions)
+        #tasktable .recordVersion {
+          display: none !important;
+        }
+        #tasktable .recordResult {
+          display: none !important;
+        }
+      #end
+    </style>
+    <script>
+      #set($expandColumn=0)
+      #if($showTasks && $baselineRevision.isEmpty())
+        ## do not use the selection column for the expander
+        #set($expandColumn=1)
+      #end
+      $j(document).ready(function() {
+        $j("#tasktable").treetable({expandable: true, initialState: "expanded", column: $expandColumn});
+      });
+      $j(function() {
+        $j( document ).tooltip({
+          items: "[testrun]",
+          content: function() {
+            var element = $j( this );
+            if ( element.is( "[testrun]" ) ) {
+              var tooltipText = "";
+              tooltipText += element.html() + "<br/>";
+              tooltipText += "Testrun: " + element.attr( "testrun" ) + "<br/>";
+              if ( element.is( "[executedBy]" ) ) {
+                tooltipText += "Executed by: " + element.attr("executedBy") + "<br/>";
+                tooltipText += "Executed: " + element.attr("executed") + "<br/>";
+                if ( element.is( "[defect]") ) {
+                  tooltipText += "Issue: " + element.attr("defect") + "<br/>";
+                }
+                tooltipText += "Comment: " + element.find(".testrecordComment").text();
+              }
+              return tooltipText;
+            }
+          }
+        });
+        $j('tr.testtask').delegate(".plannable", "change", function() {
+          $j('#unavailablesIncluded,#selectionInfo').change();
+        });
+        $j('input.plannable').change(function () {
+          // if a task is listed multiple times, always select the same task ids with one click
+          var chk = $j(this).prop('checked');
+          $j('input.plannable[name=' + this.name + ']').not(this).each(function() {
+              $j(this).prop('checked', chk);
+          });
+        });
+        function uniqueNames(_,x) {
+          return $j('[name="' + $j(x).attr('name') + '"]').get(0) === this;
+        }
+        $j('#unavailablesIncluded').change(function(){
+            var unavailableTasks = $j('tr.testtask').has('.unavailable').find('.plannable:checked').filter(uniqueNames)
+            $j('#unavailablesIncludedNr').text(unavailableTasks.length);
+            if(unavailableTasks.length > 0) {
+                $j(this).show();
+            } else {
+                $j(this).hide();
+            }
+        });
+        $j('#selectionInfo').change(function(){
+            var tasks = $j('.plannable:checked').filter(uniqueNames).length;
+            $j('#selectionLength').text(tasks);
+        });
+        $j("#tasktable tr").not(':first').hover(
+          function () {
+            $j(this).css("background","rgb(225,240,255)");
+          },
+          function () {
+            $j(this).css("background","");
+          }
+        );
+        #if($showAccumulatedResultsAbsolute)
+          new Highcharts.Chart({
+            chart: {
+              renderTo: 'testrecordChart'
+            },
+            title: {
+              text: 'Most Recent Testrecords'
+            },
+            tooltip: {
+              pointFormat: '<b>{point.y} ({point.percentage:.1f}%)</b>'
+            },
+            plotOptions: {
+              pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                  enabled: true,
+                  format: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)'
+                }
+              }
+            },
+            series: [{
+              type: 'pie',
+              name: 'Most Recent Testrecords',
+              data: [
+                {name:'Unplanned', y:$j('.recency-1.unplanned').length, color:'gray'},
+                {name:'Waiting', y:$j('.recency-1.waiting').length, color:'#FFD700'},
+                #foreach($testrecordResult in $TESTRECORD_RESULTS)
+                  {name:'$testrecordResult.name', y:$j('.recency-1.$testrecordResult.id').length, color:'$testrecordResult.getProperty("color")'},
+                #end
+              ]
+            }]
+          });
+        #end
+      });
+    </script>
+  {/pre}
+  #renderBaselineButton()
+  #if($showAccumulatedResultsAbsolute)
+    <div id="testrecordChart"></div>
+  #end
+  <form method="get">##action="$doc.getURL()" name="testTaskSelection>
+    #renderSelectionButtons()
+    <table id="tasktable">
+     <thead>
+        <tr>
+          #if($showTasks && $baselineRevision.isEmpty())
+            <th rowspan="3" title="Selected for testrun creation" style="width:30px;">Selected</th>
+          #end
+          <th rowspan="3">Element</th>
+          #if($nrLinkColumns > 0)
+            <th colspan="$nrLinkColumns">Links</th>
+          #end
+          #if($showAccumulatedResultsRelative)
+            <th rowspan="3">Accumulated Results (struct. elem.)</th>
+          #end
+          #if($showAccumulatedResultsAbsolute)
+            <th colspan="$NR_TESTRECORD_RESULTS">Accumulated Results (struct. elem.)</th>
+          #end
+          <th class="recordVersion" rowspan="2" colspan="$CATEGORIES.size()">Current Version (struct. elem.)<br/>Historic Version (task)</th>
+          <th class="recordResult">Latest Testrecords</th>
+          #if($nrRecentTestRecords > 1)
+            #foreach($i in [2..$nrRecentTestRecords])
+              <th class="recordResult" colspan="$mathTool.add($CATEGORIES.size(),1)">${i}. Latest Testrecord</th>
+            #end
+          #end
+          #if($showUnavailables)
+            <th rowspan="2" colspan="$CATEGORIES.size()" title="Structural Elements (verified and required) which have an empty version">Unavailable</th>
+          #end
+        </tr>
+        <tr>
+          #foreach($relevantLink in $RELEVANT_LINK_ROLES)
+            #if($pageParameters.get($relevantLink))
+              #set($linkRoleId = $relevantLink.substring($mathTool.add($relevantLink.indexOf("-"), 1)))
+              #set($linkRole = $project.getWorkItemLinkRoleEnum().wrapOption("$!linkRoleId"))
+              #set($linkRoleName = "$!linkRole.name")
+              #if($relevantLink.startsWith("link"))
+                #set($linkRoleName = "$!linkRole.oppositeName")
+              #end
+              <th rowspan="2">$linkRoleName</th>
+            #end
+          #end
+          #if($showAccumulatedResultsAbsolute)
+            <th rowspan="2" class="accResult">Unplanned</th>
+            <th rowspan="2" class="accResult"><img title="Waiting" src="/polarion/icons/group/question_mark.png"></th>
+            #foreach($testrecordResult in $TESTRECORD_RESULTS)
+              <th rowspan="2" class="accResult"><img title="$testrecordResult.name" src="$testrecordResult.getProperty('iconURL')"></th>
+            #end
+          #end
+          <th rowspan="2" class="recordResult">Result</th>
+          #if($nrRecentTestRecords > 1)
+            #foreach($i in [2..$nrRecentTestRecords])
+              <th class="recordResult" colspan="$CATEGORIES.size()">Historic Version</th>
+              <th class="recordResult" rowspan="2">Result</th>
+            #end
+          #end
+        </tr>
+        <tr>
+          #foreach($i in [1..$nrRecentTestRecords])
+            #foreach($cat in $CATEGORIES)
+              <th class="recordVersion">$cat.toUpperCase()</th>
+            #end
+          #end
+          #if($showUnavailables)
+            #foreach($cat in $CATEGORIES)
+              <th>$cat.toUpperCase()</th>
+            #end
+          #end
+        </tr>
+      </thead>
+      <tbody>
+        #set($nodesVisited = $objectFactory.newMap())
+        #set($traversalRoles = $TREE_TRAVERSAL_ROLES)
+        #foreach($root in $roots)
+          #renderTreeNode(false $root "" $traversalRoles $nodesVisited $nodesAccResults)
+        #end
+      </tbody>
+    </table>
+    #if($showAccumulatedResultsAbsolute || $showAccumulatedResultsRelative)
+      {pre}
+        #set($allTestrecordResults = ["unplanned", "waiting"])
+        #foreach($testrecordResult in $TESTRECORD_RESULTS)
+          #set($void = $allTestrecordResults.add($testrecordResult.id))
+        #end
+        <script>
+          accResults=[
+            #foreach($nodeTableId in $nodesAccResults.keySet())
+              #set($nodeAccResults = $nodesAccResults.get($nodeTableId))
+              ["$nodeTableId", {
+                #foreach($testrecordResult in $allTestrecordResults)
+                  #set($nr = "")
+                  #set($nr = $!nodeAccResults.get($testrecordResult))
+                  ${testrecordResult}: "$nr",
+                #end
+              }],
+            #end
+          ];
+          $j(document).ready(function() {
+            jQuery.each( accResults, function( i, val ) {
+              var id=val[0];
+              var results=val[1];
+              var sum = 0;
+              Object.keys(results).forEach(function (result) {
+                var nr = results[result];
+                if(!nr || 0 === nr.length) {
+                  nr = 0;
+                }
+                sum += parseInt(nr);
+              });
+              Object.keys(results).forEach(function (result) {
+                #if($showAccumulatedResultsAbsolute)
+                  var td = $j( "#tasktable tr[data-tt-id=" + id + "]>td.accResult." + result );
+                  td.text( results[result] );
+                #end
+                #if($showAccumulatedResultsRelative)
+                  var nr = results[result];
+                  if(!nr || 0 === nr.length) {
+                    nr = 0;
+                  }
+                  var bar = $j( "#tasktable tr[data-tt-id=" + id + "]>td.accResultRel>div>span." + result );
+                  var barwidth = 0;
+                  if(sum > 0) {
+                    var barwidth = parseInt(nr)/sum*100;
+                  }
+                  bar.css("width", barwidth.toFixed(2) + "%");
+                  bar.prop("title", bar.prop("title") + ": " + nr + " (" + barwidth.toFixed(2) + "%)");
+                #end
+              });
+            });
+          });
+        </script>
+      {/pre}
+    #end
+    #if($showTasks && $baselineRevision.isEmpty())
+      <input name="categories" type="hidden" value="$pageParameters.getAsString('categories')"/>
+      <input name="testrunPrefix" type="hidden" value="$testrunPrefix"/>
+      <input name="rootElementId" type="hidden" value="$rootElementId"/>
+      <div id="unavailablesIncluded" style="display:none;" class="warningmessage">
+        <span class="messagetype">Warning: </span>
+        Your selection contains <span id="unavailablesIncludedNr"></span> tasks for which the verified and/or required structural elements are not available (ME, E or SW version is empty).
+        Please review and update your selection or update the structural element versions accordingly.
+        <button name="deselectTasksWithUnavailables" type="button"
+          onclick="$j('tr.testtask').has('.plannable:checked').has('.unavailable').find('.plannable').prop('checked', false);$j('#unavailablesIncluded,#selectionInfo').change();">Unselect tasks which need unavailable structural elements</button>
+      </div>
+      <div id="selectionInfo" class="infomessage">
+        <span class="messagetype">Info: </span>
+        Your selection contains <span id="selectionLength">0</span> tasks.
+      </div>
+      <ul>
+        <li>
+          Testrun name: ${testrunPrefix}-{parameter-editor:testrunPostfix}
+          <label style="margin-left: 10px; font-weight: normal; cursor: pointer;">
+            <input type="checkbox" name="prepareForPolling"> Automatic
+          </label>
+          <button type="submit" name="action" value="planTestrunNew">Create new</button>
+        </li>
+        <li>
+          Testrun: {parameter-editor:targetTestrunName}
+          <button type="submit" name="action" value="planTestrunExisting">Add to existing</button>
+        </li>
+      </ul>
+    #end
+  </form>
+#end
+####################################################################################################
+
+####################################################################################################
+## Render buttons for selecting tasks according to a number of criteria
+##
+#macro(renderSelectionButtons)
+  #if($showTasks && $baselineRevision.isEmpty())
+    #set($testrecordResultEnumOptions = $testManagementService.getTestRecordResultEnum($projectId))
+    #set($states = [])
+    #set($void = $states.add("waiting"))
+    #foreach($testrecordResultEnumOption in $testrecordResultEnumOptions.getAvailableOptions(null))
+      #set($void = $states.add($testrecordResultEnumOption.id))
+    #end
+
+    <div id="selections">
+      <fieldset>
+        <legend>Tasks</legend>
+        #renderSelectionButton("all" "All" "$j('tr.testtask')")
+      </fieldset>
+      <fieldset>
+        <legend>Task States</legend>
+        <div class="selection">
+          <div title="Part of the testrun id (of the most recent test record) for which the selection should apply. Leave empty to ignore the testrun id of the most recent test record.">Testrun Id Part</div>
+          <input id="taskStatesTestrunId" type="text" placeholder="optional"/>
+        </div>
+        #renderSelectionButton("unplanned" "Unplanned" "{pre}var testrunQuery=$j('#taskStatesTestrunId').val() == '' ? '' : ('[testrun*=\'' + $j('#taskStatesTestrunId').val() + '\']'); $j('tr.testtask').has('.unplanned.recency-1' + testrunQuery){/pre}")
+        #foreach($state in $states)
+          #set($stateName = "Waiting")
+          #set($stateName = $!testrecordResultEnumOptions.wrapOption($state).name)
+          #renderSelectionButton("recently$state" "$stateName" "{pre}var testrunQuery=$j('#taskStatesTestrunId').val() == '' ? '' : ('[testrun*=\'' + $j('#taskStatesTestrunId').val() + '\']'); $j('tr.testtask').has('.${state}.recency-1' + testrunQuery){/pre}")
+        #end
+      </fieldset>
+      <fieldset>
+        <legend>Tasks on Current Versions</legend>
+        #foreach($cat in $CATEGORIES)
+          #renderSelectionButton("currentversion_$cat" "$cat.toUpperCase()" "$j('tr.testtask').has('.category-${cat}.currentversion.recency-1')")
+        #end
+      </fieldset>
+      <fieldset>
+        <legend>Tasks on Old Versions</legend>
+        <div class="selection">
+          <div title="Part of the version (of the most recent test record) for which the selection should apply. Leave empty to ignore the version number.">Version Part</div>
+          <input id="oldversionFilter" type="text" placeholder="optional" size="10"/>
+        </div>
+        #foreach($cat in $CATEGORIES)
+          #renderSelectionButton("oldversion_$cat" "$cat.toUpperCase()" "{pre}var oldVersionQuery=$j('#oldversionFilter').val() == '' ? '' : (':contains(\'' + $j('#oldversionFilter').val() + '\')');$j('tr.testtask').has('.category-${cat}.oldversion.recency-1' + oldVersionQuery){/pre}")
+        #end
+      </fieldset>
+      <fieldset>
+        <legend>Tasks with Available Elements</legend>
+        #set($allSelector = "")
+        #foreach($cat in $CATEGORIES)
+          #set($allSelector = "${allSelector}.has('.category-${cat}.available')")
+          #renderSelectionButton("available_$cat" "$cat.toUpperCase()" "$j('tr.testtask').has('.category-${cat}.available')")
+        #end
+        #renderSelectionButton("available_all" "All" "$j('tr.testtask')$allSelector")
+      </fieldset>
+    </div>
+  #end
+#end
+####################################################################################################
+
+####################################################################################################
+## Render a selection button or selecting tasks according to a jquery term. A + and - button is
+## rendered for select and deselect
+##
+## @oaram selectionId (String) used as the button name with select and deselect prefix
+## @oaram selectionName (String) The display name of the selection
+## @paran baseQuery (String) The jquery term which retrieves the task rows tó be (de)selected
+#macro(renderSelectionButton $selectionId $selectionName $baseQuery)
+  <div class="selection">
+    <div>$selectionName</div>
+    <button name="select$selectionId" type="button" onclick="${baseQuery}.find('.plannable').prop('checked', true);$j('#unavailablesIncluded,#selectionInfo').change();">+</button>
+    <button name="deselect$selectionId" type="button" onclick="${baseQuery}.find('.plannable').prop('checked', false);$j('#unavailablesIncluded,#selectionInfo').change();">-</button>
+  </div>
+#end
+
+####################################################################################################
+####################################################################################################
+####################################################################################################
+## Page rendering
+####################################################################################################
+####################################################################################################
+####################################################################################################
+#initJavascript()
+
+#if($pageAction.isEmpty())
+  ## start page: parameter selection
+  #renderParameterForm()
+#elseif($pageAction.equals("preview"))
+  ## check the parameters again, show them and render the preview
+  #renderParameterForm()
+  #checkParameters($parametersChecked)
+  #if($parametersChecked)
+    #renderPreview(false)
+  #end
+#elseif($pageAction.startsWith("planTestrun"))
+  #renderParameterForm()
+  #checkParameters($parametersChecked)
+  #transformPageParametersToSet("s_" $tasks) ## Ensure $tasks is populated here
+
+  #if($parametersChecked)
+    #set($isAutomaticForPoller = $null) ## Inizializza a null
+
+    #if($pageAction.equals("planTestrunNew"))
+      ## Legge la checkbox SOLO per la creazione di un nuovo Test Run
+      #set($isAutomaticForPoller = false)
+      #set($prepareForPollingParamValueFromRequest = $!request.getParameter("prepareForPolling"))
+      #if($prepareForPollingParamValueFromRequest && $prepareForPollingParamValueFromRequest.equalsIgnoreCase("on"))
+        #set($isAutomaticForPoller = true)
+      #end
+      #set($testrunName = "${testrunPrefix}-${testrunPostfix}")
+    #elseif($pageAction.equals("planTestrunExisting"))
+      ## Per i test run esistenti, non passiamo nessun flag (rimane null)
+      #set($testrunName = "$targetTestrunName")
+    #end
+
+    #planTestrun("$testrunName" $category $tasks $isAutomaticForPoller)
+  #else
+    #renderPreview($tasks)
+  #end
+#elseif($pageAction.startsWith("debug"))
+  #checkParameters($parametersChecked)
+  #findRootWorkItemsInBaseline($projectId "structuralelement" "part_of" $baselineRevision $all_roots)
+  #foreach($root in $all_roots)
+    #if($root.isUnresolvable())
+      DEBUG: root $root is unresolvable\\
+    #else
+      #foreach( $rootElementCategory in $root.getCategories())
+        #if($categoriesIds.contains($rootElementCategory.id))
+          #set($void = $roots.add($root))
+          DEBUG: root = $root\\
+        #end
+      #end
+    #end
+  #end
+#end
+####################################################################################################

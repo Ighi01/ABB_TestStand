@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-6-27-9-54-35-682"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>martedì 27 giugno 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>09:54:35</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>145.8618463 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>1241</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#008000;">Passed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number:</b></td><td class='hdr_value'><b>4294967295</b></td></tr><tr><td class='hdr_name'><b>Type Designator:</b></td><td class='hdr_value'><b>B1-D3MB-111A</b></td></tr><tr><td class='hdr_name'><b>FW Version:</b></td><td class='hdr_value'><b>0.17.0</b></td></tr><tr><td class='hdr_name'><b>Power Supply:</b></td><td class='hdr_value'><b>Omicron</b></td></tr></tbody></table><br><hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\Instantaneous Values.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#FF8000;">DUT info</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">4294967295</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Type Designator:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">B1-D3MB-111A</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.17.0</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0963041</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.094414</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1050455</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.1047669</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.092371</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0859403</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0970467</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.08996</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">5.0862133</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Voltage_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1&nbsp;that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;PHASE_VOLTAGE_L1.<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;PHASE_VOLTAGE_L2.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;PHASE_VOLTAGE_L3.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Voltage_error[0..5][0..8]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph1" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 5.000000, 10.000000], [-0.044957, -0.034783, -0.051739, -0.069043, -0.065652, -0.048348, -0.051739, -0.034783, -0.003826], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000], [-0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Current_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current_error[0..5][0..8]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph2" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 5.000000, 10.000000], [0.102002, -0.357000, -0.208000, -0.202500, -0.150800, -0.067598, -0.035300, -0.044600, -0.039660], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000], [-0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;CURRENT_L1.<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;CURRENT_L2.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;CURRENT_L3.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Active_power_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_TOTAL<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_L1.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_L2.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_L3.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;violet&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Active_power_error[0..6][0..8]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph3" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 5.000000, 10.000000], [-0.621565, -0.535957, -0.520203, -0.638261, -0.568174, -0.448878, -0.432539, -0.463600, -0.398304], [-0.621565, -0.535957, -0.481797, -0.638261, -0.566017, -0.448878, -0.420930, -0.463600, -0.398304], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000], [-1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Reactive_power_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Reactive_power_error[0..6][0..8]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph4" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 5.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000], [-2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_TOTAL<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_L1.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_L2.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_L3.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;violet&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Apparent_power_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Apparent_power_error[0..6][0..8]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph5" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 5.000000, 10.000000], [-1.396261, -0.639565, -0.524609, -0.737454, -0.540678, -0.438026, -0.421187, -0.461774, -0.397252], [-1.061913, -0.451522, -0.524609, -0.742261, -0.535513, -0.440757, -0.421187, -0.455687, -0.397252], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000], [-1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_TOTAL<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_L1.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_L2.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_L3.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;violet&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Frequency_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;FREQUENCY.<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Frequency_error[0..3][0..8]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph6" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 5.000000, 10.000000], [0.012000, 0.012000, 0.012000, 0.012000, 0.012000, 0.012000, 0.012000, 0.012000, 0.012000], [0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000], [-0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

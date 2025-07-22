@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net48</TargetFramework> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND $([MSBuild]::IsOSPlatform('Windows'))" />
+    <PackageReference Include="System.IO.Ports" Version="8.0.0" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    </ItemGroup>
+
+</Project>

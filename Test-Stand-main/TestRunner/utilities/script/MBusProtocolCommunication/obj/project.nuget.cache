@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "B09LLlVFZEYFpIZhzFZmjegzVdfbEXasVFUFrh8nTWVI6qpUVw+I0yOfxWtWEPO9OkKRqYtackk9ay/Lv816Tw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\MBusProtocolCommunication\\MBusCommunication.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net48\\1.0.2\\microsoft.netframework.referenceassemblies.net48.1.0.2.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\system.io.ports\\8.0.0\\system.io.ports.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

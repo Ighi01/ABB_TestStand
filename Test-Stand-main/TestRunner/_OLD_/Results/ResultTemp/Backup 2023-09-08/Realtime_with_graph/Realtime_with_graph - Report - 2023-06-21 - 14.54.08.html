@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-6-21-14-55-20-543"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>mercoledì 21 giugno 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>14:55:20</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>232.4339774 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>6329</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#008000;">Passed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number:</b></td><td class='hdr_value'><b>4294967295</b></td></tr><tr><td class='hdr_name'><b>Type Designator:</b></td><td class='hdr_value'><b>B1-D3MB-111A</b></td></tr><tr><td class='hdr_name'><b>FW Version:</b></td><td class='hdr_value'><b>0.16.1</b></td></tr><tr><td class='hdr_name'><b>Power Supply:</b></td><td class='hdr_value'><b>Omicron</b></td></tr></tbody></table><br><hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\Realtime_with_graph.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#FF8000;">DUT info</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">4294967295</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Type Designator:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">B1-D3MB-111A</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.16.1</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Sampling time</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Sampling_wait:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.4</span></td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">ComputeExpectedResults</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.086483</td></tr>
+</tbody></table><br>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Point</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.25</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Frequency:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>50</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Voltage L1 - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Voltage L2 - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Voltage L3 - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Current L1 - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..1][0..449]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph5" value="[[0.042778, 0.553366, 1.047721, 1.558194, 2.053287, 2.547341, 3.042840, 3.536894, 4.031983, 4.541952, 5.053432, 5.563465, 6.058503, 6.569450, 7.079105, 7.574547, 8.100948, 8.595498, 9.106401, 9.600933, 10.095735, 10.590196, 11.084532, 11.595174, 12.105985, 12.632107, 13.142635, 13.637728, 14.131980, 14.642830, 15.153193, 15.647962, 16.158396, 16.684751, 17.195550, 17.706503, 18.201242, 18.695992, 19.222607, 19.717199, 20.212136, 20.722115, 21.216952, 21.711674, 22.221572, 22.732204, 23.243224, 23.738285, 24.280771, 24.791266, 25.286102, 25.812892, 26.307476, 26.802234, 27.328416, 27.823243, 28.333039, 28.828237, 29.322832, 29.832829, 30.344030, 30.870344, 31.365243, 31.859969, 32.353911, 32.865139, 33.360017, 33.854453, 34.349061, 34.844025, 35.353805, 35.849417, 36.358911, 36.869900, 37.380746, 37.890887, 38.417538, 38.912229, 39.407489, 39.917412, 40.412938, 40.922677, 41.433259, 41.928619, 42.439242, 42.949247, 43.459847, 43.970628, 44.465722, 44.960505, 45.470303, 45.981038, 46.492395, 46.986892, 47.497011, 48.007709, 48.502705, 49.012553, 49.508095, 50.018370, 50.512996, 51.032020, 51.558726, 52.069566, 52.595966, 53.106295, 53.601377, 54.111681, 54.606707, 55.117393, 55.627449, 56.138378, 56.648922, 57.159437, 57.670053, 58.164838, 58.675318, 59.186045, 59.696527, 60.207279, 60.717926, 61.228375, 61.755038, 62.265731, 62.776979, 63.286902, 63.797527, 64.308343, 64.819174, 65.329799, 65.840051, 66.334817, 66.845196, 67.340527, 67.835173, 68.329416, 68.839769, 69.335341, 69.829924, 70.340564, 70.834907, 71.345204, 71.840074, 72.366077, 72.876777, 73.387652, 73.898801, 74.409196, 74.904141, 75.398631, 75.893244, 76.388184, 76.882357, 77.392625, 77.903396, 78.413781, 78.909269, 79.419630, 79.914575, 80.424505, 80.919301, 81.414136, 81.908889, 82.403210, 82.898334, 83.408598, 83.903257, 84.398514, 84.893202, 85.403392, 85.914461, 86.425203, 86.934898, 87.430302, 87.940739, 88.450869, 88.970869, 89.465420, 89.960458, 90.454913, 90.964847, 91.459738, 91.954447, 92.449411, 92.959946, 93.469739, 93.996741, 94.507223, 95.002203, 95.497133, 95.991645, 96.502251, 97.012820, 97.507255, 98.001965, 98.512113, 99.023423, 99.517834, 100.012538, 100.507333, 101.017145, 101.528516, 102.023210, 102.516923, 103.028002, 103.522820, 104.017253, 104.527089, 105.037661, 105.548172, 106.043528, 106.538112, 107.048097, 107.558952, 108.054100, 108.548774, 109.058681, 109.569743, 110.079910, 110.575068, 111.069643, 111.564252, 112.058780, 112.568700, 113.064021, 113.558595, 114.068561, 114.563933, 115.058516, 115.568605, 116.064014, 116.558537, 117.053281, 117.548044, 118.042718, 118.552654, 119.047636, 119.542478, 120.036946, 120.531994, 121.026128, 121.536349, 122.031711, 122.541894, 123.052411, 123.562878, 124.057845, 124.552620, 125.047092, 125.557685, 126.053045, 126.547692, 127.042478, 127.537083, 128.047508, 128.557680, 129.052818, 129.547650, 130.057505, 130.552774, 131.047579, 131.541531, 132.052151, 132.546924, 133.057215, 133.552761, 134.047463, 134.573034, 135.068741, 135.563069, 136.074145, 136.583981, 137.079049, 137.589148, 138.100433, 138.595176, 139.089953, 139.584357, 140.094730, 140.604910, 141.115521, 141.626686, 142.121169, 142.615727, 143.126572, 143.620905, 144.116158, 144.610683, 145.104869, 145.631783, 146.158036, 146.653004, 147.148305, 147.658146, 148.153169, 148.678922, 149.174388, 149.668819, 150.179001, 150.705458, 151.216716, 151.711333, 152.205406, 152.715763, 153.211097, 153.721059, 154.231581, 154.726917, 155.237657, 155.747724, 156.258785, 156.769937, 157.263492, 157.775060, 158.285295, 158.795693, 159.306676, 159.800933, 160.311261, 160.805778, 161.300865, 161.795341, 162.289877, 162.784229, 163.279382, 163.805601, 164.300671, 164.826363, 165.337828, 165.832244, 166.326723, 166.821622, 167.316154, 167.810939, 168.305697, 168.800356, 169.295223, 169.789636, 170.299596, 170.810146, 171.305121, 171.815271, 172.326040, 172.836520, 173.331821, 173.826137, 174.336468, 174.831712, 175.341604, 175.837147, 176.331635, 176.841606, 177.336917, 177.831692, 178.325852, 178.836239, 179.331665, 179.842145, 180.336566, 180.831338, 181.341607, 181.852004, 182.347147, 182.841450, 183.336219, 183.831062, 184.341256, 184.836490, 185.331029, 185.825779, 186.320357, 186.814967, 187.324859, 187.820064, 188.314675, 188.824467, 189.319557, 189.830048, 190.340175, 190.851101, 191.361536, 191.856383, 192.351276, 192.846201, 193.340586, 193.851334, 194.377947, 194.904443, 195.399099, 195.893584, 196.419566, 196.930114, 197.441587, 197.936009, 198.446431, 198.956761, 199.451880, 199.962080, 200.457231, 200.967537, 201.478761, 201.988759, 202.500070, 202.993954, 203.489378, 203.999152, 204.494566, 204.989187, 205.483771, 205.994004, 206.489225, 206.983663, 207.493958, 207.989026, 208.483434, 208.993582, 209.488679, 210.000310, 210.493615, 210.988446, 211.483766, 211.993627, 212.520469, 213.014944, 213.524776, 214.019834, 214.546466, 215.041048, 215.535871, 216.046448, 216.556607, 217.051524, 217.562022, 218.056979, 218.551598, 219.062438, 219.573208, 220.099635, 220.594102, 221.104494, 221.615235, 222.109947, 222.604742, 223.114315, 223.609690, 224.104148, 224.598998, 225.108916, 225.619292, 226.130003], [0.249750, 0.250090, 0.249620, 0.250660, 0.248880, 0.249690, 0.250540, 0.251090, 0.249630, 0.248550, 0.250170, 0.250470, 0.250330, 0.248750, 0.251000, 0.250060, 0.249120, 0.249930, 0.250140, 0.249750, 0.250100, 0.248940, 0.249840, 0.251690, 0.249270, 0.250270, 0.249180, 0.249720, 0.248290, 0.249610, 0.249140, 0.249730, 0.247960, 0.251840, 0.249690, 0.250060, 0.247440, 0.250260, 0.248820, 0.249380, 0.248840, 0.248560, 0.249880, 0.249990, 0.249450, 0.249740, 0.250020, 0.248780, 0.248990, 0.251160, 0.250210, 0.250230, 0.249080, 0.249060, 0.248130, 0.248200, 0.250490, 0.249480, 0.249040, 0.248850, 0.249770, 0.248530, 0.250920, 0.248480, 0.250320, 0.249470, 0.249300, 0.249550, 0.248980, 0.250810, 0.249180, 0.249410, 0.249040, 0.249680, 0.249340, 0.250050, 0.250820, 0.249140, 0.250670, 0.247640, 0.247080, 0.251220, 0.249360, 0.249190, 0.250070, 0.249670, 0.249980, 0.247930, 0.250390, 0.249030, 0.251980, 0.250850, 0.248280, 0.250520, 0.249290, 0.247990, 0.249880, 0.249510, 0.251790, 0.251120, 0.252380, 0.251140, 0.249620, 0.251640, 0.248130, 0.250060, 0.247130, 0.249410, 0.251870, 0.250070, 0.251540, 0.249290, 0.252810, 0.251160, 0.249550, 0.253300, 0.249780, 0.251090, 0.249110, 0.251740, 0.250870, 0.250550, 0.249910, 0.249960, 0.251410, 0.251460, 0.250290, 0.251480, 0.250130, 0.249380, 0.253450, 0.250910, 0.250620, 0.250400, 0.252160, 0.248080, 0.253180, 0.253270, 0.250740, 0.251350, 0.251570, 0.249230, 0.251870, 0.251850, 0.251210, 0.250240, 0.250760, 0.249460, 0.250000, 0.250060, 0.251170, 0.253510, 0.251680, 0.251660, 0.251150, 0.250450, 0.247180, 0.250570, 0.249660, 0.250050, 0.250030, 0.251610, 0.252100, 0.250570, 0.249030, 0.251270, 0.250090, 0.249800, 0.247700, 0.251020, 0.248730, 0.251430, 0.250150, 0.250950, 0.247760, 0.248700, 0.250250, 0.250600, 0.251010, 0.251310, 0.249790, 0.251690, 0.251610, 0.251380, 0.250430, 0.253450, 0.253290, 0.249820, 0.248810, 0.249650, 0.250900, 0.252600, 0.250660, 0.250500, 0.250130, 0.252060, 0.249430, 0.250040, 0.250350, 0.249990, 0.249360, 0.251920, 0.249620, 0.251980, 0.249580, 0.251490, 0.251080, 0.248910, 0.249420, 0.249490, 0.249730, 0.250600, 0.250480, 0.252910, 0.252290, 0.248150, 0.248070, 0.248140, 0.249060, 0.248440, 0.252070, 0.248370, 0.249580, 0.249350, 0.249750, 0.247730, 0.251650, 0.248460, 0.251310, 0.248260, 0.250190, 0.249570, 0.248680, 0.249020, 0.249550, 0.250010, 0.250250, 0.247210, 0.249440, 0.249260, 0.248400, 0.248030, 0.251130, 0.250170, 0.249070, 0.248620, 0.247500, 0.250690, 0.249250, 0.251790, 0.250590, 0.248590, 0.248900, 0.248780, 0.248400, 0.251490, 0.250750, 0.250420, 0.249490, 0.248920, 0.251880, 0.250710, 0.251080, 0.250540, 0.246990, 0.248830, 0.249770, 0.247720, 0.249690, 0.249390, 0.252510, 0.251650, 0.251340, 0.252660, 0.249650, 0.251770, 0.250110, 0.249400, 0.249370, 0.252630, 0.251500, 0.250510, 0.249260, 0.252530, 0.249270, 0.249360, 0.250530, 0.249080, 0.252530, 0.249320, 0.249770, 0.249160, 0.249710, 0.247350, 0.249880, 0.249280, 0.252010, 0.249320, 0.249130, 0.251710, 0.252170, 0.249760, 0.249710, 0.251940, 0.249660, 0.251900, 0.250010, 0.250990, 0.247700, 0.250890, 0.248480, 0.253420, 0.249070, 0.250350, 0.249180, 0.250020, 0.250650, 0.250080, 0.248990, 0.249990, 0.251270, 0.251580, 0.250950, 0.252100, 0.250230, 0.251750, 0.253450, 0.247770, 0.250950, 0.252550, 0.252990, 0.252600, 0.251770, 0.250510, 0.250500, 0.250160, 0.250680, 0.253060, 0.250660, 0.250710, 0.250360, 0.255000, 0.248990, 0.249550, 0.252350, 0.249570, 0.249590, 0.248810, 0.250280, 0.250760, 0.248790, 0.247730, 0.249280, 0.249140, 0.252980, 0.250540, 0.249680, 0.249290, 0.248890, 0.249730, 0.250630, 0.251150, 0.254230, 0.250870, 0.253710, 0.249700, 0.251870, 0.251720, 0.251120, 0.251880, 0.247970, 0.251020, 0.250190, 0.251400, 0.250130, 0.253000, 0.251840, 0.249260, 0.248950, 0.249560, 0.249460, 0.249620, 0.250390, 0.251110, 0.252080, 0.247280, 0.247700, 0.249800, 0.250800, 0.249660, 0.252160, 0.250360, 0.253290, 0.249890, 0.249580, 0.252150, 0.250860, 0.249150, 0.248130, 0.250580, 0.249840, 0.249330, 0.249360, 0.250970, 0.249930, 0.251180, 0.251390, 0.252310, 0.248620, 0.251480, 0.250210, 0.247430, 0.249620, 0.247670, 0.249110, 0.249030, 0.250980, 0.248780, 0.248290, 0.249810, 0.250490, 0.251890, 0.250640, 0.250300, 0.248820, 0.248120, 0.248940, 0.249310, 0.248150, 0.250690, 0.250130, 0.251460, 0.247270, 0.249970, 0.248710, 0.249930, 0.247960, 0.250800, 0.248000, 0.249930, 0.249550, 0.251550, 0.246300, 0.248140, 0.250030, 0.248930, 0.249700, 0.249580, 0.250800, 0.251650]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Current L2 - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Current L3 - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Active power - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..1][0..449]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph6" value="[[0.075064, 0.585582, 1.082038, 1.590587, 2.084973, 2.579410, 3.074622, 3.569115, 4.063739, 4.573901, 5.085340, 5.595765, 6.090439, 6.601337, 7.111623, 7.606303, 8.132844, 8.627990, 9.138342, 9.632863, 10.127575, 10.622262, 11.116880, 11.627292, 12.137862, 12.664581, 13.175021, 13.669584, 14.164521, 14.674813, 15.185312, 15.680899, 16.190119, 16.717334, 17.227458, 17.738493, 18.233108, 18.744021, 19.254450, 19.749261, 20.244019, 20.754029, 21.248967, 21.743693, 22.254196, 22.764992, 23.275408, 23.785935, 24.312761, 24.823313, 25.317949, 25.844719, 26.339433, 26.850081, 27.360409, 27.855075, 28.365421, 28.860281, 29.354927, 29.864779, 30.375424, 30.902440, 31.396891, 31.891688, 32.386353, 32.897065, 33.391791, 33.886500, 34.380996, 34.875880, 35.386435, 35.880970, 36.391618, 36.901788, 37.412881, 37.922917, 38.449973, 38.944223, 39.439093, 39.950007, 40.444626, 40.955264, 41.465597, 41.960514, 42.470653, 42.981994, 43.492396, 44.003004, 44.497215, 44.992342, 45.502860, 46.013170, 46.523617, 47.018731, 47.529448, 48.039630, 48.534713, 49.044801, 49.555306, 50.050443, 50.544701, 51.080134, 51.590560, 52.117074, 52.628143, 53.138749, 53.633366, 54.144135, 54.654192, 55.149276, 55.659517, 56.170350, 56.680893, 57.191493, 57.702302, 58.197019, 58.707298, 59.217911, 59.728562, 60.239150, 60.749796, 61.276334, 61.787093, 62.297701, 62.808346, 63.319044, 63.829471, 64.340513, 64.866529, 65.362075, 65.872538, 66.366650, 66.877285, 67.371899, 67.866925, 68.361619, 68.871877, 69.367188, 69.861717, 70.372000, 70.866805, 71.377248, 71.872100, 72.398677, 72.909315, 73.421805, 73.930362, 74.441088, 74.935830, 75.430553, 75.925001, 76.419835, 76.914547, 77.424757, 77.935785, 78.445829, 78.941202, 79.451713, 79.946365, 80.456748, 80.951112, 81.445939, 81.940607, 82.435193, 82.930580, 83.440477, 83.935313, 84.430216, 84.925097, 85.436407, 85.946489, 86.457052, 86.967234, 87.462230, 87.972803, 88.491624, 89.003027, 89.497714, 89.992052, 90.486893, 90.997453, 91.491796, 91.986283, 92.481224, 92.991676, 93.502342, 94.029021, 94.539638, 95.033999, 95.528864, 96.023392, 96.549925, 97.044677, 97.539203, 98.033964, 98.544520, 99.055239, 99.549739, 100.044519, 100.539425, 101.049851, 101.560388, 102.054800, 102.548834, 103.060120, 103.554671, 104.049339, 104.559230, 105.069838, 105.580695, 106.075253, 106.570040, 107.081008, 107.591087, 108.085820, 108.580365, 109.090623, 109.601506, 110.112256, 110.606733, 111.101529, 111.596281, 112.090729, 112.600825, 113.095787, 113.590508, 114.100650, 114.595940, 115.090731, 115.601160, 116.095897, 116.590194, 117.085166, 117.580010, 118.074779, 118.584680, 119.079872, 119.574599, 120.069170, 120.563930, 121.058662, 121.568534, 122.063732, 122.574145, 123.084520, 123.595036, 124.089728, 124.584488, 125.079012, 125.589647, 126.084937, 126.579243, 127.074122, 127.569035, 128.079042, 128.590066, 129.084926, 129.578889, 130.089404, 130.584382, 131.079102, 131.573437, 132.084679, 132.579014, 133.089315, 133.584668, 134.095146, 134.605098, 135.100482, 135.595043, 136.105706, 136.616032, 137.111040, 137.622612, 138.132494, 138.626934, 139.121575, 139.616371, 140.126823, 140.636966, 141.147740, 141.658846, 142.153411, 142.647578, 143.158578, 143.653160, 144.147918, 144.642537, 145.137072, 145.663679, 146.190479, 146.685101, 147.195421, 147.690361, 148.185007, 148.711469, 149.206338, 149.700689, 150.210905, 150.737963, 151.248483, 151.743018, 152.237421, 152.747699, 153.242438, 153.752959, 154.263969, 154.758625, 155.269467, 155.780119, 156.290733, 156.801260, 157.295959, 157.806683, 158.317090, 158.827749, 159.338477, 159.832697, 160.343678, 160.838040, 161.332856, 161.827046, 162.321903, 162.816231, 163.311262, 163.837846, 164.347966, 164.858441, 165.369446, 165.864131, 166.358772, 166.853585, 167.348185, 167.842861, 168.337120, 168.831924, 169.326756, 169.821560, 170.331655, 170.842319, 171.337413, 171.847517, 172.357926, 172.869107, 173.363691, 173.857828, 174.368682, 174.863656, 175.373666, 175.869074, 176.363128, 176.874155, 177.368670, 177.863584, 178.358100, 178.868350, 179.363451, 179.874195, 180.368279, 180.862937, 181.374021, 181.884218, 182.378922, 182.873340, 183.368371, 183.863027, 184.373598, 184.868441, 185.362947, 185.857666, 186.351960, 186.846835, 187.357507, 187.851570, 188.346087, 188.856602, 189.351536, 189.861939, 190.372374, 190.883195, 191.393831, 191.888446, 192.383062, 192.878039, 193.372273, 193.883318, 194.409597, 194.936657, 195.430899, 195.925608, 196.452083, 196.962203, 197.473089, 197.967931, 198.478490, 198.988939, 199.484083, 199.994388, 200.489123, 201.000378, 201.510521, 202.021330, 202.531502, 203.026044, 203.520858, 204.031453, 204.526260, 205.020955, 205.515664, 206.026593, 206.520885, 207.015724, 207.526122, 208.020901, 208.515364, 209.026148, 209.520574, 210.031243, 210.525379, 211.019851, 211.530913, 212.025686, 212.552234, 213.046327, 213.557035, 214.051310, 214.578500, 215.073306, 215.567612, 216.078795, 216.588660, 217.083721, 217.594243, 218.088839, 218.583582, 219.094306, 219.604882, 220.131435, 220.625802, 221.136597, 221.647129, 222.141807, 222.636625, 223.146681, 223.641635, 224.136285, 224.630661, 225.141419, 225.651934, 226.162180], [57.659800, 57.659800, 57.708400, 57.815900, 57.874200, 57.837600, 57.837600, 57.929000, 57.916900, 57.818600, 57.818600, 57.775800, 57.804300, 57.801800, 57.623900, 57.623900, 57.817700, 57.707700, 57.806700, 57.800400, 57.800400, 57.835500, 57.693200, 57.869700, 57.716300, 57.716300, 57.767900, 57.762900, 57.722600, 57.722600, 57.658500, 57.695000, 57.720800, 57.690200, 57.690200, 57.852800, 57.773300, 57.629400, 57.733600, 57.733600, 57.858200, 57.705200, 57.711300, 57.797300, 57.797300, 57.805200, 57.679000, 57.768800, 57.732900, 57.732900, 57.822000, 57.725100, 57.859200, 57.859200, 57.754500, 57.910300, 57.653600, 57.794200, 57.794200, 57.779400, 57.766600, 57.702100, 57.694200, 57.694200, 57.789000, 57.883300, 57.829200, 57.829200, 57.842800, 57.804600, 57.748900, 57.756000, 57.756000, 57.819500, 57.751600, 57.809400, 57.792500, 57.792500, 57.695100, 57.822300, 57.662000, 57.749400, 57.749400, 57.545300, 57.678000, 57.886500, 57.886500, 57.649000, 57.576900, 57.875700, 57.789300, 57.789300, 57.826800, 57.850300, 57.797700, 57.511300, 57.511300, 57.719200, 57.711400, 57.769400, 57.857600, 57.857600, 57.696900, 57.832700, 57.777200, 57.714600, 57.714600, 57.669900, 57.945800, 57.983600, 57.983600, 57.873200, 57.847600, 57.978300, 57.888900, 57.888900, 57.909700, 57.963000, 57.942500, 57.740700, 57.740700, 57.957600, 57.631800, 57.687100, 57.904600, 57.904600, 57.910300, 57.831000, 57.930800, 57.800800, 57.800800, 57.773900, 57.980200, 58.001100, 58.142100, 58.142100, 57.995300, 57.873300, 57.815300, 57.815300, 57.995800, 57.786200, 57.804900, 58.103200, 58.103200, 57.940600, 57.931100, 57.881500, 57.891700, 57.891700, 57.839700, 58.035600, 57.962000, 57.962000, 57.986700, 57.777600, 57.912000, 57.961300, 57.961300, 57.907300, 57.937200, 57.986900, 57.953800, 57.953800, 58.081800, 57.677300, 57.877700, 57.877700, 57.854100, 57.744600, 58.083000, 57.877700, 57.877700, 57.989900, 57.841200, 57.935400, 57.914700, 57.914700, 57.912300, 57.842300, 57.937900, 57.937900, 57.776300, 57.767100, 57.913100, 57.907600, 57.907600, 58.129900, 57.775400, 57.685400, 57.709500, 57.709500, 58.001200, 57.848200, 57.903300, 57.903300, 57.893300, 57.876700, 57.969400, 57.683000, 57.683000, 57.771200, 57.837600, 57.778200, 58.072700, 58.072700, 57.855900, 57.678000, 57.729700, 57.729700, 57.856600, 57.693000, 57.842300, 57.910300, 57.910300, 57.649700, 57.658000, 57.556600, 57.653600, 57.653600, 57.738100, 57.779900, 57.465800, 57.465800, 57.709000, 57.623000, 57.703400, 57.796500, 57.796500, 57.623500, 57.380700, 57.765100, 57.765100, 57.700600, 57.458800, 57.600900, 57.553500, 57.553500, 57.673900, 57.663900, 57.390500, 57.390500, 57.553300, 57.631500, 57.655400, 57.582400, 57.582400, 57.662000, 57.556700, 57.655600, 57.779900, 57.779900, 57.821200, 57.588800, 57.510400, 57.510400, 57.575500, 57.742600, 57.423100, 57.513000, 57.513000, 57.792100, 57.826700, 57.700100, 57.700100, 57.574900, 57.753200, 57.573500, 57.722100, 57.722100, 57.512900, 57.666400, 57.853600, 57.650500, 57.650500, 57.720300, 57.593000, 57.806600, 57.806600, 57.563900, 57.710600, 57.769500, 57.790300, 57.790300, 57.934500, 57.726800, 57.761600, 57.673700, 57.673700, 57.849700, 57.688800, 57.665000, 57.665000, 57.710200, 57.779200, 57.748100, 57.878000, 57.878000, 57.723400, 57.768300, 57.592500, 57.832500, 57.832500, 57.926400, 57.878500, 57.892800, 57.619500, 57.619500, 58.031900, 57.765100, 57.801800, 57.801800, 57.817400, 57.887600, 57.705100, 57.892200, 57.892200, 57.887500, 57.853600, 57.733300, 57.696600, 57.696600, 57.908700, 58.022000, 57.861700, 57.861700, 58.009600, 57.962800, 57.677000, 57.995700, 57.995700, 57.936700, 57.861500, 58.043000, 57.943500, 57.943500, 57.893900, 57.825900, 57.718900, 57.718900, 57.965300, 58.037000, 57.970400, 57.740600, 57.740600, 57.674600, 57.810800, 57.963700, 57.885200, 57.885200, 58.005300, 57.933700, 57.825800, 57.825800, 58.010000, 57.916100, 57.983100, 58.033400, 58.033400, 57.678100, 57.683000, 58.045300, 58.045300, 57.911500, 57.815900, 58.010800, 57.873700, 57.873700, 58.042700, 57.893500, 57.918200, 57.918200, 57.805800, 57.756500, 57.882500, 57.842200, 57.842200, 57.975200, 58.009900, 58.073600, 57.927200, 57.927200, 57.841600, 57.979500, 57.849200, 57.849200, 57.799300, 57.785800, 57.818600, 57.636100, 57.636100, 57.741200, 57.871300, 57.821200, 57.788000, 57.788000, 57.923000, 57.807000, 57.722200, 57.707000, 57.707000, 57.687700, 57.653900, 57.506600, 57.506600, 57.856500, 57.785300, 57.699900, 57.858200, 57.858200, 57.619500, 57.780300, 57.690800, 57.662400, 57.662400, 57.568100, 57.805400, 57.934900, 57.934900, 57.465900, 57.492100, 57.761700, 57.725900, 57.725900, 57.811700, 57.689600, 57.436600, 57.462800, 57.462800, 57.425000, 57.681300, 57.928100, 57.928100, 57.788500, 57.660400, 57.625400, 57.697600, 57.697600, 57.672100, 57.488500, 57.700300, 57.753100, 57.753100, 57.684100, 57.512800, 57.710300, 57.710300, 57.569100, 57.550000, 57.663800]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Apparent power - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Frequency - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#FFFF00;">Skipped</td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

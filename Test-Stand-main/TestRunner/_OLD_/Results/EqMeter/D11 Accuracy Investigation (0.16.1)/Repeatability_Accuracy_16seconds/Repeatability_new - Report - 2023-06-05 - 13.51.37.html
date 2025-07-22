@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-6-5-13-52-16-684"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>lunedì 5 giugno 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>13:52:16</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>11611.1203813 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>11311</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#FF0000;">Failed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number:</b></td><td class='hdr_value'><b>4294967295</b></td></tr><tr><td class='hdr_name'><b>Type Designator:</b></td><td class='hdr_value'><b>B1-D3BB-111A</b></td></tr><tr><td class='hdr_name'><b>FW Version:</b></td><td class='hdr_value'><b>0.16.1</b></td></tr><tr><td class='hdr_name'><b>Power Supply:</b></td><td class='hdr_value'><b>Omicron</b></td></tr></tbody></table><br><hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\Repeatability_new.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#FF8000;">DUT info</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">4294967295</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Type Designator:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">B1-D3BB-111A</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.16.1</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.25</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph1" value="[[16.097610, 32.403961, 48.902812, 65.289158, 81.805627, 98.108352, 114.315028, 130.508284, 146.776385, 163.168315, 179.501916, 196.051933, 212.626680, 229.098870, 245.382231, 261.636121, 277.950909, 294.222652, 310.497456, 326.687225, 343.029849, 359.569917, 375.943638, 392.538287, 409.037391, 425.266620, 441.536220, 457.874392, 474.486488, 490.782535, 507.289357, 523.509538, 539.776317, 555.981872, 572.337840, 588.697399, 605.191612, 621.427800, 637.649126, 653.987313, 670.279547, 686.545388, 702.787760, 719.087634, 735.587711, 751.895925, 768.467741, 784.809138, 801.066820, 817.337123, 833.829880, 850.047573, 866.337895, 882.690558, 898.974079, 915.254989, 931.663541, 947.950847, 964.207933, 980.505263, 996.854018, 1013.113006, 1029.649837, 1045.863367, 1062.134062, 1078.499434, 1095.017181, 1111.359958, 1127.875468, 1144.353343, 1160.634869, 1177.001502, 1193.233388, 1209.522473, 1225.820868, 1242.386926, 1258.952587, 1275.552841, 1291.815396, 1308.098344, 1324.343982, 1340.810363, 1357.083338, 1373.458881, 1390.037124, 1406.338500, 1422.870540, 1439.439666, 1455.949868, 1472.245178, 1488.598891, 1505.145759, 1521.361657, 1537.584447, 1553.914089, 1570.493961, 1587.069552, 1603.404901, 1619.962501, 1636.453708], [0.306447, 0.192529, -0.012902, -0.219544, -0.065414, 0.110875, 0.348973, 0.245314, -0.002598, -0.218518, -0.157949, 0.037604, 0.307484, 0.307484, 0.120171, -0.168220, -0.208257, 0.018014, 0.224607, 0.337560, 0.141868, -0.157949, -0.239033, 0.047917, 0.234959, 0.359351, 0.182186, -0.156922, -0.219544, -0.044828, 0.183220, 0.410233, 0.224607, -0.043798, -0.188756, -0.116844, 0.120171, 0.389459, 0.275353, -0.034531, -0.156922, -0.096278, 0.109843, 0.327187, 0.306447, 0.099516, -0.187729, -0.199021, 0.099516, 0.306447, 0.328224, 0.202875, -0.147676, -0.199021, -0.044828, 0.244278, 0.399845, 0.233924, -0.085992, -0.229802, 0.006676, 0.202875, 0.400884, 0.233924, -0.096278, -0.209283, -0.054093, 0.140834, 0.369731, 0.254634, -0.012902, -0.188756, -0.126095, 0.089192, 0.276389, 0.358313, 0.007707, -0.199021, -0.105534, 0.089192, 0.317853, 0.264992, 0.078870, -0.188756, -0.127123, 0.048949, 0.296080, 0.420624, 0.090225, -0.096278, -0.178489, 0.027292, 0.264992, 0.420624, 0.161506, -0.055122, -0.228776, -0.013932, 0.203910, 0.368693], [0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447, 0.606447], [0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447, 0.006447]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.25</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.6596568386258</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.2390329979958</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.4206238406299</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph2" value="[[15.420077, 31.913791, 48.386915, 64.856975, 81.330326, 97.834867, 114.258649, 130.853088, 147.227709, 163.834326, 180.256695, 196.694577, 213.232792, 229.762395, 246.281286, 262.789644, 279.353268, 295.909263, 312.417924, 328.913875, 345.421897, 361.864379, 378.386516, 394.899633, 411.465258, 427.915467, 444.467332, 460.971110, 477.475877, 493.944295, 510.523935, 527.045999, 543.483034, 559.935180, 576.427904, 592.996601, 609.554261, 626.099567, 642.614569, 659.151995, 675.764756, 692.267128, 708.675894, 725.096630, 741.562597, 758.169864, 774.697069, 791.160374, 807.680429, 824.293565, 840.708975, 857.264866, 873.790874, 890.379386, 906.921558, 923.435820, 939.960279, 956.521475, 972.922649, 989.430998, 1005.928641, 1022.390356, 1039.023761, 1055.551688, 1072.053669, 1088.617499, 1105.121069, 1121.485549, 1138.023590, 1154.594548, 1171.144992, 1187.599712, 1204.153274, 1220.717638, 1237.099870, 1253.577855, 1270.061739, 1286.581181, 1303.021185, 1319.600775, 1336.167458, 1352.592822, 1369.028035, 1385.527227, 1402.034929, 1418.430050, 1434.914689, 1451.508844, 1468.084437, 1484.506210, 1501.120191, 1517.653449, 1534.160652, 1550.706595, 1567.236830, 1583.701898, 1600.198915, 1616.654538, 1633.203986, 1649.636172], [0.093076, -0.079346, -0.069220, 0.032153, 0.143902, 0.215144, 0.104253, -0.038830, -0.098580, 0.022007, 0.113400, 0.215144, 0.133732, -0.038830, -0.059092, 0.012876, 0.123565, 0.204961, 0.103237, -0.018559, -0.089470, -0.028695, 0.103237, 0.205979, 0.133732, -0.017545, -0.079346, -0.007407, 0.103237, 0.155090, 0.133732, -0.017545, -0.079346, 0.002734, 0.072760, 0.215144, 0.185617, -0.008421, -0.098580, -0.038830, 0.104253, 0.204961, 0.194779, 0.032153, -0.099592, -0.068207, 0.042302, 0.185617, 0.164246, 0.023021, -0.109712, -0.058079, 0.072760, 0.184599, 0.185617, 0.082917, -0.088458, -0.079346, 0.032153, 0.154073, 0.205979, 0.072760, -0.069220, -0.089470, 0.042302, 0.144919, 0.204961, 0.114416, -0.079346, -0.058079, 0.011862, 0.154073, 0.215144, 0.103237, -0.048962, -0.109712, -0.008421, 0.093076, 0.216163, 0.154073, -0.059092, -0.089470, -0.028695, 0.052453, 0.225330, 0.184599, -0.028695, -0.098580, -0.018559, 0.094092, 0.154073, 0.155090, 0.032153, -0.078334, -0.038830, 0.052453, 0.204961, 0.215144, 0.053468, -0.099592], [0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076, 0.293076], [-0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924, -0.106924]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.3350421809363</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.1097119521725</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.2253302287639</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph3" value="[[15.396608, 31.968828, 48.420580, 64.664026, 80.972894, 97.280489, 113.570127, 129.857819, 146.381394, 162.661644, 179.246940, 195.833553, 212.104667, 228.407556, 244.688877, 261.155198, 277.355848, 293.735111, 309.957238, 326.354231, 342.828753, 359.328001, 375.667169, 392.235720, 408.481857, 424.792095, 441.027550, 457.327581, 473.831539, 490.115043, 506.393674, 522.764898, 539.274600, 555.760337, 572.015523, 588.329005, 604.629865, 620.935589, 637.474303, 653.717638, 670.242821, 686.531357, 702.847665, 719.089698, 735.391750, 751.656092, 768.116457, 784.413554, 800.692542, 817.084697, 833.581179, 849.818102, 866.073715, 882.575108, 898.918214, 915.536924, 931.823362, 948.023656, 964.231483, 980.570904, 997.124987, 1013.439508, 1029.793971, 1046.313615, 1062.858187, 1079.388499, 1095.698261, 1111.998134, 1128.546419, 1144.777806, 1161.010909, 1177.333747, 1193.912036, 1210.543476, 1226.810583, 1243.085227, 1259.634195, 1276.095728, 1292.395116, 1308.724056, 1325.009757, 1341.314047, 1357.779931, 1373.982270, 1390.246959, 1406.588184, 1422.920446, 1439.434507, 1455.685578, 1472.261080, 1488.836257, 1505.341666, 1521.746832, 1538.299076, 1554.850611, 1571.338763, 1587.664895, 1604.274461, 1620.806326, 1637.154735], [-0.106562, 0.140834, 0.432056, 0.264992, -0.023203, -0.209283, -0.084964, 0.016983, 0.390497, 0.275353, -0.033501, -0.157949, -0.127123, -0.003629, 0.358313, 0.389459, 0.099516, -0.116844, -0.147676, -0.013932, 0.306447, 0.420624, 0.161506, -0.168220, -0.168220, -0.013932, 0.245314, 0.368693, 0.183220, -0.096278, -0.156922, -0.034531, 0.162540, 0.441411, 0.255670, -0.055122, -0.127123, -0.065414, 0.140834, 0.410233, 0.223572, 0.006676, -0.137401, -0.116844, 0.120171, 0.337560, 0.368693, -0.033501, -0.168220, -0.013932, 0.058233, 0.368693, 0.389459, 0.037604, -0.188756, -0.187729, 0.047917, 0.266028, 0.347936, 0.121204, -0.127123, -0.187729, -0.065414, 0.214257, 0.368693, 0.172879, -0.147676, -0.167193, -0.096278, 0.140834, 0.431016, 0.192529, -0.096278, -0.188756, -0.095250, 0.213222, 0.380113, 0.296080, -0.043798, -0.168220, -0.084964, 0.151169, 0.421663, 0.337560, -0.002598, -0.209283, -0.136373, 0.120171, 0.379075, 0.368693, 0.079903, -0.157949, -0.126095, 0.089192, 0.337560, 0.316816, 0.058233, -0.106562, -0.106562, 0.007707], [0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438, 0.193438], [-0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562, -0.406562]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.6506945104441</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.2092833086167</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.4414112018274</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.7654140519453</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph4" value="[[15.612388, 32.242818, 48.867015, 65.517363, 82.200634, 98.874826, 115.497550, 132.051003, 148.807032, 165.474783, 182.114615, 198.823499, 215.443987, 232.049727, 248.627791, 265.339443, 282.013095, 298.697754, 315.333073, 331.964800, 348.545831, 365.314826, 381.991946, 398.546652, 415.251734, 431.806365, 448.460534, 465.187671, 481.799900, 498.467448, 515.104029, 531.793513, 548.365632, 564.998150, 581.760103, 598.415929, 614.965579, 631.633764, 648.248434, 664.985318, 681.571779, 698.249222, 714.891729, 731.549103, 748.175693, 764.763388, 781.525308, 798.088524, 814.732863, 831.347670, 848.042400, 864.746581, 881.401376, 898.007229, 914.669522, 931.300168, 947.884717, 964.622246, 981.271461, 997.976575, 1014.550732, 1031.244816, 1047.831297, 1064.471798, 1081.206224, 1097.874294, 1114.453023, 1131.159506, 1147.683413, 1164.356740, 1181.111182, 1197.704773, 1214.391172, 1230.945593, 1247.623383, 1264.237264, 1280.948180, 1297.607662, 1314.325896, 1330.909932, 1347.486563, 1364.225058, 1380.869913, 1397.482991, 1414.166343, 1430.844016, 1447.397640, 1464.052626, 1480.751669, 1497.387808, 1514.094942, 1530.675443, 1547.337980, 1564.026903, 1580.702091, 1597.277854, 1613.943334, 1630.571157, 1647.247831, 1663.901005], [0.236760, 0.237765, 0.006093, -0.162721, -0.012914, 0.106252, 0.197572, 0.186525, -0.002911, -0.133794, -0.073890, 0.077186, 0.186525, 0.186525, 0.027110, -0.123815, -0.103851, 0.077186, 0.186525, 0.157411, 0.086205, -0.123815, -0.042912, 0.086205, 0.176483, 0.216660, 0.036120, -0.142773, -0.073890, 0.086205, 0.156407, 0.216660, 0.067166, -0.123815, -0.072891, 0.066165, 0.156407, 0.247819, 0.096228, -0.102852, -0.093866, 0.057149, 0.176483, 0.266925, 0.067166, -0.063899, -0.012914, 0.056148, 0.097230, 0.246813, 0.056148, -0.113834, -0.072891, 0.046133, 0.186525, 0.236760, 0.086205, -0.133794, -0.112836, 0.006093, 0.177488, 0.246813, 0.087207, -0.123815, -0.092867, 0.066165, 0.156407, 0.206613, 0.156407, -0.093866, -0.123815, 0.037121, 0.116279, 0.267931, 0.136339, -0.072891, -0.113834, 0.016100, 0.137343, 0.256868, 0.117282, -0.103851, -0.152748, 0.016100, 0.157411, 0.216660, 0.117282, -0.063899, -0.143771, -0.002911, 0.146372, 0.207617, 0.166444, -0.062900, -0.153746, -0.013915, 0.137343, 0.266925, 0.167448, -0.063899], [0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760, 0.536760], [-0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240, -0.063240]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.5</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.7654140519453</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.4306525473488</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.1627213139354</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.2679312334134</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph5" value="[[15.469695, 32.047711, 48.572645, 65.182487, 81.696641, 98.233866, 114.735877, 131.216037, 147.805649, 164.348735, 180.918351, 197.571726, 214.087809, 230.564730, 247.123080, 263.711143, 280.262648, 296.757254, 313.248139, 329.801873, 346.413668, 362.880346, 379.312229, 395.744984, 412.270628, 428.746560, 445.292293, 461.834638, 478.371047, 494.927905, 511.422825, 527.977406, 544.524176, 561.116732, 577.645676, 594.146309, 610.679761, 627.202556, 643.734988, 660.305137, 676.923021, 693.455425, 709.973224, 726.510274, 743.072458, 759.593536, 776.172793, 792.778676, 809.365260, 825.895563, 842.466431, 858.977376, 875.505349, 891.946018, 908.478407, 925.050203, 941.572961, 958.147221, 974.637510, 991.192969, 1007.676226, 1024.261702, 1040.797757, 1057.340114, 1073.916578, 1090.400920, 1106.916550, 1123.432549, 1140.009024, 1156.517364, 1173.014080, 1189.579810, 1206.118903, 1222.702558, 1239.232325, 1255.807654, 1272.318472, 1288.782316, 1305.346752, 1321.856077, 1338.346291, 1354.885619, 1371.466022, 1387.974241, 1404.507184, 1421.045962, 1437.633365, 1454.105506, 1470.599146, 1487.169922, 1503.736517, 1520.289615, 1536.817197, 1553.403918, 1569.896523, 1586.423564, 1602.937449, 1619.498175, 1636.087127, 1652.620077], [0.015400, 0.064740, 0.116145, 0.125222, 0.035533, -0.035901, 0.015400, 0.054667, 0.105053, 0.135310, 0.034526, -0.045954, -0.005730, 0.035533, 0.105053, 0.125222, 0.044596, -0.025846, 0.015400, 0.034526, 0.055674, 0.074815, 0.044596, -0.005730, 0.014394, 0.045603, 0.084893, 0.135310, 0.064740, -0.025846, -0.005730, 0.054667, 0.055674, 0.125222, 0.065747, -0.015789, -0.024841, 0.014394, 0.064740, 0.135310, 0.084893, -0.015789, -0.024841, 0.014394, 0.064740, 0.115137, 0.084893, -0.035901, -0.005730, 0.024459, 0.054667, 0.105053, 0.085900, -0.015789, -0.034896, -0.005730, 0.055674, 0.115137, 0.116145, -0.005730, -0.024841, 0.004331, 0.055674, 0.115137, 0.115137, 0.004331, -0.034896, 0.014394, 0.055674, 0.105053, 0.116145, 0.004331, -0.044949, 0.004331, 0.055674, 0.105053, 0.126231, 0.024459, -0.035901, -0.005730, 0.035533, 0.094972, 0.115137, 0.034526, -0.015789, -0.014783, 0.034526, 0.106062, 0.145399, 0.065747, -0.025846, 0.014394, 0.055674, 0.094972, 0.125222, 0.034526, -0.035901, -0.015789, 0.034526, 0.105053], [0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400, 0.215400], [-0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600, -0.184600]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.1913535791378</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.04595437530689</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.1453992038309</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph6" value="[[15.385808, 31.929617, 48.429228, 64.855258, 81.375053, 97.916317, 114.435741, 130.911623, 148.963446, 165.319430, 181.725230, 198.113932, 214.498911, 230.996225, 247.464650, 264.073160, 280.640900, 297.183448, 313.726571, 330.199190, 346.784090, 363.335046, 379.759202, 396.180538, 412.618531, 429.227916, 445.747551, 462.187014, 478.705169, 495.166519, 511.643921, 528.148347, 544.586360, 561.073190, 577.482945, 593.900508, 610.414254, 626.856070, 643.345306, 659.761563, 676.211969, 692.665167, 709.205207, 725.718580, 742.200408, 758.604191, 775.151948, 791.623732, 808.137254, 824.585322, 841.099765, 857.608608, 874.092343, 890.511134, 906.900790, 923.360809, 939.930121, 956.356576, 972.761487, 989.246327, 1005.868930, 1022.342312, 1038.879774, 1055.374481, 1071.835598, 1088.395885, 1104.760957, 1121.200278, 1137.630064, 1154.124515, 1170.634066, 1187.069930, 1203.473844, 1219.887838, 1236.376373, 1252.939474, 1269.416898, 1285.915032, 1302.351804, 1318.805672, 1335.382795, 1351.739418, 1368.187106, 1384.681408, 1401.211463, 1417.649275, 1434.053217, 1450.568480, 1467.096457, 1483.482972, 1499.917473, 1516.399462, 1532.969114, 1549.534802, 1565.963425, 1582.393621, 1598.768192, 1615.223382, 1631.734013, 1648.244578], [0.175440, -0.028695, -0.047949, -0.008421, 0.113400, 0.215144, 0.185617, -0.018559, -0.047949, -0.018559, 0.032153, 0.236537, 0.184599, -0.008421, -0.048962, -0.048962, 0.042302, 0.205979, 0.154073, 0.001720, -0.048962, -0.018559, 0.042302, 0.245708, 0.194779, 0.023021, -0.089470, -0.038830, 0.001720, 0.164246, 0.225330, 0.032153, -0.088458, -0.048962, 0.022007, 0.174422, 0.215144, 0.033168, -0.038830, -0.047949, -0.008421, 0.165264, 0.245708, 0.093076, -0.018559, -0.047949, -0.008421, 0.134749, 0.215144, 0.124582, -0.048962, -0.017545, 0.042302, 0.094092, 0.235518, 0.124582, -0.059092, -0.069220, -0.018559, 0.053468, 0.215144, 0.154073, -0.018559, -0.037816, 0.022007, 0.082917, 0.235518, 0.185617, -0.008421, -0.047949, -0.048962, 0.042302, 0.194779, 0.174422, 0.011862, -0.038830, -0.028695, 0.022007, 0.204961, 0.225330, 0.022007, -0.028695, -0.018559, 0.011862, 0.175440, 0.235518, 0.043317, -0.069220, -0.027682, -0.038830, 0.144919, 0.225330, 0.063621, -0.018559, -0.037816, 0.042302, 0.155090, 0.245708, 0.113400, -0.048962], [0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440, 0.375440], [-0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560, -0.024560]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.9524129804152</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.3351782086731</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.08947014379982</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.2457080648733</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.7654140519453</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..99]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph7" value="[[15.455278, 31.987562, 48.563023, 65.217172, 81.856390, 98.459788, 115.046676, 131.672486, 148.366633, 165.030152, 181.608088, 198.194776, 214.800178, 231.324308, 247.886635, 264.441765, 281.022368, 297.576796, 314.158775, 330.820063, 347.410430, 363.974689, 380.562456, 397.075377, 413.654547, 430.340722, 446.966688, 463.565736, 480.205832, 496.795462, 513.392695, 529.953319, 546.550746, 563.129218, 579.701903, 596.263406, 612.838506, 629.371196, 645.998814, 662.681243, 679.348238, 696.009366, 712.589768, 729.198025, 745.842580, 762.445420, 779.041774, 795.676279, 812.260218, 828.900779, 845.499644, 862.115724, 878.692477, 895.306859, 911.955224, 928.573146, 945.183260, 961.794309, 978.305926, 994.939328, 1011.557813, 1028.163900, 1044.741903, 1061.294678, 1077.913463, 1094.535253, 1111.147423, 1127.711030, 1144.411035, 1161.061030, 1177.638353, 1194.263579, 1210.819836, 1227.453308, 1244.110810, 1260.796297, 1277.325768, 1293.956482, 1310.553074, 1327.067666, 1343.733229, 1360.347046, 1376.931571, 1393.566115, 1410.152397, 1426.758862, 1443.379854, 1459.947158, 1476.473278, 1493.092055, 1509.648374, 1526.209320, 1542.826969, 1559.364810, 1575.892014, 1592.466347, 1608.969373, 1625.504757, 1642.163137, 1658.729424], [0.097230, -0.033914, -0.043911, 0.027110, 0.076184, 0.117282, 0.086205, -0.023916, -0.043911, 0.016100, 0.067166, 0.106252, 0.107255, -0.003912, -0.062900, 0.016100, 0.086205, 0.117282, 0.116279, -0.002911, -0.073890, -0.002911, 0.066165, 0.107255, 0.116279, 0.026109, -0.062900, 0.016100, 0.077186, 0.126308, 0.117282, 0.026109, -0.062900, -0.013915, 0.056148, 0.116279, 0.136339, 0.046133, -0.073890, -0.003912, 0.046133, 0.097230, 0.116279, 0.067166, -0.053906, -0.033914, 0.037121, 0.106252, 0.137343, 0.066165, -0.063899, -0.053906, 0.066165, 0.107255, 0.146372, 0.087207, -0.053906, -0.032915, 0.046133, 0.087207, 0.117282, 0.086205, -0.042912, -0.043911, 0.047134, 0.086205, 0.127311, 0.096228, -0.022916, -0.033914, 0.036120, 0.087207, 0.146372, 0.096228, -0.032915, -0.043911, 0.037121, 0.106252, 0.137343, 0.106252, -0.042912, -0.033914, 0.046133, 0.067166, 0.126308, 0.097230, -0.033914, -0.043911, 0.007094, 0.076184, 0.137343, 0.106252, -0.012914, -0.053906, 0.027110, 0.076184, 0.126308, 0.136339, -0.013915, -0.062900], [0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230, 0.297230], [-0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770, -0.102770]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.7654140519453</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.2202625484538</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.07389012032707</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.1463724281267</span></td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

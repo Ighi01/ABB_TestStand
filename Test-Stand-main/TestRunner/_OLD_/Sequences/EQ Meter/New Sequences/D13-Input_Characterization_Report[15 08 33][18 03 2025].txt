@@ -1,0 +1,31 @@
+********************************************************
+UUT Report
+Station ID:                   IT-W-7268308
+Serial Number:                111
+Date:                         martedì 18 marzo 2025
+Time:                         15:08:33
+Operator:                     administrator
+Execution Time:               23 seconds
+Number of Results:            9
+UUT Result:                   Error, Error executing substep 'Pre'. Could not find file 'C:\IPSES_Lib\ABB\x86_2020\PowerSupply\IPSES_PwrSup_x86.lvlibp'. [Error Code: -17208, File or directory not found.]
+********************************************************
+
+Begin Sequence: MainSequence
+(C:\Users\itlavit\ABB\LABRND VITTUONE - LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\D13-Input_Characterization.seq)
+
+   Power Supply - Set And Get Status: Error
+        Error Message:            Error executing substep 'Pre'. Could not find file 'C:\IPSES_Lib\ABB\x86_2020\PowerSupply\IPSES_PwrSup_x86.lvlibp'. [Error Code: -17208]
+        Module Time:              0
+Power Supply - Set And Get Status: Error
+     Error Message:            Error executing substep 'Pre'. Could not find file 'C:\IPSES_Lib\ABB\x86_2020\PowerSupply\IPSES_PwrSup_x86.lvlibp'. [Error Code: -17208]
+     Module Time:              0
+Close Omicron:                 Error
+     Error Message:            Error executing substep 'Run'. Could not find file 'C:\IPSES_Lib\ABB\x86_2020\Omicron\IPSES_Omicron_x86.lvlibp'. [Error Code: -17208]
+     Module Time:              0
+Power off 3V3:                 Terminated
+     Button Index:             1
+
+End Sequence: MainSequence
+
+End UUT Report
+

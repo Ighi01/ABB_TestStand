@@ -1,0 +1,12 @@
+********************************************************
+UUT Report
+Station ID:                   IT-W-7303101
+Serial Number:                NONE
+Date:                         mercoledì 8 giugno 2022
+Time:                         12:23:03
+Operator:                     ITLAVIT1
+Number of Results:            0
+UUT Result:                   Failed
+********************************************************
+End UUT Report
+

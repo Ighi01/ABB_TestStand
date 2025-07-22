@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "FQDaTnL/cyGpDnVqudwLC9z5InH3Jv49gVcj1c8qmj08a7a4hMDxLswmAICF6dJPTEScJEBtQCVhj6MJOV1uqQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\ExcelTestLoader\\ExcelTestLoader.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\epplus\\7.0.0\\epplus.7.0.0.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\microsoft.io.recyclablememorystream\\1.4.1\\microsoft.io.recyclablememorystream.1.4.1.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net48\\1.0.2\\microsoft.netframework.referenceassemblies.net48.1.0.2.nupkg.sha512",
+    "C:\\Users\\ITLAVIT\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

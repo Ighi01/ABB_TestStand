@@ -1,0 +1,127 @@
+;
+;* =========================================================================== *
+;*                                                                             *
+;* Vendor:   ABB S.p.A - SACE Division                                         *
+;*           VIA DELLE INDUSTRIE 18                                            *
+;*           20010 VITTUONE (MI)                                               *
+;*           Italy                                                             *
+;*           Tel.: +39 02 9034 1                                               *
+;*           Fax : +39 02 9034 7329                                            *
+;* =========================================================================== *
+;*                                                                             *
+;* Function:      M4M 30 METER WITH PROFIBUS DP0 INTERFACE                     *
+;*                                                                             *
+;*                                                                             *
+;* Order Number : 2CSG236791R4051                                              *
+;*                                                                             *
+;* --------------------------------------------------------------------------- *
+;*                                                                             *
+;*                                                                             *
+;* --------------------------------------------------------------------------- *
+;*                                                                             *
+;*******************************************************************************
+
+
+#Profibus_DP
+;===============================================================================
+;==== General DP Keywords ======================================================
+;===============================================================================
+
+GSD_Revision		= 3
+Vendor_Name 		= "ABB S.p.A - SACE Division"
+Model_Name 			= "M4M 30 PROFIBUS - 2CSG236791R4051"
+Revision 			= "1.00"
+Ident_Number 		= 0x111D
+Protocol_Ident 		= 0			; DP protocol
+Station_Type 		= 0			; Slave device
+FMS_supp 			= 0			; FMS not supported
+Hardware_Release 	= "A1"
+Software_Release 	= "V1.00"
+Redundancy 			= 0
+Repeater_Ctrl_Sig 	= 2
+24V_Pins 			= 0
+
+;===============================================================================
+;==== Supported baudrates ======================================================
+;===============================================================================
+
+9.6_supp 	= 1
+19.2_supp 	= 1
+45.45_supp 	= 1
+93.75_supp 	= 1
+187.5_supp 	= 1
+500_supp 	= 1
+1.5M_supp 	= 1
+3M_supp 	= 1
+6M_supp 	= 1
+12M_supp 	= 1
+
+MaxTsdr_9.6		= 15
+MaxTsdr_19.2	= 15
+MaxTsdr_45.45	= 15
+MaxTsdr_93.75	= 15
+MaxTsdr_187.5	= 15
+MaxTsdr_500		= 15
+MaxTsdr_1.5M	= 20
+MaxTsdr_3M		= 35
+MaxTsdr_6M		= 50
+MaxTsdr_12M		= 95
+
+;===============================================================================
+;==== Slave specific values ====================================================
+;===============================================================================
+Slave_Family 		= 0
+Implementation_Type = "VPC3+S"
+Info_Text			= "ABB S.p.A. - M4M 30 PROFIBUS DPV0, 2CSG236791R4051"
+
+; Supported DP features
+Freeze_Mode_supp	= 0
+Sync_Mode_supp		= 0
+Fail_Safe			= 1
+Auto_Baud_supp		= 1
+Set_Slave_Add_supp	= 0
+
+; Maximum polling frequency
+Min_Slave_Intervall	= 6
+
+; Maximum supported sizes
+Modular_Station     = 1
+Max_Module          = 24
+Max_Input_Len       = 128
+Max_Output_Len      = 4
+Max_Data_Len        = 132
+Modul_Offset        = 1
+
+Max_Diag_Data_Len	= 6
+
+;==============================================================================
+;==== User-Prm-Data ===========================================================
+;==============================================================================
+
+Max_User_Prm_Data_Len = 3
+Ext_User_Prm_Data_Const(0)= 0x00,0x00,0x00
+
+;==============================================================================
+;==== Module-Definition-List ==================================================
+;==============================================================================
+Module = "INPUT:    4 Byte ( 2 word)" 0x51
+1
+EndModule
+;
+Module = "INPUT:    8 Byte ( 4 word)" 0x53
+2
+EndModule
+;
+Module = "INPUT:   16 Byte ( 8 word)" 0x57
+3
+EndModule
+;
+Module = "INPUT:   32 Byte (16 word)" 0x5F
+4
+EndModule
+;
+Module = "OUTPUT:   4 Byte ( 2 word)" 0x61
+5
+EndModule
+
+

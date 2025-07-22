@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\ExcelTestLoader\\ExcelTestLoader.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\ExcelTestLoader\\ExcelTestLoader.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\ExcelTestLoader\\ExcelTestLoader.csproj",
+        "projectName": "ExcelTestLoader",
+        "projectPath": "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\ExcelTestLoader\\ExcelTestLoader.csproj",
+        "packagesPath": "C:\\Users\\ITLAVIT\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ITLAVIT\\ABB\\LABRNDVITTUONE-LabRnD_Shared\\Test-Stand\\TestRunner\\utilities\\script\\ExcelTestLoader\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ITLAVIT\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.428\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

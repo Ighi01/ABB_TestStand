@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="iso-8859-1" ?><?xml-stylesheet type="text/xsl" href="C:\Program Files (x86)\National Instruments\TestStand 2020\Components\Models\TestStandModels\ATML\StyleSheets\tr5_horizontal.xsl"?>
+
+<trc:TestResultsCollection xmlns:trc="urn:IEEE-1636.1:2011:01:TestResultsCollection" xmlns:tr="urn:IEEE-1636.1:2011:01:TestResults" xmlns:c="urn:IEEE-1671:2010:Common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ts="www.ni.com/TestStand/ATMLTestResults/2.0">
+<trc:TestResults uuid="cf90e422-cfd8-11ee-9d70-5405dbb81746" xmlns:trc="urn:IEEE-1636.1:2011:01:TestResultsCollection" xmlns:tr="urn:IEEE-1636.1:2011:01:TestResults" xmlns:c="urn:IEEE-1671:2010:Common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ts="www.ni.com/TestStand/ATMLTestResults/2.0">
+	<tr:Personnel>
+		<tr:SystemOperator ID = "administrator" name = "administrator"/>
+	</tr:Personnel>
+	<tr:ResultSet ID="347" name = "C:\Users\itmimik\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\General_test.seq#MainSequence" startDateTime = "2024-02-20T11:11:20.735" endDateTime = "2024-02-20T11:14:20.643">
+		<tr:Extension>
+			<ts:TSStepProperties>
+				<ts:StepType>SequenceCall</ts:StepType>
+				<ts:StepGroup>Main</ts:StepGroup>
+				<ts:BlockLevel value='0'/>
+				<ts:StepCausedSequenceFailure value='true'/>
+				<ts:Index value='8'/>
+				<ts:TotalTime value='179.908'/>
+				<ts:ModuleTime value='179.908'/>
+			</ts:TSStepProperties>
+		</tr:Extension>
+		<tr:Outcome value="Failed" />
+		<tr:Test name="Double_trip_ARI_blocked" ID="349" testReferenceID="ID#:0A0V9UN97hGX/HTaOP4lHB" startDateTime = "2024-02-20T11:11:23.287"  endDateTime = "2024-02-20T11:11:23.287" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='0'/>
+					<ts:Index value='2'/>
+					<ts:TotalTime value='2.68e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="Simultaneous trip_open" ID="351" testReferenceID="ID#:o5HFNGhu7hGX7XTaOP4lHB" startDateTime = "2024-02-20T11:11:25.117"  endDateTime = "2024-02-20T11:11:25.117" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='0'/>
+					<ts:Index value='5'/>
+					<ts:TotalTime value='3.59e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="General and Architecture and LED" ID="353" testReferenceID="ID#:DVQ9k9nH7RGOX0ievQ3dvC" startDateTime = "2024-02-20T11:11:28.060"  endDateTime = "2024-02-20T11:11:28.060" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='0'/>
+					<ts:Index value='9'/>
+					<ts:TotalTime value='5.47e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:TestGroup name="C:\Users\itmimik\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\MOD\General_test.seq#I/O_2" ID="355" callerName='Input-Output' testReferenceID="ID#:ttmvPDy37RGOS0ievQ3dvC" startDateTime = "2024-02-20T11:11:30.327"  endDateTime = "2024-02-20T11:14:04.278" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='0'/>
+					<ts:StepCausedSequenceFailure value='true'/>
+					<ts:Index value='13'/>
+					<ts:TotalTime value='153.951'/>
+					<ts:ModuleTime value='153.951'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="Failed" />
+			<tr:SessionAction ID = "363" name = "Additional Results" startDateTime = "2024-02-20T11:11:40.212"  endDateTime = "2024-02-20T11:11:40.212"  testReferenceID="ID#:+/madkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote closing hasn't appened.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='9'/>
+						<ts:TotalTime value='2.71e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:SessionAction ID = "372" name = "Additional Results" startDateTime = "2024-02-20T11:11:49.800"  endDateTime = "2024-02-20T11:11:49.800"  testReferenceID="ID#:BPqadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote closing hasn't appened.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='18'/>
+						<ts:TotalTime value='3.83e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:SessionAction ID = "378" name = "Additional Results" startDateTime = "2024-02-20T11:12:01.458"  endDateTime = "2024-02-20T11:12:01.458"  testReferenceID="ID#:CvqadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote opening hasn't appened.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='26'/>
+						<ts:TotalTime value='3.84e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:SessionAction ID = "387" name = "Additional Results" startDateTime = "2024-02-20T11:12:12.369"  endDateTime = "2024-02-20T11:12:12.369"  testReferenceID="ID#:E/qadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote opening hasn't appened.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='35'/>
+						<ts:TotalTime value='3.59e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:Test ID = "391" name = "Check Outputs" startDateTime = "2024-02-20T11:12:18.415"  endDateTime = "2024-02-20T11:12:18.415"  testReferenceID="ID#:LPqadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:StepCausedSequenceFailure value='true'/>
+						<ts:Index value='43'/>
+						<ts:TotalTime value='0.0001113'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Failed" />
+				<tr:TestResult ID = "tr-cf90e40a-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Active State and MPD OPEN</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e40b-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e40c-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:SessionAction ID = "396" name = "Additional Results" startDateTime = "2024-02-20T11:12:22.119"  endDateTime = "2024-02-20T11:12:22.119"  testReferenceID="ID#:M/qadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote opening worked.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='50'/>
+						<ts:TotalTime value='3.81e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:Test ID = "398" name = "Check Outputs" startDateTime = "2024-02-20T11:12:22.132"  endDateTime = "2024-02-20T11:12:22.132"  testReferenceID="ID#:RvqadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='52'/>
+						<ts:TotalTime value='7.17e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Passed" />
+				<tr:TestResult ID = "tr-cf90e40d-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Active State and MPD OPEN</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e40e-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e40f-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:Test ID = "404" name = "Check Outputs" startDateTime = "2024-02-20T11:12:28.202"  endDateTime = "2024-02-20T11:12:28.202"  testReferenceID="ID#:XfqadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='58'/>
+						<ts:TotalTime value='0.0001582'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Passed" />
+				<tr:TestResult ID = "tr-cf90e410-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Active State and MPD OPEN</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e411-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e412-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:Test ID = "407" name = "Check Outputs" startDateTime = "2024-02-20T11:12:31.836"  endDateTime = "2024-02-20T11:12:31.836"  testReferenceID="ID#:c/qadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='63'/>
+						<ts:TotalTime value='0.0001532'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Failed" />
+				<tr:TestResult ID = "tr-cf90e413-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Active State and MPD HALF OPEN</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e414-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e415-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:Test ID = "413" name = "Check Outputs" startDateTime = "2024-02-20T11:12:37.909"  endDateTime = "2024-02-20T11:12:37.909"  testReferenceID="ID#:ivqadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='69'/>
+						<ts:TotalTime value='0.0002193'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Failed" />
+				<tr:TestResult ID = "tr-cf90e416-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Active State and MPD HALF OPEN</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e417-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e418-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:SessionAction ID = "419" name = "Additional Results" startDateTime = "2024-02-20T11:12:45.578"  endDateTime = "2024-02-20T11:12:45.578"  testReferenceID="ID#:kvqadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote closing worked.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='1'/>
+						<ts:Index value='77'/>
+						<ts:TotalTime value='3.98e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:Test ID = "428" name = "Check Outputs stand-by" startDateTime = "2024-02-20T11:12:49.860"  endDateTime = "2024-02-20T11:12:49.860"  testReferenceID="ID#:8/qadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='2'/>
+						<ts:Index value='121'/>
+						<ts:TotalTime value='0.0001491'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Failed" />
+				<tr:TestResult ID = "tr-cf90e419-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Lock State</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e41a-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e41b-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:SessionAction ID = "438" name = "Additional Results" startDateTime = "2024-02-20T11:13:01.607"  endDateTime = "2024-02-20T11:13:01.607"  testReferenceID="ID#:/fqadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that closing has not worked due to input command but  for the auto-reclosing.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='2'/>
+						<ts:Index value='131'/>
+						<ts:TotalTime value='3.62e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:SessionAction ID = "467" name = "Additional Results" startDateTime = "2024-02-20T11:13:42.336"  endDateTime = "2024-02-20T11:13:42.336"  testReferenceID="ID#:BvuadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check ARI is in Lock state.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='2'/>
+						<ts:Index value='140'/>
+						<ts:TotalTime value='3.52e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+			<tr:Test ID = "469" name = "Check Outputs" startDateTime = "2024-02-20T11:13:42.349"  endDateTime = "2024-02-20T11:13:42.349"  testReferenceID="ID#:GvuadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='2'/>
+						<ts:Index value='142'/>
+						<ts:TotalTime value='7.3e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Failed" />
+				<tr:TestResult ID = "tr-cf90e41c-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Lock State</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e41d-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e41e-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:Test ID = "475" name = "Check Outputs" startDateTime = "2024-02-20T11:13:48.413"  endDateTime = "2024-02-20T11:13:48.413"  testReferenceID="ID#:MvuadkXL7hGda1QF27gXRC">
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>PassFailTest</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='2'/>
+						<ts:Index value='148'/>
+						<ts:TotalTime value='0.0001097'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:Outcome value = "Failed" />
+				<tr:TestResult ID = "tr-cf90e41f-cfd8-11ee-9d70-5405dbb81746" name = "Configuration">
+					<tr:TestData>
+						<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+							<c:Value>MOD in Lock State</c:Value>
+						</c:Datum>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e420-cfd8-11ee-9d70-5405dbb81746" name = "Output 1">
+					<tr:TestData>
+						<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+				<tr:TestResult ID = "tr-cf90e421-cfd8-11ee-9d70-5405dbb81746" name = "Output 2">
+					<tr:TestData>
+						<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x2000"/>
+					</tr:TestData>
+				</tr:TestResult>
+			</tr:Test>
+			<tr:SessionAction ID = "485" name = "Additional Results" startDateTime = "2024-02-20T11:14:04.264"  endDateTime = "2024-02-20T11:14:04.264"  testReferenceID="ID#:PPuadkXL7hGda1QF27gXRC">
+				<tr:Data>
+					<c:Collection>
+						<c:Item name = "PopupString">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Check that remote closing not worked.</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Status">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x2000">
+								<c:Value>Passed</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</tr:Data>
+				<tr:Extension>
+					<ts:TSStepProperties>
+						<ts:StepType>AdditionalResults</ts:StepType>
+						<ts:StepGroup>Main</ts:StepGroup>
+						<ts:BlockLevel value='2'/>
+						<ts:Index value='158'/>
+						<ts:TotalTime value='3.88e-05'/>
+					</ts:TSStepProperties>
+				</tr:Extension>
+				<tr:ActionOutcome value = "Done" />
+			</tr:SessionAction>
+		</tr:TestGroup>
+		<tr:Test name="Power Outage" ID="489" testReferenceID="ID#:uw1EOka37RGOS0ievQ3dvC" startDateTime = "2024-02-20T11:14:06.365"  endDateTime = "2024-02-20T11:14:06.365" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='0'/>
+					<ts:Index value='17'/>
+					<ts:TotalTime value='2.9e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="Motor Driver" ID="491" testReferenceID="ID#:B2a0Wkq37RGOS0ievQ3dvC" startDateTime = "2024-02-20T11:14:07.220"  endDateTime = "2024-02-20T11:14:07.221" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='0'/>
+					<ts:Index value='21'/>
+					<ts:TotalTime value='4.65e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="Modbus Register check" ID="494" testReferenceID="ID#:Kb2MqUq37RGOS0ievQ3dvC" startDateTime = "2024-02-20T11:14:07.699"  endDateTime = "2024-02-20T11:14:07.700" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='1'/>
+					<ts:Index value='26'/>
+					<ts:TotalTime value='4.07e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="Modbus settings check" ID="498" testReferenceID="ID#:+9JwH+287RGOUkievQ3dvC" startDateTime = "2024-02-20T11:14:08.213"  endDateTime = "2024-02-20T11:14:08.213" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='1'/>
+					<ts:Index value='31'/>
+					<ts:TotalTime value='5.35e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="COMM LED &amp; Button" ID="502" testReferenceID="ID#:4UTYbFK+7RGOVUievQ3dvC" startDateTime = "2024-02-20T11:14:17.630"  endDateTime = "2024-02-20T11:14:17.630" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='1'/>
+					<ts:Index value='37'/>
+					<ts:TotalTime value='3.48e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+		<tr:Test name="Firmware Upgrade" ID="512" testReferenceID="ID#:6hOW6LXE7RGOXUievQ3dvC" startDateTime = "2024-02-20T11:14:20.624"  endDateTime = "2024-02-20T11:14:20.624" >
+			<tr:Extension>
+				<ts:TSStepProperties>
+					<ts:StepType>SequenceCall</ts:StepType>
+					<ts:StepGroup>Main</ts:StepGroup>
+					<ts:BlockLevel value='1'/>
+					<ts:Index value='55'/>
+					<ts:TotalTime value='3.92e-05'/>
+				</ts:TSStepProperties>
+			</tr:Extension>
+			<tr:Outcome value="UserDefined" qualifier="Skipped" />
+		</tr:Test>
+	</tr:ResultSet>
+	<tr:TestProgram>
+		<c:SerialNumber>
+			IT-L-7365571
+		</c:SerialNumber>
+		<tr:Configuration>
+			<c:Collection xsi:type="ts:TS_Collection" flags = "0x0000">
+				<c:Item name = "IncludeTSExtensionElements">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeAttributes">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeLimits">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeMeasurements">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeArrayMeasurement">
+					<c:Datum value = "2" xsi:type="ts:TS_double" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "ArrayMeasurementFilter">
+					<c:Datum value = "3" xsi:type="ts:TS_double" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "ArrayMeasurementMax">
+					<c:Datum value = "100" xsi:type="ts:TS_double" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeTimes">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "Format">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>xml</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "NumericFormat">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>%$.13g</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "ResultFilterExpression">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value><![CDATA[
+(Result.Status == "Failed" || 
+(Find(Result.TS.StepName, "LOG") != -1 && Find(Result.TS.StepName, "NoLOG") == -1) || 
+(Result.TS.StepType == "SequenceCall" && Find(Result.TS.StepName, "NoLOG") == -1) || 
+Result.TS.StepType == "AdditionalResults" || 
+Result.TS.StepType == "PassFailTest" || 
+Result.TS.StepType == "NumericLimitTest" || 
+Result.TS.StepType == "NI_MultipleNumericLimitTest" || 
+Result.TS.StepType == "StringValueTest")]]></c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "GeneratePath">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "UseTemporaryFile">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "UseSequenceFileNameAsPrefix">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "AddTimeAndDateToFileName">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "NewFileNameForEachUUT">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "ForceFileNameToBeUnique">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "AppendToFileIfItExists">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "DirectoryType">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>SequenceFileDirectory</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "Directory">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value></c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "BaseName">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>Report</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "UseFormatForExtension">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "Extension">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value></c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "ReportFilePath">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>C:\Users\itmimik\OneDrive - ABB\LabRnD_Shared\TestStand\Results\ResultTempGeneral_testGeneral_test\General_test - Report - 2024-02-20 - 11.10.52model2</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "DisableReportGeneration">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeStepResults">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "BodyGenerator">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>DLL</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "Colors">
+					<c:Collection xsi:type="ts:TS_Collection" flags = "0x0000">
+						<c:Item name = "LabelBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FFFFFF</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "ValueBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#32FFFF</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "UUTSeparator">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#0000E0</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "HeaderSeparator">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#8000CC</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "TableBorder">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#000000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "MainBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#00C4C4</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "SetupBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF8000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "CleanupBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#ADD8E6</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "ReportTextBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF32CC</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Terminated">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#000080</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Failed">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF0000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Error">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF0000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Passed">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#008000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Skipped">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#B98028</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Done">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#008000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "Running">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FFCC33</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "TerminatedBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#0000FF</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "FailedBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF0000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "ErrorBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF0000</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "PassedBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#00FF00</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "SkippedBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FFFF00</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "DoneBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#00FFCC</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "RunningBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FFCC33</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "FailureStackLabelBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#FF2020</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "FailureStackValueBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#D0D0D0</c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "BatchHeadingBg">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value>#00C4C4</c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</c:Item>
+				<c:Item name = "DateAndTimeFormat">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>TimeFirst</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "NewFileNameForEachBatch">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "NewBatchFileNameForEachBatch">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "NewFileNameForEachTestSocket">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "StoreUUTReportWithBatchReport">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "BatchBaseName">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>BatchReport</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "LabelSize">
+					<c:Datum value = "26" xsi:type="ts:TS_double" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "RelStylesheetPath">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>tr5_horizontal.xsl</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "StylesheetPath">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>C:\Program Files (x86)\National Instruments\TestStand 2020\Components\Models\TestStandModels\ATML\StyleSheets\tr5_horizontal.xsl</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "StylesheetMRU">
+					<c:IndexedArray dimensions="[5]" lowerBounds="[0]" upperBounds="[4]" xsi:type="ts:TS_stringArray" flags = "0x0000">
+						<ts:Element position ="[0]">
+							<c:Value>horizontal.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[1]">
+							<c:Value>report.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[2]">
+							<c:Value>expand.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[3]">
+							<c:Value></c:Value>
+						</ts:Element>
+						<ts:Element position ="[4]">
+							<c:Value></c:Value>
+						</ts:Element>
+					</c:IndexedArray>
+				</c:Item>
+				<c:Item name = "ATMLStylesheetMRU">
+					<c:IndexedArray dimensions="[3]" lowerBounds="[0]" upperBounds="[2]" xsi:type="ts:TS_stringArray" flags = "0x0000">
+						<ts:Element position ="[0]">
+							<c:Value>TR_horizontal.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[1]">
+							<c:Value>trml.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[2]">
+							<c:Value></c:Value>
+						</ts:Element>
+					</c:IndexedArray>
+				</c:Item>
+				<c:Item name = "StoreStylesheetAbsolutePath">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "UseOnTheFlyReporting">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "PurgeOnTheFlyResults">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "GeneratePDFReport">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "IncludeStepResultComments">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "UseLocalizedDecimalPoint">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "ReportStyle">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>atml5</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "ReportFileSequentialModelExpression">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>"$(ClientFileDir)\\$(ClientFileName)_Report[$(FileTime)][$(FileDate)]$(Unique).$(FileExtension)"</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "ReportFileParallelModelExpression">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>"$(ClientFileDir)\\$(ClientFileName)_Report[$(FileTime)][$(FileDate)]$(Unique).$(FileExtension)"</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "ReportFileBatchModelExpression">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>"$(ClientFileDir)\\$(ClientFileName)_BatchReport[$(FileTime)][$(FileDate)]$(Unique).$(FileExtension)"</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "BatchFileBatchModelExpression">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value>"$(ClientFileDir)\\$(ClientFileName)_BatchReport[$(FileTime)][$(FileDate)]$(Unique).$(FileExtension)"</c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "NewFileNameForEachUUTStatus">
+					<c:Datum value = "false" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "ReportPathMacroListString">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value></c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "BatchReportPathMacroListString">
+					<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+						<c:Value></c:Value>
+					</c:Datum>
+				</c:Item>
+				<c:Item name = "CheckIfMacroListIsUnchanged">
+					<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+				</c:Item>
+				<c:Item name = "ATML5StylesheetMRU">
+					<c:IndexedArray dimensions="[5]" lowerBounds="[0]" upperBounds="[4]" xsi:type="ts:TS_stringArray" flags = "0x0000">
+						<ts:Element position ="[0]">
+							<c:Value>tr5_horizontal.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[1]">
+							<c:Value>tr5_report.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[2]">
+							<c:Value>tr5_expand.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[3]">
+							<c:Value></c:Value>
+						</ts:Element>
+						<ts:Element position ="[4]">
+							<c:Value></c:Value>
+						</ts:Element>
+					</c:IndexedArray>
+				</c:Item>
+				<c:Item name = "Atml_Rpt_Options">
+					<c:Collection xsi:type="ts:TS_Collection" flags = "0x0000">
+						<c:Item name = "AddReportText">
+							<c:Datum value = "true" xsi:type="ts:TS_boolean" flags = "0x0000"/>
+						</c:Item>
+						<c:Item name = "ExtensionDLLAbsolutePath">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value></c:Value>
+							</c:Datum>
+						</c:Item>
+						<c:Item name = "TestResultsSchemaPath">
+							<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+								<c:Value></c:Value>
+							</c:Datum>
+						</c:Item>
+					</c:Collection>
+				</c:Item>
+				<c:Item name = "ATML6StylesheetMRU">
+					<c:IndexedArray dimensions="[5]" lowerBounds="[0]" upperBounds="[4]" xsi:type="ts:TS_stringArray" flags = "0x0000">
+						<ts:Element position ="[0]">
+							<c:Value>tr6_horizontal.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[1]">
+							<c:Value>tr6_report.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[2]">
+							<c:Value>tr6_expand.xsl</c:Value>
+						</ts:Element>
+						<ts:Element position ="[3]">
+							<c:Value></c:Value>
+						</ts:Element>
+						<ts:Element position ="[4]">
+							<c:Value></c:Value>
+						</ts:Element>
+					</c:IndexedArray>
+				</c:Item>
+			</c:Collection>
+		</tr:Configuration>
+	</tr:TestProgram>
+	<tr:TestStation>
+		<c:SerialNumber>IT-L-7365571</c:SerialNumber>
+	</tr:TestStation>
+	<tr:UUT>
+		<c:Definition>
+			<c:Identification>
+				<c:ModelName>UNKNOWN</c:ModelName>
+			</c:Identification>
+			<c:Extension>
+				<ts:TSCollection>
+					<c:Item name="AdditionalData">
+						<c:Collection xsi:type="ts:TS_Collection" flags = "0x2000">
+							<c:Item name = "Product">
+								<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+									<c:Value>ARI LV</c:Value>
+								</c:Datum>
+							</c:Item>
+							<c:Item name = "Product type">
+								<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+									<c:Value>ARI LV</c:Value>
+								</c:Datum>
+							</c:Item>
+							<c:Item name = "Comm type">
+								<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+									<c:Value>COMM1_RS485</c:Value>
+								</c:Datum>
+							</c:Item>
+							<c:Item name = "Product FW Version">
+								<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+									<c:Value>56010902</c:Value>
+								</c:Datum>
+							</c:Item>
+							<c:Item name = "Comm FW Version">
+								<c:Datum xsi:type="ts:TS_string" flags = "0x0000">
+									<c:Value>56010100</c:Value>
+								</c:Datum>
+							</c:Item>
+						</c:Collection>
+					</c:Item>
+				</ts:TSCollection>
+			</c:Extension>
+		</c:Definition>
+		<c:SerialNumber>NONE</c:SerialNumber>
+	</tr:UUT>
+	<tr:Extension>
+		<ts:TSResultSetProperties>
+			<ts:NumOfResults value = '164'/>
+			<ts:CriticalFailureStack>
+				<ts:CriticalFailureStackEntry resultID="355" stepName="Input-Output" sequenceName="MainSequence" sequenceFileName="General_test.seq"/>
+				<ts:CriticalFailureStackEntry resultID="391" stepName="Check Outputs" sequenceName="I/O_2" sequenceFileName="General_test.seq"/>
+			</ts:CriticalFailureStack>
+		</ts:TSResultSetProperties>
+	</tr:Extension>
+</trc:TestResults>
+</trc:TestResultsCollection>

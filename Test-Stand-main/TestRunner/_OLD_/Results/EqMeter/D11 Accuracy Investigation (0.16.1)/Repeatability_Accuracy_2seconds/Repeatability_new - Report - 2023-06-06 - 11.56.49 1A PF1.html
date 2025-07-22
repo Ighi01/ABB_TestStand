@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-6-6-11-57-21-603"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>martedì 6 giugno 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>11:57:21</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>501.1272113 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>3221</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#008000;">Passed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number:</b></td><td class='hdr_value'><b>4294967295</b></td></tr><tr><td class='hdr_name'><b>Type Designator:</b></td><td class='hdr_value'><b>B1-D3BB-111A</b></td></tr><tr><td class='hdr_name'><b>FW Version:</b></td><td class='hdr_value'><b>0.16.1</b></td></tr><tr><td class='hdr_name'><b>Power Supply:</b></td><td class='hdr_value'><b>Omicron</b></td></tr></tbody></table><br><hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\Repeatability_new.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#FF8000;">DUT info</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">4294967295</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Type Designator:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">B1-D3BB-111A</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.16.1</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Test Result</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Repeatability cycle result:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">Failed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Graph in report - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Accuracy[0..3][0..199]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph3" value="[[2.409706, 4.846819, 7.303299, 9.769199, 12.219573, 14.679773, 17.162379, 19.602280, 22.043072, 24.506146, 26.969431, 29.432405, 31.867647, 34.320956, 36.785599, 39.262983, 41.732229, 44.190245, 46.642547, 49.109993, 51.511549, 54.015750, 56.504867, 59.000463, 61.458237, 63.893633, 66.347902, 68.812853, 71.250582, 73.699265, 76.165041, 78.622048, 81.085332, 83.525192, 85.973030, 88.442403, 90.865866, 93.290556, 95.735990, 98.190564, 100.660354, 103.046286, 105.510427, 108.058151, 110.621073, 113.151544, 115.645352, 118.164380, 120.659650, 123.112301, 125.555132, 128.015924, 130.459314, 132.906419, 135.343906, 137.776714, 140.212294, 142.637971, 145.079406, 147.514216, 149.961541, 152.401757, 154.862254, 157.336861, 159.801559, 162.274178, 164.749207, 167.204244, 169.677391, 172.156934, 174.613658, 177.066509, 179.518193, 181.949064, 184.395787, 186.876934, 189.356845, 191.815748, 194.252423, 196.681446, 199.108431, 201.543553, 203.981229, 206.424596, 208.879597, 211.316089, 213.761884, 216.215067, 218.672916, 221.156022, 223.663244, 226.128636, 228.586611, 231.064436, 233.529466, 235.991908, 238.363131, 240.818136, 243.261934, 245.709459, 248.167798, 250.623471, 253.097931, 255.587411, 258.016400, 260.455893, 262.877134, 265.306059, 267.752211, 270.194511, 272.635106, 275.112574, 277.566827, 280.032974, 282.509934, 284.980102, 287.438740, 289.903025, 292.267596, 294.731627, 297.217663, 299.671773, 302.115471, 304.559599, 307.005527, 309.461734, 311.901449, 314.344995, 316.835727, 319.300551, 321.758011, 324.223840, 326.678293, 329.142553, 331.583627, 334.037064, 336.494318, 338.952748, 341.454126, 343.880672, 346.401242, 348.883311, 351.339440, 353.812296, 356.275493, 358.762119, 361.224681, 363.680755, 366.150908, 368.631647, 371.078049, 373.525143, 375.979382, 378.418756, 380.863910, 383.324829, 385.809164, 388.276567, 390.748222, 393.194759, 395.666036, 398.153600, 400.611208, 403.094274, 405.591953, 408.089308, 410.583218, 413.081741, 415.564858, 418.044774, 420.543876, 423.024464, 425.494467, 427.957031, 430.324222, 432.798067, 435.281086, 437.689563, 440.165919, 442.638308, 445.106225, 447.482864, 449.942828, 452.387091, 454.887664, 457.382266, 459.799674, 462.287770, 464.766156, 467.236929, 469.718817, 472.218500, 474.702044, 477.099895, 479.557725, 482.003596, 484.447877, 486.933240, 489.378011, 491.828732], [0.035758, -0.014691, -0.014691, -0.014691, -0.019733, -0.019733, 0.086259, -0.014691, 0.035758, -0.014691, 0.030711, -0.019733, -0.014691, -0.014691, 0.086259, 0.030711, 0.081206, 0.035758, -0.014691, 0.086259, 0.030711, 0.030711, 0.086259, 0.086259, 0.086259, 0.030711, 0.081206, 0.086259, 0.086259, 0.086259, 0.081206, 0.131752, 0.187412, 0.086259, 0.136810, 0.136810, 0.131752, 0.136810, 0.086259, 0.035758, 0.035758, 0.030711, -0.019733, 0.035758, -0.014691, -0.065089, 0.035758, -0.070126, -0.019733, -0.014691, -0.014691, -0.014691, -0.019733, -0.019733, 0.035758, -0.014691, 0.035758, 0.030711, 0.030711, 0.086259, 0.086259, 0.035758, 0.030711, 0.030711, -0.014691, 0.086259, 0.035758, 0.081206, 0.131752, 0.086259, 0.136810, 0.086259, 0.136810, 0.131752, 0.136810, 0.136810, 0.136810, 0.086259, 0.081206, 0.086259, 0.035758, 0.035758, 0.030711, 0.030711, -0.014691, -0.014691, -0.014691, -0.019733, -0.070126, 0.035758, -0.014691, -0.014691, -0.019733, -0.019733, 0.035758, 0.035758, 0.035758, -0.019733, 0.030711, 0.035758, 0.086259, 0.035758, 0.030711, 0.030711, 0.035758, 0.086259, 0.035758, 0.131752, 0.081206, 0.086259, 0.086259, 0.136810, 0.131752, 0.182349, 0.136810, 0.136810, 0.136810, 0.081206, 0.081206, 0.086259, 0.086259, 0.086259, 0.030711, 0.035758, -0.014691, -0.065089, -0.014691, -0.019733, -0.065089, -0.014691, -0.014691, -0.115437, -0.070126, -0.019733, -0.065089, -0.014691, 0.035758, -0.019733, 0.030711, 0.035758, 0.035758, 0.086259, 0.081206, 0.035758, -0.014691, 0.086259, 0.086259, 0.030711, 0.086259, 0.136810, 0.136810, 0.136810, 0.081206, 0.131752, 0.136810, 0.136810, 0.136810, 0.081206, 0.131752, 0.086259, 0.136810, 0.136810, 0.081206, -0.014691, -0.014691, 0.035758, -0.014691, -0.019733, -0.019733, -0.014691, -0.014691, -0.014691, -0.019733, -0.014691, 0.035758, -0.014691, -0.014691, 0.030711, 0.035758, 0.035758, -0.014691, 0.035758, 0.081206, 0.035758, 0.035758, 0.035758, 0.081206, 0.030711, 0.086259, 0.035758, 0.086259, 0.136810, 0.081206, 0.086259, 0.136810, 0.136810, 0.086259, 0.131752, 0.136810, 0.086259], [0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758, 0.235758], [-0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242, -0.164242]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Power Factor:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>1</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Max difference</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">MAX Difference:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.3028487439538</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Minimum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>-0.1154367649668</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Maximum value:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'>0.187411978987</span></td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

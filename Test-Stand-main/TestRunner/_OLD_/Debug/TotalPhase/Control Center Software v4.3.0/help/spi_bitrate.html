@@ -1,0 +1,44 @@
+<html>
+<head>
+</head>
+<body bgcolor="#ffffff">
+<a name="top"></a>
+<h2>Control Center Serial</h2>
+
+<h4>SPI Bitrate Command</h4>
+
+<p align=right><a href="help.html"><img src="back-icon.png" width="15" height="15" border="0"></a></p>
+
+<pre>
+&lt;spi_bitrate khz="<i>khz</i>"/&gt;
+</pre>
+
+<p>Set the SPI bitrate in kilohertz.</p>
+
+<p><b>Parameters</b></p>
+
+<dl>
+    <dt><b>khz</b></dt>
+    <dd>the requested bitrate in khz
+    </dd>
+</dl>
+
+<p><b>Details</b></p>
+
+<p>The power-on default bitrate is 1000 kHz.</p>
+
+<p>Only certain discrete bitrates are supported by the Aardvark
+  adapter or the Promira Serial Platform. As such, this actual bitrate
+  set will be less than or equal to the requested bitrate unless the
+  requested value is less than 125 kHz, in which case the Aardvark
+  adapter or the Promira Serial Platform will default to 125 kHz.</p>
+
+<p>The actual bitrate is returned in the Transaction Log.</p>
+
+<p>Please see the Aardvark I2C/SPI Adapter User Manual or the Promira
+  Serial Platform User Manual for more information.</p>
+
+<p align=right><a href="#top"><img src="top-icon.png" width="15" height="15" border="0"></a></p>
+
+</body>
+</html>

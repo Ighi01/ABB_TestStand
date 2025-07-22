@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head> <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Report</title>
+<style type="text/css">
+div{left:40px;position:relative;}
+table {border:1px solid;width:70%;}
+table.hdr {border:none;width:70%;}
+td {border:1px solid;}
+td.hdr_name {border:none;white-space:nowrap;}
+td.hdr_value {border:none;}
+td.value {width:37%; font-size:82%; vertical-align:top;}
+td.label {font-size:82%; vertical-align:top;} 
+td.separator {border-style:none; height:1px;}
+</style>
+<link rel="stylesheet" href="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/TSGraphStyle.css" >
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/jquery/dist/jquery.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.event.drag.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/lib/jquery.mousewheel.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/engineering-flot/dist/es5/jquery.flot.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-cursors-plugin/dist/es5/jquery.flot.cursors.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-data-types/dist/es5-minified/ni-data-types.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-charting-plugin/dist/es5/jquery.flot.charting.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-intensitygraph-plugin/jquery.flot.intensitygraph.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/three/build/three.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/flot-glplotter-plugin/jquery.flot.glplotter.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/webcomponents-lite/webcomponents-lite.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement-polyfills.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/@jqwidgets/jqx-element/source-minified/jqxelement.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/webcharts.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts-legends/dist/es5-minified/webcharts-legends.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/node_modules/ni-webcharts/dist/es5-minified/element_registration.min.js" ></script>
+<script defer type="text/javascript" src="file:///C:\Program Files (x86)\National Instruments\TestStand 2020\Components/Models/TestStandModels/GraphControl/GraphDataLayout.js" ></script>
+
+<script type="text/javascript">
+        window.i18nPath = window.i18nPath || '../'; //relative to the user_app.html file
+        window.i18nFiles = window.i18nFiles || [];
+        window.i18nFiles.push('node_modules/ni-webcharts/messages/Webcharts');
+</script>
+<style type="text/css">
+        ni-cartesian-graph {
+            display: inline-block;
+            width: 800px;
+            height: 300px;
+            min-height: 50px;
+            color: #000000;
+            fill: #0000E0;
+        }
+
+        ni-cartesian-graph text {
+            stroke: none;
+            stroke-width: 1px;
+            font-size: 12px;
+            font-family: sans-serif;
+            fill: #222266;
+        }
+
+        ni-cartesian-graph .flot-x-axis text,
+        ni-cartesian-graph .flot-y-axis text,
+        .snapshot .flot-x-axis text,
+        .snapshot .flot-y-axis text {
+            margin-left: 5px;
+            margin-right: 5px;
+            fill: #000000;
+        }
+
+        ni-cartesian-graph ni-grid-div {
+            border-style: none;
+            border-width: 0px 0px 0px 0px;
+            border-color: #000000;
+            background-color: white;
+            color: #000000;
+        }
+
+        ni-cartesian-graph div {
+            left: 0px;
+            position: relative;
+        }
+    </style>
+</head>
+<body style="font-family:verdana;">
+<a name="-1-2023-5-22-16-15-54-501"></a><h3>UUT Report</h3>
+<table class='hdr'><tbody>
+<tr><td class='hdr_name'><b>Station ID: </b></td><td class='hdr_value'><b>IT-W-7303101</b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number: </b></td><td class='hdr_value'><b>NONE</b></td></tr>
+<tr><td class='hdr_name'><b>Date: </b></td><td class='hdr_value'><b>lunedì 22 maggio 2023</b></td></tr>
+<tr><td class='hdr_name'><b>Time: </b></td><td class='hdr_value'><b>16:15:54</b></td></tr>
+<tr><td class='hdr_name'><b>Operator: </b></td><td class='hdr_value'><b>administrator</b></td></tr>
+<tr><td class='hdr_name'><b>Execution Time: </b></td><td class='hdr_value'><b>303.3884339 seconds</b></td></tr>
+<tr><td class='hdr_name'><b>Number of Results: </b></td><td class='hdr_value'><b>1416</b></td></tr>
+<tr><td class='hdr_name'><b>UUT Result: </b></td><td class='hdr_value'><b><span style="color:#008000;">Passed</span></b></td></tr>
+<tr><td class='hdr_name'><b>Serial Number:</b></td><td class='hdr_value'><b>4294967295</b></td></tr><tr><td class='hdr_name'><b>Type Designator:</b></td><td class='hdr_value'><b>B3-D4MB-111A</b></td></tr><tr><td class='hdr_name'><b>FW Version:</b></td><td class='hdr_value'><b>0.16.1</b></td></tr><tr><td class='hdr_name'><b>Power Supply:</b></td><td class='hdr_value'><b>Zera</b></td></tr></tbody></table><br><hr style="color:#8000CC;background-color:#8000CC;border-width:0;width:50%;height:3px;text-align:left;margin-left:0;">
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: MainSequence
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\EQ Meter\New Sequences\Instantaneous Values.seq)<br></h5>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#FF8000;">DUT info</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Serial Number:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">4294967295</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Type Designator:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">B3-D4MB-111A</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">FW Version:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">0.16.1</td></tr>
+</tbody></table><br>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">18.950308</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">13.8335619</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">20.0163423</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">14.9395022</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">19.1601803</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">14.0334208</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">17.2482292</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">12.1259726</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">18.0663563</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">12.9294035</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">20.3869436</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">15.247116</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">20.7865432</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">15.6481409</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">19.2721253</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">14.1406046</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">17.1484421</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">12.0213139</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Power_ON_generator</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">19.9650183</td></tr>
+</tbody></table><br>
+<div>
+<h5 style="white-space:nowrap;">Begin Sequence: Power_ON_generator
+<br>(C:\Users\itlavit1\OneDrive - ABB\LabRnD_Shared\TestStand\Sequences\Utilities\CommonUtilitySequencesEqRed.seq)<br></h5>
+<div>
+<div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Zera ON</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FF00;">Passed</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Module Time:              </td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">14.8379408</td></tr>
+</tbody></table><br>
+</div>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: Power_ON_generator</h5>
+</div>
+<table style="border-color:#000000;"><tbody>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Voltage_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1&nbsp;that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;PHASE_VOLTAGE_L1.<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;PHASE_VOLTAGE_L2.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;PHASE_VOLTAGE_L3.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Voltage_error[0..5][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph1" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 4.000000, 5.000000, 10.000000], [0.002261, -0.019478, -0.018087, -0.001739, -0.011217, 0.002261, 0.004957, 0.026522, 0.000783, 0.008957], [-0.034783, -0.009043, -0.030609, -0.033391, -0.030609, -0.042783, -0.045478, -0.019826, -0.025217, -0.030696], [-0.005826, 0.007565, 0.015739, 0.007652, 0.014348, 0.017043, 0.010348, -0.010000, -0.000522, 0.023826], [0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000], [-0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Current_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Current_error[0..5][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph2" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 4.000000, 5.000000, 10.000000], [-0.430000, -0.153000, -0.015333, -0.029500, -0.023200, -0.020000, -0.024300, 0.025350, 0.002360, 0.014542], [0.020000, 0.127000, 0.007333, -0.084500, 0.082400, 0.025002, 0.015000, 0.007850, -0.001600, 0.008582], [-0.284000, -0.033000, 0.163333, 0.152500, 0.079200, 0.025400, -0.015800, -0.006000, 0.014920, 0.006102], [0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000], [-0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;CURRENT_L1.<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;CURRENT_L2.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;CURRENT_L3.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Active_power_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_TOTAL<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_L1.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_L2.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;ACTIVE_POWER_L3.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;violet&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Active_power_error[0..6][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph3" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 4.000000, 5.000000, 10.000000], [-0.305159, -0.128522, -0.177671, -0.151609, -0.165588, -0.169101, -0.171406, -0.149826, -0.159119, -0.147919], [-0.404348, -0.255783, -0.239797, -0.232911, -0.248070, -0.196278, -0.227543, -0.181422, -0.199183, -0.201991], [-0.389478, -0.104261, -0.235275, -0.215500, -0.216974, -0.236591, -0.208935, -0.179124, -0.203826, -0.184096], [-0.038435, -0.168870, -0.067159, 0.020043, 0.001148, -0.077009, -0.077730, -0.088954, -0.074383, -0.050504], [1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000], [-1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Reactive_power_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Reactive_power_error[0..6][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph4" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 4.000000, 5.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000, 10.000000], [2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000, 2.000000], [-2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000, -2.000000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_TOTAL<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_L1.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_L2.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;REACTIVE_POWER_L3.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;violet&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Apparent_power_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Apparent_power_error[0..6][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph5" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 4.000000, 5.000000, 10.000000], [-10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000], [-10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000, -10.000000], [-0.709739, -0.348043, -0.252490, -0.260870, -0.221391, -0.210087, -0.228222, -0.182007, -0.197426, -0.205922], [-0.454087, -0.224391, -0.194754, -0.204000, -0.195148, -0.223600, -0.211043, -0.181754, -0.202296, -0.182896], [1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000, 1.000000], [-1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000, -1.000000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_TOTAL<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_L1.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_L2.<br>The&nbsp;yellow&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;APPARENT_POWER_L3.<br>The&nbsp;light&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;violet&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='separator' style="background-color:#000000;" colspan = '2'></td></tr>
+<tr><td colspan='2' style="border-color:#000000;background-color:#00C4C4;">Frequency_graph - LOG</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Status:                   </td>
+<td class='value' style="border-color:#000000;background-color:#00FFCC;">Done</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Legend:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;">On&nbsp;the&nbsp;x&nbsp;axis&nbsp;there&nbsp;are&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;Current_L1that&nbsp;is&nbsp;varying.<br>The&nbsp;brown&nbsp;line&nbsp;is&nbsp;the&nbsp;error&nbsp;on&nbsp;FREQUENCY.<br>The&nbsp;blue&nbsp;line&nbsp;is&nbsp;the&nbsp;upper&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.<br>The&nbsp;orange&nbsp;line&nbsp;is&nbsp;the&nbsp;lower&nbsp;limit&nbsp;of&nbsp;the&nbsp;allowed&nbsp;band.</td></tr>
+<tr><td class='label' style="border-color:#000000;background-color:#FFFFFF;">Frequency_error[0..3][0..9]:</td>
+<td class='value' style="border-color:#000000;background-color:#32FFFF;"><span style='white-space:nowrap;'><ni-cartesian-graph style="background-color: #ffffff; color: #e0e0e0" id="graph6" value="[[0.100000, 0.200000, 0.300000, 0.400000, 0.500000, 1.000000, 2.000000, 4.000000, 5.000000, 10.000000], [0.007200, 0.007200, 0.012000, 0.012000, 0.002400, 0.004800, 0.012000, 0.000000, 0.002400, 0.012000], [0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000, 0.500000], [-0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000, -0.500000]]" DataLayout="SingleX-MultipleY" DataOrientation="Row Based"> 
+<ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="bottom"></ni-cartesian-axis>
+                                        <ni-cartesian-axis show show-ticks show-minor-ticks grid-lines axis-position="left" auto-scale="exact"></ni-cartesian-axis>
+                                        <ni-cartesian-plot show  >
+                                            <ni-cartesian-plot-renderer line-width="1" line-stroke="#862323"></ni-cartesian-plot-renderer>
+                                        </ni-cartesian-plot>
+</ni-cartesian-graph>
+</span></td></tr>
+</tbody></table><br>
+</div>
+<h5 style="white-space:nowrap;">End Sequence: MainSequence</h5>
+</div>
+<h3>End UUT Report</h3> <hr style="color:#0000E0;background-color:#0000E0;border-width:0;width:90%;height:5px;">
+</body>
+</html>

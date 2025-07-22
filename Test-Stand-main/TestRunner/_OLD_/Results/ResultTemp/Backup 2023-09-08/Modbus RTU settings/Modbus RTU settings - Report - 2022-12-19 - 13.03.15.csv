@@ -1,0 +1,16 @@
+Address,Baud Rate,Parity,Connection
+0,9600,Even,Error
+0,9600,None,Error
+0,9600,Odd,Error
+0,19200,Even,Error
+0,19200,None,Error
+0,19200,Odd,Error
+0,38400,Even,Error
+0,38400,None,Error
+0,38400,Odd,Error
+0,57600,Even,Error
+0,57600,None,Error
+0,57600,Odd,Error
+0,115200,Even,Error
+0,115200,None,Error
+0,115200,Odd,Error
